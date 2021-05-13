@@ -478,7 +478,7 @@ public:
 int main()
 {
 	Example demo;
-	if (demo.Construct(640, 480, 2, 2))
+	if (demo.Construct(640, 480, 1, 1))
 		demo.Start();
 	return 0;
 }
