@@ -1,1 +1,12 @@
-g++ -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -framework OpenGL -framework GLUT -lpng *.cpp -o output
+#!/bin/sh
+
+output_file="output"
+linux_compile="g++ -o $output_file *.cpp -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17"
+mac_compile="g++ -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -framework OpenGL -framework GLUT -lpng *.cpp -o $output_file"
+
+if [ $(echo $OSTYPE | grep "linux") ]
+then
+    $linux_compile
+else
+    $mac_compile
+fi
