@@ -345,6 +345,7 @@ int main()
 #include <algorithm>
 #include <array>
 #include <cstring>
+#include <assert.h>
 #pragma endregion
 
 #define PGE_VER 215
@@ -946,6 +947,7 @@ namespace olc
 		// Draws a single Pixel
 		virtual bool Draw(int32_t x, int32_t y, Pixel p = olc::WHITE);
 		bool Draw(const olc::vi2d& pos, Pixel p = olc::WHITE);
+        Pixel GetPixelAt(int32_t x, int32_t y) const;
 		// Draws a line from (x1,y1) to (x2,y2)
 		void DrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, Pixel p = olc::WHITE, uint32_t pattern = 0xFFFFFFFF);
 		void DrawLine(const olc::vi2d& pos1, const olc::vi2d& pos2, Pixel p = olc::WHITE, uint32_t pattern = 0xFFFFFFFF);
@@ -1890,6 +1892,11 @@ namespace olc
 		return false;
 	}
 
+    Pixel olc::PixelGameEngine::GetPixelAt(int32_t x, int32_t y) const
+    {
+        assert(x < ScreenWidth() && y < ScreenHeight());
+        return pDrawTarget->GetPixel(x, y);
+    }
 
 	void PixelGameEngine::DrawLine(const olc::vi2d& pos1, const olc::vi2d& pos2, Pixel p, uint32_t pattern)
 	{ DrawLine(pos1.x, pos1.y, pos2.x, pos2.y, p, pattern); }
