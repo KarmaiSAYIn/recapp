@@ -25,20 +25,20 @@ void Graphics::PutPixel(int x, int y, Color c)
 
 void Graphics::PutPixel(Vei2 pos, Color c)
 {
-        assert(pos.x < GetScreenWidth() && pos.y < GetScreenHeight());
-        PutPixel(pos.x, pos.y, c);
+    assert(pos.x < GetScreenWidth() && pos.y < GetScreenHeight());
+    PutPixel(pos.x, pos.y, c);
 }
 
 Color Graphics::GetPixel(int x, int y) const
 {
-        assert(x < GetScreenWidth() && y < GetScreenHeight());
-            return Color((engine->GetPixelAt(x, y)));
+    assert(x < GetScreenWidth() && y < GetScreenHeight());
+        return Color((engine->GetPixelAt(x, y)));
 }
 
 Color Graphics::GetPixel(Vei2 pos) const
 {
-        assert(pos.x < GetScreenWidth() && pos.y < GetScreenHeight());
-            return Color(GetPixel(pos.x, pos.y));
+    assert(pos.x < GetScreenWidth() && pos.y < GetScreenHeight());
+        return Color(GetPixel(pos.x, pos.y));
 }
 
 
