@@ -1,8 +1,6 @@
 #!/bin/sh
 
 export ignored_files=$(cat .buildignore)
-echo "Ignoring file(s): ${ignored_files[*]}"
-echo
 
 in_ignored_files()
 {
@@ -31,10 +29,12 @@ linux_compile="g++ -g -o $output_file ${files_to_compile[*]} -lX11 -lGL -lpthrea
 mac_compile="g++ -g -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -framework OpenGL -framework GLUT -lpng ${files_to_compile[*]} -o $output_file"
 
 case $1 in
-    "");;
+    "") echo build script: Compiling in debug mode.
+        ;;
     -r) # Release compile
         linux_compile=$(echo $linux_compile | sed 's/-g//')
         mac_compile=$(echo $mac_compile | sed 's/-g//')
+        echo build script: Compiling in release mode.
         ;;
     *)
         echo Invalid option: $1
@@ -42,6 +42,9 @@ case $1 in
         ;;
 
 esac
+
+echo "build script: Ignoring file(s): ${ignored_files[*]}"
+echo
 
 if [ $(echo $OSTYPE | grep "linux") ]
 then
