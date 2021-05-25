@@ -1,8 +1,34 @@
 #!/bin/sh
 
+export ignored_files=$(cat .buildignore)
+echo "Ignoring file(s): ${ignored_files[*]}"
+echo
+
+in_ignored_files()
+{
+    for line in ${ignored_files[*]}
+    do
+        if [ "$line" = "$1" ]
+        then
+            ignored_files=( ${ignored_files[@]/$file} )
+            return 0
+        fi
+    done
+    return 1
+}
+
+files_to_compile=$(ls *.cpp)
+for file in $files_to_compile
+do
+    if ( in_ignored_files "$file" )
+    then
+        files_to_compile=( ${files_to_compile[@]/$file} )
+    fi
+done
+
 output_file="output"
-linux_compile="g++ -g -o $output_file *.cpp -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17"
-mac_compile="g++ -g -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -framework OpenGL -framework GLUT -lpng *.cpp -o $output_file"
+linux_compile="g++ -g -o $output_file ${files_to_compile[*]} -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17"
+mac_compile="g++ -g -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -framework OpenGL -framework GLUT -lpng ${files_to_compile[*]} -o $output_file"
 
 case $1 in
     "");;

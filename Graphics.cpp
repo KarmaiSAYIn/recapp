@@ -44,6 +44,7 @@ Color Graphics::GetPixel(Vei2 pos) const
 
 void Graphics::DrawLine(Vei2 p0, Vei2 p1, Color c)
 {
+
 }
 
 void Graphics::DrawCircle(Vei2 center, int radius, Color c)
