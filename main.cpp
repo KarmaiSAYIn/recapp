@@ -4,10 +4,10 @@
 
 int main()
 {
-    Game TheGame;
-    Graphics gfx(&TheGame);
-    TheGame.SetGraphicsObject(&gfx);
-	if (TheGame.Construct(1280 / 4, 720 / 4, 4, 4))
+    Graphics gfx;
+    Game TheGame(gfx);
+    gfx.SetGameObject(&TheGame);
+	if (TheGame.Construct(1280, 720, 1, 1))
 		TheGame.Start();
 
 	return 0;

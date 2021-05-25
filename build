@@ -1,14 +1,21 @@
 #!/bin/sh
 
 output_file="output"
-linux_compile="g++ -o $output_file *.cpp -lX11 -lGL -lpthread -lpng -g -lstdc++fs -std=c++17"
-mac_compile="g++ -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -g -framework OpenGL -framework GLUT -lpng *.cpp -o $output_file"
+linux_compile="g++ -g -o $output_file *.cpp -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17"
+mac_compile="g++ -g -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -framework OpenGL -framework GLUT -lpng *.cpp -o $output_file"
 
-#case $1 in
-    #-g) linux_compile=$($linux_compile -g)
-        #mac_compaile=$($mac_compile -g)
-        #;;
-#esac
+case $1 in
+    "");;
+    -r) # Release compile
+        linux_compile=$(echo $linux_compile | sed 's/-g//')
+        mac_compile=$(echo $mac_compile | sed 's/-g//')
+        ;;
+    *)
+        echo Invalid option: $1
+        exit 1
+        ;;
+
+esac
 
 if [ $(echo $OSTYPE | grep "linux") ]
 then

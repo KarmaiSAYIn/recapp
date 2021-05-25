@@ -500,8 +500,9 @@ namespace olc
 	// O------------------------------------------------------------------------------O
 	// | olc::Pixel - Represents a 32-Bit RGBA colour                                 |
 	// O------------------------------------------------------------------------------O
-	struct Pixel
+	class Pixel
 	{
+    public:
 		union
 		{
 			uint32_t n = nDefaultPixel;

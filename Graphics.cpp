@@ -1,12 +1,10 @@
 #include "Graphics.h"
 #include "Game.h"
 #include <assert.h>
-#include <iostream>
 
-Graphics::Graphics(Game *engine)
-    :
-    engine(engine)
+void Graphics::SetGameObject(Game *engine)
 {
+    this->engine = engine;
 }
 
 int Graphics::GetScreenHeight() const
@@ -22,7 +20,7 @@ int Graphics::GetScreenWidth() const
 void Graphics::PutPixel(int x, int y, Color c)
 {
     assert(x < GetScreenWidth() && y < GetScreenHeight());
-    engine->Draw(x, y, static_cast<olc::Pixel>(c));
+    engine->Draw(x, y, c);
 }
 
 void Graphics::PutPixel(Vei2 pos, Color c)
@@ -34,11 +32,27 @@ void Graphics::PutPixel(Vei2 pos, Color c)
 Color Graphics::GetPixel(int x, int y) const
 {
         assert(x < GetScreenWidth() && y < GetScreenHeight());
-            return static_cast<Color>(engine->GetPixelAt(x, y));
+            return Color((engine->GetPixelAt(x, y)));
 }
 
 Color Graphics::GetPixel(Vei2 pos) const
 {
         assert(pos.x < GetScreenWidth() && pos.y < GetScreenHeight());
-            return static_cast<Color>(GetPixel(pos.x, pos.y));
+            return Color(GetPixel(pos.x, pos.y));
+}
+
+
+void Graphics::DrawLine(Vei2 p0, Vei2 p1, Color c)
+{
+}
+
+void Graphics::DrawCircle(Vei2 center, int radius, Color c)
+{
+    Vei2 topLeft = center - Vei2(radius, radius);
+    Vei2 bottomRight = center + Vei2(radius, radius);
+
+    for (int y = 0; y <= bottomRight.y; ++y)
+        for (int x = 0; x <= bottomRight.x; ++x)
+            if ((Vei2(x, y) - center).GetDistanceSq() <= radius * radius )
+                PutPixel(x, y, c);
 }

@@ -6,15 +6,15 @@
 class Game : public olc::PixelGameEngine
 {
 public:
-    Game();
+    Game() = delete;
     Game(const Game&) = delete;
+    Game(class Graphics& gfxf);
 
-    void SetGraphicsObject(class Graphics *gfx);
+    void SetGraphicsObject(class Graphics& gfx);
 
 	virtual bool OnUserCreate() override;
-
 	virtual bool OnUserUpdate(float fElapsedTime) override;
 
 private:
-    class Graphics *gfx = nullptr;
+    class Graphics& gfx;
 };
