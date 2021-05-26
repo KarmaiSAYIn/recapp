@@ -12,7 +12,7 @@ public:
     Graphics(const Graphics&) = delete;
     Graphics& operator=(const Graphics&) = delete;
 
-    void SetGameObject(Game *engine);
+    void SetGameObject(Game *game);
 
     int GetScreenHeight() const;
     int GetScreenWidth() const;
@@ -21,6 +21,7 @@ public:
     void PutPixel(Vei2 pos, Color c);
     Color GetPixel(int x, int y) const;
     Color GetPixel(Vei2 pos) const;
+    void Clear(Color c);
 
     // Shape draw functions
     void DrawLine(Vei2 p0, Vei2 p1, Color c);
@@ -28,7 +29,7 @@ public:
 
 private:
 
-    Game *engine = nullptr;
+    Game *game = nullptr;
 };
 
 

@@ -62,4 +62,4 @@ else
     $mac_compile
 fi
 
-[ $run_output -eq 1 ] && output &
+[ $run_output -eq 1 ] && output

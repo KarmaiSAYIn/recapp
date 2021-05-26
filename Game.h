@@ -8,7 +8,7 @@ class Game : public olc::PixelGameEngine
 public:
     Game() = delete;
     Game(const Game&) = delete;
-    Game(class Graphics& gfxf);
+    Game(class Graphics& gfx, class MainWindow& wnd);
 
     void SetGraphicsObject(class Graphics& gfx);
 
@@ -17,4 +17,13 @@ public:
 
 private:
     class Graphics& gfx;
+    class MainWindow& wnd;
+
+    Color c = {255, 255, 255};
+
+    Vec2 pos;
+    Vec2 vel;
+    float speed = 150.0f;
+
+    bool bIsClicked = false;
 };
