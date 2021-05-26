@@ -26,7 +26,7 @@ done
 
 output_file="output"
 linux_compile="g++ -g3 -o $output_file ${files_to_compile[*]} -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17"
-mac_compile="g++ -g3 -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -framework OpenGL -framework GLUT -lpng ${files_to_compile[*]} -o $output_file"
+mac_compile="g++ -g3 -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -framework OpenGL -framework GLUT -lpng ${files_to_compile[*]} -o $output_file"
 
 run_output=0
 count=-1
