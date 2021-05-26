@@ -33,14 +33,12 @@ count=-1
 while [ $count -lt $# ]
 do
     case $1 in
-        "") echo build script: Compiling in debug mode.
-            ;;
+        "");;
         -r) # Release compile
             linux_compile=$(echo $linux_compile | sed 's/-g3/-DNDEBUG/')
             mac_compile=$(echo $mac_compile | sed 's/-g3/-DNDEBUG/')
-            echo build script: Compiling in release mode.
             ;;
-        -o) echo Running output...
+        -o) echo build script: Running output...
             run_output=1
             ;;
         *)
@@ -49,8 +47,10 @@ do
             ;;
     esac
     count=$[ $count + 1 ]
-    shift
+    shift 2> /dev/null
 done
+
+$(echo $linux_compile | grep "\-g3") && [ "$?" = "0" ] && echo build script: Compiling in debug mode... || echo build script: Compiling in release mode...
 
 echo "build script: Ignoring file(s): ${ignored_files[*]}"
 echo
