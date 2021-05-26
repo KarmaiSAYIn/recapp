@@ -28,21 +28,29 @@ output_file="output"
 linux_compile="g++ -g3 -o $output_file ${files_to_compile[*]} -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17"
 mac_compile="g++ -g3 -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -framework OpenGL -framework GLUT -lpng ${files_to_compile[*]} -o $output_file"
 
-case $1 in
-    "") echo build script: Compiling in debug mode.
-        ;;
-    -r) # Release compile
-        linux_compile=$(echo $linux_compile | sed 's/-g3/-DNDEBUG/')
-        mac_compile=$(echo $mac_compile | sed 's/-g3/-DNDEBUG/')
-        echo build script: Compiling in release mode.
-        ;;
-    *)
-        echo Invalid option: $1
-        exit 1
-        ;;
-
-esac
-
+run_output=0
+count=-1
+while [ $count -lt $# ]
+do
+    case $1 in
+        "") echo build script: Compiling in debug mode.
+            ;;
+        -r) # Release compile
+            linux_compile=$(echo $linux_compile | sed 's/-g3/-DNDEBUG/')
+            mac_compile=$(echo $mac_compile | sed 's/-g3/-DNDEBUG/')
+            echo build script: Compiling in release mode.
+            ;;
+        -o) echo Running output...
+            run_output=1
+            ;;
+        *)
+            echo Invalid option: $1
+            exit 1
+            ;;
+    esac
+    count=$[ $count + 1 ]
+    shift
+done
 
 echo "build script: Ignoring file(s): ${ignored_files[*]}"
 echo
@@ -53,3 +61,5 @@ then
 else
     $mac_compile
 fi
+
+[ $run_output -eq 1 ] && output
