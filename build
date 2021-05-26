@@ -25,15 +25,15 @@ do
 done
 
 output_file="output"
-linux_compile="g++ -g -o $output_file ${files_to_compile[*]} -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17"
-mac_compile="g++ -g -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -framework OpenGL -framework GLUT -lpng ${files_to_compile[*]} -o $output_file"
+linux_compile="g++ -g3 -o $output_file ${files_to_compile[*]} -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17"
+mac_compile="g++ -g3 -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -framework OpenGL -framework GLUT -lpng ${files_to_compile[*]} -o $output_file"
 
 case $1 in
     "") echo build script: Compiling in debug mode.
         ;;
     -r) # Release compile
-        linux_compile=$(echo $linux_compile | sed 's/-g//')
-        mac_compile=$(echo $mac_compile | sed 's/-g//')
+        linux_compile=$(echo $linux_compile | sed 's/-g3/-DNDEBUG/')
+        mac_compile=$(echo $mac_compile | sed 's/-g3/-DNDEBUG/')
         echo build script: Compiling in release mode.
         ;;
     *)
@@ -42,6 +42,7 @@ case $1 in
         ;;
 
 esac
+
 
 echo "build script: Ignoring file(s): ${ignored_files[*]}"
 echo
