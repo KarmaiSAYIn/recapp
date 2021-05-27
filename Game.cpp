@@ -21,7 +21,7 @@ bool Game::OnUserUpdate(float fElapsedTime)
 {
     gfx.Clear(Color(0, 0, 0));
 
-    gfx.DrawLine(Vec2((float)ScreenWidth() / 2, (float)ScreenHeight() / 2), (Vec2)wnd.mouse.GetPos(), Color(255, 255, 255));
+    gfx.DrawLine(Vec2(100, 100), Vec2(100, 100), Color(255, 255, 255));
 
     return true;
 }

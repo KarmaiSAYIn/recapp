@@ -50,6 +50,12 @@ void Graphics::Clear(Color c)
 
 void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
 {
+    if ((Vei2)p0 == (Vei2)p1)
+    {
+        PutPixel(p0, c);
+        return;
+    }
+
     float m = 0.0f;
     if (p0 != p1)
         m = (p1.y - p0.y) / (p1.x - p0.x);
