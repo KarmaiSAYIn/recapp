@@ -65,6 +65,18 @@ Vec2d<T>& Vec2d<T>::operator /=(const T& rhs)
 }
 
 template <typename T>
+bool Vec2d<T>::operator ==(const Vec2d<T>& rhs) const
+{
+    return (x == rhs.x && y == rhs.y);
+}
+
+template <typename T>
+bool Vec2d<T>::operator !=(const Vec2d<T>& rhs) const
+{
+    return !(*this == rhs);
+}
+
+template <typename T>
 bool Vec2d<T>::operator <(const Vec2d<T>& rhs) const
 {
     return (x < rhs.x && y < rhs.y);
@@ -80,6 +92,12 @@ template <typename T>
 bool Vec2d<T>::operator >(const Vec2d<T>& rhs) const
 {
     return !(*this <= rhs);
+}
+
+template <typename T>
+bool Vec2d<T>::operator >=(const Vec2d<T>& rhs) const
+{
+    return (*this > rhs || *this == rhs);
 }
 
 template <typename T>

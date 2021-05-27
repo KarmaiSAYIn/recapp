@@ -22,9 +22,12 @@ public:
     Vec2d& operator *=(const T& rhs);
     Vec2d operator /(const T& rhs) const;
     Vec2d& operator /=(const T& rhs);
+    bool operator ==(const Vec2d<T>& rhs) const;
+    bool operator !=(const Vec2d<T>& rhs) const;
     bool operator <(const Vec2d& rhs) const;
     bool operator <=(const Vec2d& rhs) const;
     bool operator >(const Vec2d& rhs) const;
+    bool operator >=(const Vec2d<T>& rhs) const;
     T GetDistanceSq() const;
     T GetDistance() const;
     Vec2d GetNormalized() const;
