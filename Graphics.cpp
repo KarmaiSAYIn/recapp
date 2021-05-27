@@ -48,9 +48,39 @@ void Graphics::Clear(Color c)
     game->Clear(c);
 }
 
-void Graphics::DrawLine(Vei2 p0, Vei2 p1, Color c)
+void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
 {
+    float m = 0.0f;
+    if (p0 != p1)
+        m = (p1.y - p0.y) / (p1.x - p0.x);
 
+    if (p0 != p1 && std::abs(m) <= 1.0f)
+    {
+        if (p0.x > p1.x)
+            std::swap(p0, p1);
+
+        const float b = p0.y - m * p0.x;
+
+        for (int x = (int)p0.x; x <= int(p1.x + 0.5f); ++x)
+        {
+            const float y = m * (float)x + b;
+            PutPixel(x, (int)y, c);
+        }
+    }
+    else
+    {
+        if (p0.y > p1.y)
+            std::swap(p0, p1);
+
+        const float w = (p1.x - p0.x) / (p1.y - p0.y);
+        const float p = p0.x - w * p0.y;
+
+        for (int y = (int)p0.y; y <= int(p1.y + 0.5f); ++y)
+        {
+            const float x = w * (float)y + p;
+            PutPixel((int)x, y, c);
+        }
+    }
 }
 
 void Graphics::DrawCircle(Vei2 center, int radius, Color c)
@@ -60,6 +90,6 @@ void Graphics::DrawCircle(Vei2 center, int radius, Color c)
 
     for (int y = topLeft.y; y <= bottomRight.y; ++y)
         for (int x = topLeft.x; x <= bottomRight.x; ++x)
-            if ((Vei2(x, y) - center).GetDistanceSq() <= radius * radius && (x >= 0 && x < GetScreenWidth() && y >= 0 && y < GetScreenHeight()))
+            if ((Vei2(x, y) - center).GetDistanceSq() <= radius * radius)
                 PutPixel(x, y, c);
 }

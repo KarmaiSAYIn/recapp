@@ -21,35 +21,7 @@ bool Game::OnUserUpdate(float fElapsedTime)
 {
     gfx.Clear(Color(0, 0, 0));
 
-    bIsClicked = wnd.mouse.LeftIsPressed();
+    gfx.DrawLine(Vec2((float)ScreenWidth() / 2, (float)ScreenHeight() / 2), (Vec2)wnd.mouse.GetPos(), Color(255, 255, 255));
 
-    if (!bIsClicked)
-    {
-        c = { 255, 255, 255 };
-        if (wnd.keyboard.KeyIsPressed(Keyboard::Key::LEFT))
-            vel.x = -1.0f;
-        else
-            vel.x = 0.0f;
-        if (wnd.keyboard.KeyIsPressed(Keyboard::Key::RIGHT))
-            vel.x = 1.0f;
-        else
-            vel.x = std::min(0.0f, vel.x);
-        if (wnd.keyboard.KeyIsPressed(Keyboard::Key::UP))
-            vel.y = -1.0f;
-        else
-            vel.y = 0.0f;
-        if (wnd.keyboard.KeyIsPressed(Keyboard::Key::DOWN))
-            vel.y = 1.0f;
-        else
-            vel.y = std::min(0.0f, vel.y);
-    }
-    else
-    {
-        vel = (wnd.mouse.GetPos() - pos);
-        c = { 255, 0, 0 } ;
-    }
-    
-    pos += vel.GetNormalized() * speed * fElapsedTime;
-    gfx.DrawCircle(Vei2(pos), 50, c);
     return true;
 }

@@ -24,7 +24,7 @@ public:
     void Clear(Color c);
 
     // Shape draw functions
-    void DrawLine(Vei2 p0, Vei2 p1, Color c);
+    void DrawLine(Vec2 p0, Vec2 p1, Color c);
     void DrawCircle(Vei2 center, int radius, Color c);
 
 private:
