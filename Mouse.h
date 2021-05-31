@@ -20,6 +20,8 @@ public:
     bool RightIsPressed() const;
     bool LeftIsEmpty() const;
     bool RightIsEmpty() const;
+    bool WheelUp() const;
+    bool WheelDown() const;
 
 private:
     Game *game = nullptr;
