@@ -33,14 +33,16 @@ void Graphics::PutPixel(Vei2 pos, Color c)
 
 Color Graphics::GetPixel(int x, int y) const
 {
-    assert(x < GetScreenWidth() && y < GetScreenHeight());
-        return Color((game->GetPixelAt(x, y)));
+    assert(x >= 0);
+    assert(x < GetScreenWidth());
+    assert(y >= 0);
+    assert(y < GetScreenHeight());
+    return Color((game->GetPixelAt(x, y)));
 }
 
 Color Graphics::GetPixel(Vei2 pos) const
 {
-    assert(pos.x < GetScreenWidth() && pos.y < GetScreenHeight());
-        return Color(GetPixel(pos.x, pos.y));
+    return Color(GetPixel(pos.x, pos.y));
 }
 
 void Graphics::Clear(Color c)
