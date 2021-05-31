@@ -1,4 +1,4 @@
-objects = main.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o Engine.o 
+objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o
 flags = -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17
 
 install : $(objects)
@@ -11,6 +11,8 @@ Graphics.o : Graphics.cpp Graphics.h
 Keyboard.o : Keyboard.cpp Keyboard.h
 Mouse.o : Mouse.cpp Mouse.h
 MainWindow.o : MainWindow.cpp MainWindow.h
+CoordinateTransformer.o : CoordinateTransformer.cpp CoordinateTransformer.h
+Entity.o : Entity.cpp Entity.h
 
 clean :
 	rm -f output $(objects)

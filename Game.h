@@ -2,6 +2,8 @@
 #include "Engine.h"
 #include "Color.h"
 #include "Vec.h"
+#include "CoordinateTransformer.h"
+#include "Entity.h"
 
 class Game : public olc::PixelGameEngine
 {
@@ -18,4 +20,7 @@ public:
 private:
     class Graphics& gfx;
     class MainWindow& wnd;
+
+    CoordinateTransformer transformer;
+    Entity entity;
 };
