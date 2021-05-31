@@ -1,5 +1,6 @@
 #include "Graphics.h"
 #include "Game.h"
+#include <vector>
 #include <assert.h>
 
 void Graphics::SetGameObject(Game *game)
@@ -89,6 +90,13 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
                 PutPixel((int)x, y, c);
         }
     }
+}
+
+void Graphics::DrawClosedPolyline(const std::vector<Vec2>& vertices, Color c)
+{
+    for (auto i = vertices.begin(); i != std::prev(vertices.end()); i++) 
+            DrawLine(*i, *std::next(i), c);
+    DrawLine(vertices.back(), vertices.front(), c);
 }
 
 void Graphics::DrawCircle(Vei2 center, int radius, Color c)

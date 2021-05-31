@@ -25,6 +25,7 @@ public:
 
     // Shape draw functions
     void DrawLine(Vec2 p0, Vec2 p1, Color c);
+    void DrawClosedPolyline(const std::vector<Vec2>& vertices, Color c);
     void DrawCircle(Vei2 center, int radius, Color c);
 
 private:

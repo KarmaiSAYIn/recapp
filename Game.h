@@ -18,12 +18,4 @@ public:
 private:
     class Graphics& gfx;
     class MainWindow& wnd;
-
-    Color c = {255, 255, 255};
-
-    Vec2 pos;
-    Vec2 vel;
-    float speed = 150.0f;
-
-    bool bIsClicked = false;
 };
