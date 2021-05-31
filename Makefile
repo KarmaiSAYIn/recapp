@@ -7,9 +7,9 @@ install : $(objects)
 main.o : main.cpp
 Engine.o : Engine.cpp Engine.h
 Game.o : Game.cpp Game.h
-Graphics.o : Graphics.cpp Graphics.cpp
+Graphics.o : Graphics.cpp Graphics.h
 Keyboard.o : Keyboard.cpp Keyboard.h
-Mouse.o : Mouse.cpp Mouse.cpp
+Mouse.o : Mouse.cpp Mouse.h
 MainWindow.o : MainWindow.cpp MainWindow.h
 
 clean :
