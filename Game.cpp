@@ -9,8 +9,15 @@ Game::Game(Graphics& gfx, MainWindow& wnd)
     gfx(gfx),
     wnd(wnd),
     transformer(gfx),
-    entity(Star::Make(150.0f, 75.0f, 8))
+    camera(transformer)
 {
+    entities.emplace_back(Star::Make(100.0f, 50.0f), Vec2(460.0f,0.0f));
+    entities.emplace_back(Star::Make(150.0f, 50.0f), Vec2(150.f,300.0f));
+    entities.emplace_back(Star::Make(100.0f, 50.0f), Vec2(250.0f, -200.0f));
+    entities.emplace_back(Star::Make(150.0f, 50.0f), Vec2(-250.0f, 200.0f));
+    entities.emplace_back(Star::Make(100.0f, 50.0f), Vec2(0.0f, 0.0f));
+    entities.emplace_back(Star::Make(200.0f, 50.0f), Vec2(-150.0f, -300.0f));
+    entities.emplace_back(Star::Make(100.0f, 50.0f), Vec2(400.0f, 600.0f));
     sAppName = "Recapp";
 }
 
@@ -36,24 +43,9 @@ bool Game::OnUserUpdate(float fElapsedTime)
     if (wnd.keyboard.KeyIsPressed(Keyboard::Key::DOWN) || wnd.keyboard.KeyIsPressed(Keyboard::Key::J))
         delta.y = -1.0f;
 
-    if (wnd.mouse.WheelUp())
-    {
-        if (wnd.keyboard.KeyIsPressed(Keyboard::Key::SHIFT))
-            entity.SetScale(entity.GetScale() * 1.5f);
-        else
-            entity.SetScale(entity.GetScale() * 1.05f);
-    }
-
-    if (wnd.mouse.WheelDown())
-    {
-        if (wnd.keyboard.KeyIsPressed(Keyboard::Key::SHIFT))
-            entity.SetScale(entity.GetScale() * 0.5f);
-        else
-            entity.SetScale(entity.GetScale() * 0.95f);
-    }
-
-    entity.Translate(delta.GetNormalized() * 500.0f * fElapsedTime);
-    transformer.DrawClosedPolyline(entity.GetModel(), Color(255, 0, 0));
+    camera.Translate(delta.GetNormalized() * 150.0f * fElapsedTime);
+    for (auto& entity : entities)
+        camera.DrawClosedPolyline(entity.GetModel(), Color(255, 0, 255));
 
     return true;
 }

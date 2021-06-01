@@ -1,7 +1,8 @@
 #include "Entity.h"
 
-Entity::Entity(std::vector<Vec2> model)
+Entity::Entity(std::vector<Vec2> model, Vec2 pos)
     :
+    pos(pos),
     model(std::move(model))
 {
 }

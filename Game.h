@@ -3,7 +3,9 @@
 #include "Color.h"
 #include "Vec.h"
 #include "CoordinateTransformer.h"
+#include "Camera.h"
 #include "Entity.h"
+#include <vector>
 
 class Game : public olc::PixelGameEngine
 {
@@ -22,5 +24,6 @@ private:
     class MainWindow& wnd;
 
     CoordinateTransformer transformer;
-    Entity entity;
+    Camera camera;
+    std::vector<Entity> entities;
 };

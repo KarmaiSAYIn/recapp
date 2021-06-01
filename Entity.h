@@ -2,10 +2,10 @@
 #include "Vec.h"
 #include <vector>
 
-class Entity
+class Entity final
 {
 public:
-    Entity(std::vector<Vec2> model);
+    Entity(std::vector<Vec2> model, Vec2 pos = {0.0f, 0.0f});
 
     Vec2 GetPos() const;
     void SetPos(Vec2 pos);
@@ -19,6 +19,6 @@ public:
 
 private:
     float scale = 1.0f;;
-    Vec2 pos = { 0.0f, 0.0f };
+    Vec2 pos;
     std::vector<Vec2> model;
 };
