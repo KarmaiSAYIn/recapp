@@ -34,6 +34,7 @@ bool Game::OnUserUpdate(float fElapsedTime)
         gfx.DrawLine({(float)gfx.GetScreenWidth() / 2, (float)gfx.GetScreenHeight() / 2}, (Vec2)wnd.mouse.GetPos(), Color(255, 255, 0));
 
     Vec2 delta = { 0.0f, 0.0f };
+    float speed = 150.0f;
     if (wnd.keyboard.KeyIsPressed(Keyboard::Key::LEFT) || wnd.keyboard.KeyIsPressed(Keyboard::Key::A))
         delta.x = -1.0f;
     if (wnd.keyboard.KeyIsPressed(Keyboard::Key::RIGHT) || wnd.keyboard.KeyIsPressed(Keyboard::Key::D))
@@ -48,7 +49,10 @@ bool Game::OnUserUpdate(float fElapsedTime)
     if (wnd.mouse.WheelDown())
         camera.SetScale(camera.GetScale() * 0.95f);
 
-    camera.Translate(delta.GetNormalized() * 150.0f * fElapsedTime);
+    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::SHIFT))
+         speed *= 5.0f;
+
+    camera.Translate(delta.GetNormalized() * speed * fElapsedTime);
     for (auto& entity : entities)
         camera.DrawClosedPolyline(entity.GetModel(), Color(255, 0, 255));
 
