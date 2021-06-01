@@ -34,14 +34,19 @@ bool Game::OnUserUpdate(float fElapsedTime)
         gfx.DrawLine({(float)gfx.GetScreenWidth() / 2, (float)gfx.GetScreenHeight() / 2}, (Vec2)wnd.mouse.GetPos(), Color(255, 255, 0));
 
     Vec2 delta = { 0.0f, 0.0f };
-    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::LEFT) || wnd.keyboard.KeyIsPressed(Keyboard::Key::H))
+    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::LEFT) || wnd.keyboard.KeyIsPressed(Keyboard::Key::A))
         delta.x = -1.0f;
-    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::RIGHT) || wnd.keyboard.KeyIsPressed(Keyboard::Key::L))
+    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::RIGHT) || wnd.keyboard.KeyIsPressed(Keyboard::Key::D))
         delta.x = 1.0f;
-    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::UP) || wnd.keyboard.KeyIsPressed(Keyboard::Key::K))
+    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::UP) || wnd.keyboard.KeyIsPressed(Keyboard::Key::W))
         delta.y = 1.0f;
-    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::DOWN) || wnd.keyboard.KeyIsPressed(Keyboard::Key::J))
+    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::DOWN) || wnd.keyboard.KeyIsPressed(Keyboard::Key::S))
         delta.y = -1.0f;
+
+    if (wnd.mouse.WheelUp())
+        camera.SetScale(camera.GetScale() * 1.05f);
+    if (wnd.mouse.WheelDown())
+        camera.SetScale(camera.GetScale() * 0.95f);
 
     camera.Translate(delta.GetNormalized() * 150.0f * fElapsedTime);
     for (auto& entity : entities)
