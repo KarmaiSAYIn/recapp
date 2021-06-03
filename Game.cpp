@@ -33,6 +33,7 @@ bool Game::OnUserUpdate(float fElapsedTime)
     gfx.Clear();
     UpdateModel(fElapsedTime);
     ComposeFrame();
+    return true;
 }
 
 void Game::UpdateModel(float fElapsedTime)
