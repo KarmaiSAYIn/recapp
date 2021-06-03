@@ -40,6 +40,26 @@ bool Mouse::RightIsEmpty() const
     return !RightIsPressed();
 }
 
+bool Mouse::LeftDownEvent() const
+{
+    return (game->GetMouse(0).bPressed);
+}
+
+bool Mouse::RightDownEvent() const
+{
+    return (game->GetMouse(1).bPressed);
+}
+
+bool Mouse::LeftUpEvent() const
+{
+    return (game->GetMouse(0).bReleased);
+}
+
+bool Mouse::RightUpEvent() const
+{
+    return (game->GetMouse(1).bReleased);
+}
+
 bool Mouse::WheelUp() const
 {
     return (game->GetMouseWheel() > 0);

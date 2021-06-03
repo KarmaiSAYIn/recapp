@@ -20,6 +20,12 @@ public:
     bool RightIsPressed() const;
     bool LeftIsEmpty() const;
     bool RightIsEmpty() const;
+
+    bool LeftDownEvent() const;
+    bool RightDownEvent() const;
+    bool LeftUpEvent() const;
+    bool RightUpEvent() const;
+
     bool WheelUp() const;
     bool WheelDown() const;
 
