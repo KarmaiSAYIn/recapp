@@ -29,6 +29,7 @@ Vec2d<T>& Vec2d<T>::operator =(const Vec2d<T>& rhs)
 {
     x = rhs.x;
     y = rhs.y;
+    return *this;
 }
 
 template <typename T>
