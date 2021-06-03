@@ -8,6 +8,7 @@ public:
 
     Vec2 GetPos() const;
     float GetScale() const;
+    void SetPos(const Vec2& pos);
     void SetScale(float scale);
     void Translate(const Vec2& offset);
     void Draw(Drawable& draw) const;

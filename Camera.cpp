@@ -16,6 +16,11 @@ float Camera::GetScale() const
     return scale;
 }
 
+void Camera::SetPos(const Vec2& pos)
+{
+    this->pos = pos;
+}
+
 void Camera::SetScale(float scale)
 {
     this->scale = scale; 
