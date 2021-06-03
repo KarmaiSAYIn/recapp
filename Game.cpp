@@ -30,36 +30,40 @@ bool Game::OnUserCreate()
 
 bool Game::OnUserUpdate(float fElapsedTime)
 {
-    gfx.Clear(Color(0, 0, 0));
+    gfx.Clear();
+    UpdateModel(fElapsedTime);
+    ComposeFrame();
+}
+
+void Game::UpdateModel(float fElapsedTime)
+{
+    gfx.Clear();
+
+    if (wnd.mouse.LeftDownEvent())
+    {
+        lastMousePos = wnd.mouse.GetPos();
+        lastMousePos.y = -lastMousePos.y;
+    }
 
     if (wnd.mouse.LeftIsPressed())
-        gfx.DrawLine({(float)gfx.GetScreenWidth() / 2, (float)gfx.GetScreenHeight() / 2}, (Vec2)wnd.mouse.GetPos(), Color(255, 255, 0));
+    {
+        Vec2 currMousePos = wnd.mouse.GetPos();
+        currMousePos.y = -currMousePos.y;
+        camera.Translate((lastMousePos - currMousePos) / camera.GetScale());
+        lastMousePos = currMousePos;
+    }
 
-    Vec2 delta = { 0.0f, 0.0f };
-    float speed = 150.0f;
-    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::LEFT) || wnd.keyboard.KeyIsPressed(Keyboard::Key::A))
-        delta.x = -1.0f;
-    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::RIGHT) || wnd.keyboard.KeyIsPressed(Keyboard::Key::D))
-        delta.x = 1.0f;
-    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::UP) || wnd.keyboard.KeyIsPressed(Keyboard::Key::W))
-        delta.y = 1.0f;
-    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::DOWN) || wnd.keyboard.KeyIsPressed(Keyboard::Key::S))
-        delta.y = -1.0f;
-
-    if (wnd.mouse.WheelUp())
+    if (wnd.mouse.WheelUp() || wnd.keyboard.KeyIsPressed(Keyboard::Key::UP))
         camera.SetScale(camera.GetScale() * 1.05f);
-    if (wnd.mouse.WheelDown())
+    if (wnd.mouse.WheelDown() || wnd.keyboard.KeyIsPressed(Keyboard::Key::DOWN))
         camera.SetScale(camera.GetScale() * 0.95f);
+}
 
-    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::SHIFT))
-         speed *= 5.0f;
-
-    camera.Translate(delta.GetNormalized() * speed * fElapsedTime);
+void Game::ComposeFrame()
+{
     for (const auto& entity : entities)
     {
         auto d = entity.GetDrawable();
         camera.Draw(d);
     }
-
-    return true;
 }

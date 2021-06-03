@@ -21,7 +21,7 @@ public:
     void PutPixel(const Vei2& pos, Color c);
     Color GetPixel(int x, int y) const;
     Color GetPixel(const Vei2& pos) const;
-    void Clear(Color c);
+    void Clear(Color c = Colors::BLACK);
 
     // Shape draw functions
     void DrawLine(Vec2 p0, Vec2 p1, Color c);

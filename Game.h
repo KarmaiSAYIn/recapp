@@ -19,6 +19,9 @@ public:
 	virtual bool OnUserCreate() override;
 	virtual bool OnUserUpdate(float fElapsedTime) override;
 
+    void UpdateModel(float fElapsedTime);
+    void ComposeFrame();
+
 private:
     class Graphics& gfx;
     class MainWindow& wnd;
@@ -26,4 +29,6 @@ private:
     CoordinateTransformer transformer;
     Camera camera;
     std::vector<Entity> entities;
+
+    Vec2 lastMousePos = {0.0f, 0.0f};
 };
