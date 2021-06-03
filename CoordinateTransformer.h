@@ -1,6 +1,7 @@
 #pragma once
 #include "Vec.h"
 #include <vector>
+#include "Drawable.h"
 #include "Color.h"
 
 class CoordinateTransformer final
@@ -8,7 +9,7 @@ class CoordinateTransformer final
 public:
     CoordinateTransformer(class Graphics& gfx);
 
-    void DrawClosedPolyline(std::vector<Vec2> vertices, Color c);
+    void Draw(Drawable& draw) const;
 
 private:
     class Graphics& gfx;

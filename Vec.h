@@ -2,11 +2,15 @@
 #include <cmath>
 
 template <typename T>
-class Vec2d
+class Vec2d final
 {
 public:
     Vec2d() = default;
     Vec2d(T x, T y);
+    Vec2d(const Vec2d& other);
+    Vec2d& operator =(const Vec2d& rhs);
+    Vec2d(const Vec2d&& other);
+    ~Vec2d() = default;
 
     template <typename E>
     Vec2d(const Vec2d<E>& other);
@@ -15,6 +19,7 @@ public:
     T y = 0;
 
     Vec2d operator -(const Vec2d& rhs) const;
+    Vec2d operator -() const;
     Vec2d& operator -=(const Vec2d& rhs);
     Vec2d operator +(const Vec2d& rhs) const;
     Vec2d& operator +=(const Vec2d& rhs);

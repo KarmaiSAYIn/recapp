@@ -1,9 +1,10 @@
 #include "Entity.h"
 
-Entity::Entity(std::vector<Vec2> model, Vec2 pos)
+Entity::Entity(std::vector<Vec2> model, const Vec2& pos, Color c)
     :
     pos(pos),
-    model(std::move(model))
+    model(std::move(model)),
+    c(c)
 {
 }
 
@@ -12,7 +13,7 @@ Vec2 Entity::GetPos() const
     return pos;
 }
 
-void Entity::SetPos(Vec2 pos)
+void Entity::SetPos(const Vec2& pos)
 {
     this->pos = pos;
 }
@@ -27,18 +28,15 @@ float Entity::GetScale() const
     return scale;
 }
 
-void Entity::Translate(Vec2 offset)
+void Entity::Translate(const Vec2& offset)
 {
     pos += offset;
 }
 
-std::vector<Vec2> Entity::GetModel() const
+Drawable Entity::GetDrawable() const
 {
-    auto poly = model;
-    for (auto& v : poly)
-    {
-        v *= scale;
-        v += pos;
-    }
-    return poly;
+   Drawable r(model, c); 
+   r.Scale(scale);
+   r.Translate(pos);
+   return r;
 }

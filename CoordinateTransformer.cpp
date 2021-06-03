@@ -6,13 +6,10 @@ CoordinateTransformer::CoordinateTransformer(Graphics& gfx)
     gfx(gfx)
 {}
 
-void CoordinateTransformer::DrawClosedPolyline(std::vector<Vec2> vertices, Color c)
+void CoordinateTransformer::Draw(Drawable& draw) const
 {
     auto offset = Vec2((float)gfx.GetScreenWidth() / 2, (float)gfx.GetScreenHeight() / 2);
-    for (auto& v : vertices)
-    {
-        v.y *= -1.0f;
-        v += offset;
-    }
-    gfx.DrawClosedPolyline(vertices, c);
+    draw.ScaleY(-1.0f);
+    draw.Translate(offset);
+    draw.Draw(gfx);
 }

@@ -14,12 +14,40 @@ Vec2d<T>::Vec2d(T x, T y)
      :
      x(x),
      y(y) 
-{}
+{
+}
+
+template <typename T>
+Vec2d<T>::Vec2d(const Vec2d<T>& other)
+    :
+    Vec2d(other.x, other.y)
+{
+}
+
+template <typename T>
+Vec2d<T>& Vec2d<T>::operator =(const Vec2d<T>& rhs)
+{
+    x = rhs.x;
+    y = rhs.y;
+}
+
+template <typename T>
+Vec2d<T>::Vec2d(const Vec2d<T>&& other)
+    : 
+    Vec2d(other)
+{
+}
 
 template <typename T>
 Vec2d<T> Vec2d<T>::operator -(const Vec2d<T>& rhs) const
 {
     return Vec2d<T>(x - rhs.x, y -rhs.y);
+}
+
+template <typename T>
+Vec2d<T> Vec2d<T>::operator -() const
+{
+    return Vec2d<T>(-x, -y);
 }
 
 template <typename T>

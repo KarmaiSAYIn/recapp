@@ -3,6 +3,7 @@
 #include "MainWindow.h"
 #include "Keyboard.h"
 #include "Star.h"
+#include "Drawable.h"
 
 Game::Game(Graphics& gfx, MainWindow& wnd)
     :
@@ -11,6 +12,7 @@ Game::Game(Graphics& gfx, MainWindow& wnd)
     transformer(gfx),
     camera(transformer)
 {
+    entities.reserve(7);
     entities.emplace_back(Star::Make(100.0f, 50.0f), Vec2(460.0f,0.0f));
     entities.emplace_back(Star::Make(150.0f, 50.0f), Vec2(150.f,300.0f));
     entities.emplace_back(Star::Make(100.0f, 50.0f), Vec2(250.0f, -200.0f));
@@ -53,8 +55,11 @@ bool Game::OnUserUpdate(float fElapsedTime)
          speed *= 5.0f;
 
     camera.Translate(delta.GetNormalized() * speed * fElapsedTime);
-    for (auto& entity : entities)
-        camera.DrawClosedPolyline(entity.GetModel(), Color(255, 0, 255));
+    for (const auto& entity : entities)
+    {
+        auto d = entity.GetDrawable();
+        camera.Draw(d);
+    }
 
     return true;
 }

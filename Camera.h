@@ -7,11 +7,10 @@ public:
     Camera(CoordinateTransformer& transformer);
 
     Vec2 GetPos() const;
-    void SetPos(Vec2 pos);
     float GetScale() const;
     void SetScale(float scale);
-    void Translate(Vec2 offset);
-    void DrawClosedPolyline(std::vector<Vec2> vertices, Color c);
+    void Translate(const Vec2& offset);
+    void Draw(Drawable& draw) const;
 
 private:
     float scale = 1.0f;

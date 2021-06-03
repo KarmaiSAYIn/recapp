@@ -26,7 +26,7 @@ void Graphics::PutPixel(int x, int y, Color c)
     game->Draw(x, y, c);
 }
 
-void Graphics::PutPixel(Vei2 pos, Color c)
+void Graphics::PutPixel(const Vei2& pos, Color c)
 {
     PutPixel(pos.x, pos.y, c);
 }
@@ -40,7 +40,7 @@ Color Graphics::GetPixel(int x, int y) const
     return Color((game->GetPixelAt(x, y)));
 }
 
-Color Graphics::GetPixel(Vei2 pos) const
+Color Graphics::GetPixel(const Vei2& pos) const
 {
     return Color(GetPixel(pos.x, pos.y));
 }
@@ -100,7 +100,7 @@ void Graphics::DrawClosedPolyline(const std::vector<Vec2>& vertices, Color c)
     DrawLine(vertices.back(), vertices.front(), c);
 }
 
-void Graphics::DrawCircle(Vei2 center, int radius, Color c)
+void Graphics::DrawCircle(const Vei2& center, int radius, Color c)
 {
     Vei2 topLeft = center - Vei2(radius, radius) + Vei2(1 , 1);
     Vei2 bottomRight = center + Vei2(radius, radius) - Vei2(1, 1);
