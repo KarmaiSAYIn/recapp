@@ -4,6 +4,7 @@
 #include "Rect.h"
 #include "Entity.h"
 #include "Camera.h"
+#include "Star.h"
 #include <vector>
 
 class Starfield final
@@ -21,5 +22,5 @@ private:
     float minRadius;
     float maxRadius;
 
-    std::vector<Entity> field;
+    std::vector<Star> field;
 };

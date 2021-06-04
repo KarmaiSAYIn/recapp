@@ -1,5 +1,4 @@
 #include "Starfield.h"
-#include "Star.h"
 #include <random>
 
 Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, int minFlares, int maxFlares, int nStarCount)
@@ -27,10 +26,26 @@ Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, 
         Colors::INGIDGO,
     };
 
+    float littleRadius;
+    float bigRadius;
+    int nFlareCount;
+    Vec2 pos;
+    Color color;
+
     field.reserve(nStarCount);
-    for (int i = 0; i < nStarCount; i++)
+    while (field.size() < nStarCount)
     {
-        field.emplace_back(Star::Make(radiusDist(rng), radiusDist(rng), flareDist(rng)), Vec2((float)xDist(rng), (float)yDist(rng)), colors[colorDist(rng)]);
+        littleRadius = radiusDist(rng);
+        bigRadius = radiusDist(rng);
+        pos = Vec2((float)xDist(rng), (float)yDist(rng));
+
+        if (std::any_of(field.begin(), field.end(), [&](const Star& star){ return (star.GetPos() - pos).GetDistance() < bigRadius + star.GetOuterRadius(); }))
+            continue;
+
+        nFlareCount = flareDist(rng);
+        color = colors[colorDist(rng)];
+
+        field.emplace_back(pos, bigRadius, littleRadius, nFlareCount);
     }
 }
 
