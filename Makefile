@@ -1,4 +1,4 @@
-objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o
+objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o Starfield.o
 flags = -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17
 
 install : $(objects)
@@ -15,6 +15,7 @@ CoordinateTransformer.o : CoordinateTransformer.cpp CoordinateTransformer.h
 Camera.o : Camera.cpp Camera.h
 Entity.o : Entity.cpp Entity.h
 Drawable.o : Drawable.cpp Drawable.h
+Starfield.o : Starfield.cpp Starfield.h
 
 clean :
 	rm -f output $(objects)
