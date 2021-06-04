@@ -54,7 +54,8 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
 {
     if ((Vei2)p0 == (Vei2)p1)
     {
-        PutPixel(p0, c);
+        if (p0.x >= 0 && p0.x < GetScreenWidth() && p0.y >= 0 && p0.y < GetScreenHeight())
+            PutPixel(p0, c);
         return;
     }
 

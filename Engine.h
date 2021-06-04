@@ -718,9 +718,9 @@ namespace olc
 	public:
 		void SetSampleMode(olc::Sprite::Mode mode = olc::Sprite::Mode::NORMAL);
 		Pixel GetPixel(int32_t x, int32_t y) const;
-		bool  SetPixel(int32_t x, int32_t y, Pixel p);
+		void  SetPixel(int32_t x, int32_t y, Pixel p);
 		Pixel GetPixel(const olc::vi2d& a) const;
-		bool  SetPixel(const olc::vi2d& a, Pixel p);
+		void  SetPixel(const olc::vi2d& a, Pixel p);
 		Pixel Sample(float x, float y) const;
 		Pixel SampleBL(float u, float v) const;
 		Pixel* GetData();
@@ -946,8 +946,8 @@ namespace olc
 
 	public: // DRAWING ROUTINES
 		// Draws a single Pixel
-		virtual bool Draw(int32_t x, int32_t y, Pixel p = olc::WHITE);
-		bool Draw(const olc::vi2d& pos, Pixel p = olc::WHITE);
+		virtual void Draw(int32_t x, int32_t y, Pixel p = olc::WHITE);
+		void Draw(const olc::vi2d& pos, Pixel p = olc::WHITE);
         Pixel GetPixelAt(int32_t x, int32_t y) const;
 		// Draws a line from (x1,y1) to (x2,y2)
 		void DrawLine(int32_t x1, int32_t y1, int32_t x2, int32_t y2, Pixel p = olc::WHITE, uint32_t pattern = 0xFFFFFFFF);
@@ -1328,8 +1328,8 @@ namespace olc
 	Pixel Sprite::GetPixel(const olc::vi2d& a) const
 	{ return GetPixel(a.x, a.y); }
 
-	bool Sprite::SetPixel(const olc::vi2d& a, Pixel p)
-	{ return SetPixel(a.x, a.y, p); }
+	void Sprite::SetPixel(const olc::vi2d& a, Pixel p)
+	{ SetPixel(a.x, a.y, p); }
 
 	Pixel Sprite::GetPixel(int32_t x, int32_t y) const
 	{
@@ -1346,15 +1346,9 @@ namespace olc
 		}
 	}
 
-	bool Sprite::SetPixel(int32_t x, int32_t y, Pixel p)
+	void Sprite::SetPixel(int32_t x, int32_t y, Pixel p)
 	{
-		if (x >= 0 && x < width && y >= 0 && y < height)
-		{
-			pColData[y * width + x] = p;
-			return true;
-		}
-		else
-			return false;
+        pColData[y * width + x] = p;
 	}
 
 	Pixel Sprite::Sample(float x, float y) const
@@ -1855,13 +1849,13 @@ namespace olc
 	const olc::vi2d& PixelGameEngine::GetWindowMouse() const
 	{ return vMouseWindowPos; }
 
-	bool PixelGameEngine::Draw(const olc::vi2d& pos, Pixel p)
+	void PixelGameEngine::Draw(const olc::vi2d& pos, Pixel p)
 	{ return Draw(pos.x, pos.y, p); }
 
 	// This is it, the critical function that plots a pixel
-	bool PixelGameEngine::Draw(int32_t x, int32_t y, Pixel p)
+	void PixelGameEngine::Draw(int32_t x, int32_t y, Pixel p)
 	{
-		if (!pDrawTarget) return false;
+		if (!pDrawTarget) return;
 
 		if (nPixelMode == Pixel::NORMAL)
 		{
@@ -1889,8 +1883,6 @@ namespace olc
 		{
 			return pDrawTarget->SetPixel(x, y, funcPixelMode(x, y, p, pDrawTarget->GetPixel(x, y)));
 		}
-
-		return false;
 	}
 
     Pixel olc::PixelGameEngine::GetPixelAt(int32_t x, int32_t y) const
