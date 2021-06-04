@@ -1,10 +1,5 @@
-<<<<<<< Updated upstream
 objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o Starfield.o
 flags = -Wall -pedantic -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17
-=======
-objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o Starfield.o Star.o
-flags = -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17
->>>>>>> Stashed changes
 
 install : $(objects)
 	g++ -o output $(objects) $(flags)
