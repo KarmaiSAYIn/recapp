@@ -33,6 +33,12 @@ Vec2d<T>& Vec2d<T>::operator =(const Vec2d<T>& rhs)
 }
 
 template <typename T>
+Vec2d<T>& Vec2d<T>::operator =(const Vec2d&& rhs)
+{
+    return *this = rhs;
+}
+
+template <typename T>
 Vec2d<T>::Vec2d(const Vec2d<T>&& other)
     : 
     Vec2d(other)

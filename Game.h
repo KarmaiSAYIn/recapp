@@ -5,6 +5,7 @@
 #include "CoordinateTransformer.h"
 #include "Camera.h"
 #include "Entity.h"
+#include "Starfield.h"
 #include <vector>
 
 class Game : public olc::PixelGameEngine
@@ -28,7 +29,8 @@ private:
 
     CoordinateTransformer transformer;
     Camera camera;
-    std::vector<Entity> entities;
+
+    Starfield starfield;
 
     Vec2 lastMousePos = {0.0f, 0.0f};
 };

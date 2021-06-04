@@ -13,3 +13,18 @@ void CoordinateTransformer::Draw(Drawable& draw) const
     draw.Translate(offset);
     draw.Draw(gfx);
 }
+
+void CoordinateTransformer::DrawRect(Rectf& rect, Color c) const
+{
+    auto offset = Vec2((float)gfx.GetScreenWidth() / 2, (float)gfx.GetScreenHeight() / 2);
+    Vec2 topLeft = rect.GetTopLeft();
+    Vec2 bottomRight = rect.GetBottomRight();
+
+    topLeft.y *= -1.0f;
+    bottomRight.y *= -1.0f;
+    //topLeft *= -1.0f;
+    //bottomRight *= -1.0f;
+
+    rect.Translate(offset);
+    gfx.DrawRect(Recti(rect), c);
+}

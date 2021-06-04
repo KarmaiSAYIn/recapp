@@ -2,6 +2,7 @@
 #include "Vec.h"
 #include "Color.h"
 #include "Game.h"
+#include "Rect.h"
 
 class Graphics final
 {
@@ -10,7 +11,7 @@ public:
     ~Graphics() = default;
 
     Graphics(const Graphics&) = delete;
-    Graphics& operator=(const Graphics&) = delete;
+    Graphics(Graphics&&) = delete;
 
     void SetGameObject(Game *game);
 
@@ -27,6 +28,7 @@ public:
     void DrawLine(Vec2 p0, Vec2 p1, Color c);
     void DrawClosedPolyline(const std::vector<Vec2>& vertices, Color c);
     void DrawCircle(const Vei2& center, int radius, Color c);
+    void DrawRect(const Recti& rect, Color c);
 
 private:
 

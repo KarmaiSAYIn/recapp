@@ -9,6 +9,7 @@ public:
     Vec2d(T x, T y);
     Vec2d(const Vec2d& other);
     Vec2d& operator =(const Vec2d& rhs);
+    Vec2d& operator =(const Vec2d&& rhs);
     Vec2d(const Vec2d&& other);
     ~Vec2d() = default;
 

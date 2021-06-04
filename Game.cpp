@@ -10,16 +10,9 @@ Game::Game(Graphics& gfx, MainWindow& wnd)
     gfx(gfx),
     wnd(wnd),
     transformer(gfx),
-    camera(transformer)
+    camera(transformer),
+    starfield(10000, 10000, 20.0f, 100.0f, 3, 9, 100)
 {
-    entities.reserve(7);
-    entities.emplace_back(Star::Make(100.0f, 50.0f), Vec2(460.0f,0.0f));
-    entities.emplace_back(Star::Make(150.0f, 50.0f), Vec2(150.f,300.0f));
-    entities.emplace_back(Star::Make(100.0f, 50.0f), Vec2(250.0f, -200.0f));
-    entities.emplace_back(Star::Make(150.0f, 50.0f), Vec2(-250.0f, 200.0f));
-    entities.emplace_back(Star::Make(100.0f, 50.0f), Vec2(0.0f, 0.0f));
-    entities.emplace_back(Star::Make(200.0f, 50.0f), Vec2(-150.0f, -300.0f));
-    entities.emplace_back(Star::Make(100.0f, 50.0f), Vec2(400.0f, 600.0f));
     sAppName = "Recapp";
 }
 
@@ -38,8 +31,6 @@ bool Game::OnUserUpdate(float fElapsedTime)
 
 void Game::UpdateModel(float fElapsedTime)
 {
-    gfx.Clear();
-
     if (wnd.mouse.LeftDownEvent())
     {
         lastMousePos = wnd.mouse.GetPos();
@@ -62,9 +53,5 @@ void Game::UpdateModel(float fElapsedTime)
 
 void Game::ComposeFrame()
 {
-    for (const auto& entity : entities)
-    {
-        auto d = entity.GetDrawable();
-        camera.Draw(d);
-    }
+    starfield.Draw(camera);
 }

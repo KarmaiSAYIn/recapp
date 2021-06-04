@@ -37,3 +37,11 @@ void Camera::Draw(Drawable& draw) const
     draw.Scale(scale);
     transformer.Draw(draw);
 }
+
+void Camera::DrawRect(Rectf rect, Color c) const
+{
+    rect.Translate(Vec2(pos.x * -1.0f, pos.y));
+    rect.Scale(scale);
+    transformer.DrawRect(rect, c);
+}
+

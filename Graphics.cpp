@@ -110,3 +110,13 @@ void Graphics::DrawCircle(const Vei2& center, int radius, Color c)
             if ((Vei2(x, y) - center).GetDistanceSq() <= radius * radius)
                 PutPixel(x, y, c);
 }
+
+void Graphics::DrawRect(const Recti& rect, Color c)
+{
+    Vei2 topLeft = rect.GetTopLeft();
+    Vei2 bottomRight = rect.GetBottomRight();
+
+    for (int y = bottomRight.y; y <= topLeft.y; y++)
+        for (int x = topLeft.x; x <= bottomRight.x; x++)
+            PutPixel(x, y, c);
+}
