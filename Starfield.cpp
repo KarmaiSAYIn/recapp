@@ -23,7 +23,7 @@ Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, 
         Colors::MAGENTA,
         Colors::ORANGE,
         Colors::PLUM,
-        Colors::INGIDGO,
+        Colors::INDIGO,
     };
 
     float littleRadius;
