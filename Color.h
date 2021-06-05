@@ -12,7 +12,7 @@ namespace Colors
 		YELLOW(255, 255, 0),
 		GREEN(0, 255, 0),
 		BLUE(0, 0, 255),
-        INGIDGO(75, 0, 130),
+        INDIGO(75, 0, 130),
         VIOLET(238, 130, 238),
 
         // Shades
