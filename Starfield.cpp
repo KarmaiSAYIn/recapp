@@ -6,6 +6,9 @@ Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, 
     minRadius(minRadius),
     maxRadius(maxRadius)
 {
+    if (minFlares > maxFlares)
+        std::swap(minFlares, maxFlares);
+
     std::mt19937 rng(std::random_device{}());
     std::uniform_int_distribution<int> xDist(-nWidth / 2, nWidth / 2 + 1);
     std::uniform_int_distribution<int> yDist(-nHeight / 2, nHeight / 2 + 1);
