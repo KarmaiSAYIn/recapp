@@ -1,7 +1,7 @@
 #include "Starfield.h"
 #include <random>
 
-Starfield::Starfield(unsigned nWidth, unsigned nHeight, float minRadius, float maxRadius, unsigned minFlares, unsigned maxFlares, unsigned nStarCount)
+Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, unsigned minFlares, unsigned maxFlares, unsigned nStarCount)
     :
     minRadius(minRadius),
     maxRadius(maxRadius)
