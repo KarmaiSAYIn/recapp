@@ -22,5 +22,5 @@ private:
     Color c;
     float scale = 1.0f;
     Vec2 pos;
-    std::vector<Vec2> model;
+    mutable std::vector<Vec2> model;
 };

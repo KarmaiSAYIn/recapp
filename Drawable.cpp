@@ -1,10 +1,10 @@
 #include "Drawable.h"
 #include "Graphics.h"
 
-Drawable::Drawable(std::vector<Vec2> model, Color c)
+Drawable::Drawable(std::vector<Vec2> &model, Color c)
     :
     c(c),
-    model(std::move(model))
+    model(&model)
 {
 }
 
@@ -34,13 +34,6 @@ void Drawable::Translate(const Vec2& offset)
 
 void Drawable::Draw(Graphics& gfx) const
 {
-    for (auto& v : model)
-    {
-        v.x *= scale_x;
-        v.y *= scale_y;
-        v += translation;
-    }
-
-    gfx.DrawClosedPolyline(model, c);
+    gfx.DrawClosedPolyline(*model, translation, scale_x, scale_y, c);
 }
 

@@ -26,5 +26,5 @@ private:
     float innerRadius = 0.0f;
     float outerRadius = 0.0f;
     Vec2 pos = {0.0f, 0.0f};
-    std::vector<Vec2> star;
+    mutable std::vector<Vec2> star;
 };

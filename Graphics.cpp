@@ -84,11 +84,25 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
     }
 }
 
-void Graphics::DrawClosedPolyline(const std::vector<Vec2>& vertices, Color c)
+void Graphics::DrawClosedPolyline(const std::vector<Vec2> &vertices, const Vec2 &translation, float scale_x, float scale_y, Color c)
 {
+    const auto transform = [&](Vec2 v)
+    {
+        v.x *= scale_x;
+        v.y *= scale_y;
+        v += translation;
+        return v;
+    };
+
+    const Vec2 frontPoint = transform(vertices.front());
+    Vec2 currPoint = frontPoint;
     for (auto i = vertices.begin(); i != std::prev(vertices.end()); i++) 
-            DrawLine(*i, *std::next(i), c);
-    DrawLine(vertices.back(), vertices.front(), c);
+    {
+        const Vec2 nextPoint = transform(*std::next(i));
+        DrawLine(currPoint, nextPoint, c);
+        currPoint = nextPoint;
+    }
+    DrawLine(currPoint, frontPoint, c);
 }
 
 void Graphics::DrawCircle(const Vei2& center, int radius, Color c)

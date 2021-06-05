@@ -35,7 +35,7 @@ void Entity::Translate(const Vec2& offset)
 
 Drawable Entity::GetDrawable() const
 {
-   Drawable r(model, c); 
+   Drawable r(model, c);
    r.Scale(scale);
    r.Translate(pos);
    return r;

@@ -23,7 +23,7 @@ public:
 
     // Shape draw functions
     void DrawLine(Vec2 p0, Vec2 p1, Color c);
-    void DrawClosedPolyline(const std::vector<Vec2>& vertices, Color c);
+    void DrawClosedPolyline(const std::vector<Vec2> &vertices, const Vec2 &translation, float scale_x, float scale_y, Color c);
     void DrawCircle(const Vei2& center, int radius, Color c);
     void DrawRect(const Recti& rect, Color c);
 
