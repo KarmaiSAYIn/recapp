@@ -11,8 +11,7 @@ Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, 
     std::uniform_int_distribution<int> yDist(-nHeight / 2, nHeight / 2 + 1);
     std::uniform_int_distribution<int> flareDist(minFlares, maxFlares + 1);
     std::uniform_int_distribution<int> colorDist(0, 10);
-    std::uniform_real_distribution<float> littleRadiusDist(minRadius, std::nextafterf(maxRadius, std::numeric_limits<float>::max()));
-    std::uniform_real_distribution<float> bigRadiusDist(minRadius, std::nextafterf(maxRadius, std::numeric_limits<float>::max()));
+    std::uniform_real_distribution<float> radiusDist(minRadius, std::nextafterf(maxRadius, std::numeric_limits<float>::max()));
 
     Color colors[] = {
         Colors::BLUE,
@@ -36,8 +35,8 @@ Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, 
     field.reserve(nStarCount);
     while (field.size() < nStarCount)
     {
-        littleRadius = littleRadiusDist(rng);
-        bigRadius = bigRadiusDist(rng);
+        littleRadius = radiusDist(rng);
+        bigRadius = radiusDist(rng);
         pos = Vec2((float)xDist(rng), (float)yDist(rng));
         
         if (bigRadius < littleRadius)
