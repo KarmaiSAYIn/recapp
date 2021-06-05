@@ -2,9 +2,9 @@
 
 Entity::Entity(std::vector<Vec2> model, const Vec2& pos, Color c)
     :
+    c(c),
     pos(pos),
-    model(std::move(model)),
-    c(c)
+    model(std::move(model))
 {
 }
 

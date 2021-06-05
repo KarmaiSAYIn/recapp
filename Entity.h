@@ -20,7 +20,7 @@ public:
 
 private:
     Color c;
-    float scale = 1.0f;;
+    float scale = 1.0f;
     Vec2 pos;
     std::vector<Vec2> model;
 };

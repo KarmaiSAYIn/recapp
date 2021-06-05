@@ -506,6 +506,7 @@ namespace olc
 		union
 		{
 			uint32_t n = nDefaultPixel;
+            #pragma GCC diagnostic ignored "-Wpedantic"
 			struct { uint8_t r; uint8_t g; uint8_t b; uint8_t a; };
 		};
 

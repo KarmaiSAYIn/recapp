@@ -7,31 +7,31 @@ Star::Star(const Star& other)
 
 Star& Star::operator =(const Star& other)
 {
-    return *this = Star(other);
+    c = other.c;
+    innerRadius = other.innerRadius;
+    outerRadius = other.outerRadius;
+    pos = other.pos;
+    star = other.star;
+    return *this;
 }
 
 Star::Star(Star&& other)
 {
-    *this = std::move(other);
+    *this = other;
 }
 
 Star& Star::operator =(Star&& other)
 {
-    c = std::move(other.c);
-    innerRadius = std::move(other.innerRadius);
-    outerRadius = std::move(other.outerRadius);
-    pos = std::move(other.pos);
-    star = std::move(other.star);
-    return *this;
+    return *this = other;
 }
 
 
 Star::Star(const Vec2& pos, float outerRadius, float innerRadius, int nFlares, Color c)
     :
-    pos(pos),
-    outerRadius(outerRadius),
+    c(c),
     innerRadius(innerRadius),
-    c(c)
+    outerRadius(outerRadius),
+    pos(pos)
 {
     star.reserve(nFlares * 2);
     const float dTheta = 2.0f * 3.14159f / float(nFlares * 2);

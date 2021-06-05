@@ -3,8 +3,8 @@
 
 Drawable::Drawable(std::vector<Vec2> model, Color c)
     :
-    model(std::move(model)),
-    c(c)
+    c(c),
+    model(std::move(model))
 {
 }
 
