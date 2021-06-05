@@ -26,11 +26,12 @@ Star& Star::operator =(Star&& other)
 }
 
 
-Star::Star(const Vec2& pos, float outerRadius, float innerRadius, int nFlares)
+Star::Star(const Vec2& pos, float outerRadius, float innerRadius, int nFlares, Color c)
     :
     pos(pos),
     outerRadius(outerRadius),
-    innerRadius(innerRadius)
+    innerRadius(innerRadius),
+    c(c)
 {
     star.reserve(nFlares * 2);
     const float dTheta = 2.0f * 3.14159f / float(nFlares * 2);
@@ -67,6 +68,8 @@ Color Star::GetColor() const
 
 Drawable Star::GetDrawable() const
 {
-    return Drawable(star, c);
+    Drawable d(star, c);
+    d.Translate(pos);
+    return d;
 }
 

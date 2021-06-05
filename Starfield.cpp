@@ -13,7 +13,7 @@ Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, 
     std::uniform_int_distribution<int> colorDist(0, 11);
     std::uniform_real_distribution<float> radiusDist(minRadius, std::nextafterf(maxRadius, std::numeric_limits<float>::max()));
 
-    Color colors[10] = {
+    Color colors[] = {
         Colors::BLUE,
         Colors::RED,
         Colors::YELLOW,
@@ -45,7 +45,7 @@ Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, 
         nFlareCount = flareDist(rng);
         color = colors[colorDist(rng)];
 
-        field.emplace_back(pos, bigRadius, littleRadius, nFlareCount);
+        field.emplace_back(pos, bigRadius, littleRadius, nFlareCount, color);
     }
 }
 

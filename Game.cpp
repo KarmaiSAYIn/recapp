@@ -11,7 +11,7 @@ Game::Game(Graphics& gfx, MainWindow& wnd)
     wnd(wnd),
     transformer(gfx),
     camera(transformer),
-    starfield(10000, 10000, 20.0f, 100.0f, 3, 9, 100)
+    starfield(1000, 1000, 20.0f, 100.0f, 3, 9, 100)
 {
     sAppName = "Recapp";
 }

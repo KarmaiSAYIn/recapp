@@ -12,7 +12,7 @@ public:
     Star& operator =(const Star& other);
     Star(Star&& other);
     Star& operator =(Star&& other);
-    Star(const Vec2& pos, float outerRadius, float innerRadius, int nFlares = 5);
+    Star(const Vec2& pos, float outerRadius, float innerRadius, int nFlares = 5, Color c = Colors::YELLOW);
 
     Vec2 GetPos() const;
     float GetInnterRadius() const;
@@ -22,7 +22,7 @@ public:
     Drawable GetDrawable() const;
 
 private:
-    Color c = Colors::YELLOW;
+    Color c;
     float innerRadius = 0.0f;
     float outerRadius = 0.0f;
     Vec2 pos = {0.0f, 0.0f};
