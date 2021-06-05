@@ -50,6 +50,11 @@ Vec2 Star::GetPos() const
     return pos;
 }
 
+Rectf Star::GetRect() const
+{
+    const float fWidth = outerRadius * 2;
+    return Rectf(pos, fWidth, fWidth);
+}
 
 float Star::GetInnerRadius() const
 {

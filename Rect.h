@@ -22,7 +22,6 @@ public:
     Rect& operator =(const Rect& other);
     Rect& operator =(const Rect&& other);
 
-
     Vec2d<T> GetTopLeft() const;
     Vec2d<T> GetBottomRight() const;
     Vec2d<T> GetMiddle() const;
@@ -34,13 +33,14 @@ public:
     T GetBottom() const;
 
     void Translate(const Vec2d<T>& offset);
-    void Scale(float scale);
+    void Scale(T scale);
     void SetMiddle(const Vec2d<T>& middle);
     void SetTopLeft(const Vec2d<T>& topLeft);
     void SetBottomRight(const Vec2d<T>& bottomRight);
 
     template <typename E>
     bool CollideRect(const Rect<E>& other) const;
+
     template <typename E>
     bool IsContainedBy(const Rect<E>& other) const;
 

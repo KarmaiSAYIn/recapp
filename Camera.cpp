@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include "Graphics.h"
 
 Camera::Camera(CoordinateTransformer& transformer)
     :
@@ -14,6 +15,12 @@ Vec2 Camera::GetPos() const
 float Camera::GetScale() const
 {
     return scale;
+}
+
+Rectf Camera::GetRect() const
+{
+    const float zoom = 1.0f / scale;
+    return Rectf(pos, Graphics::ScreenWidth * zoom, Graphics::ScreenHeight * zoom);
 }
 
 void Camera::SetPos(const Vec2& pos)

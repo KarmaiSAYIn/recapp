@@ -17,12 +17,6 @@ void CoordinateTransformer::Draw(Drawable& draw) const
 void CoordinateTransformer::DrawRect(Rectf& rect, Color c) const
 {
     auto offset = Vec2((float)Graphics::ScreenWidth / 2, (float)Graphics::ScreenHeight / 2);
-    Vec2 topLeft = rect.GetTopLeft();
-    Vec2 bottomRight = rect.GetBottomRight();
-
-    topLeft.y *= -1.0f;
-    bottomRight.y *= -1.0f;
-
     rect.Translate(offset);
     gfx.DrawRect(Recti(rect), c);
 }

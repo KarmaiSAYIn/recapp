@@ -10,6 +10,7 @@ public:
 
     Vec2 GetPos() const;
     float GetScale() const;
+    Rectf GetRect() const;
     void SetPos(const Vec2& pos);
     void SetScale(float scale);
     void Translate(const Vec2& offset);

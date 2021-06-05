@@ -62,9 +62,14 @@ void Starfield::Update(float fElapsedTime)
 
 void Starfield::Draw(Camera& camera) const
 {
+    Rectf viewPort = camera.GetRect();
+
     for (auto& star : field)
     {
-        auto d = star.GetDrawable();
-        camera.Draw(d);
+        if (viewPort.CollideRect(star.GetRect()))
+        {
+            auto d = star.GetDrawable();
+            camera.Draw(d);
+        }
     }
 }

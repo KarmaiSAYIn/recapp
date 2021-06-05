@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "Vec.h"
 #include "Drawable.h"
+#include "Rect.h"
 
 class Star final
 {
@@ -15,6 +16,7 @@ public:
     Star(const Vec2& pos, float outerRadius, float innerRadius, int nFlares = 5, Color c = Colors::YELLOW);
 
     Vec2 GetPos() const;
+    Rectf GetRect() const;
     float GetInnerRadius() const;
     float GetOuterRadius() const;
     Color GetColor() const;

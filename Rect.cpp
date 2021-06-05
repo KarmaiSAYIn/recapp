@@ -27,7 +27,7 @@ Rect<T>::Rect(const Vec2d<T>& midPoint, T width, T height)
 template <typename T>
 Rect<T>::Rect(Rect<T>&& other)
     :
-    Rect(std::move(other))
+    Rect(other)
 {
 }
 
@@ -42,7 +42,7 @@ Rect<T>& Rect<T>::operator =(const Rect<T>& other)
 template <typename T>
 Rect<T>& Rect<T>::operator =(const Rect<T>&& other)
 {
-    return *this = std::move(other);
+    return *this = other;
 }
 
 template<typename T>
@@ -123,10 +123,10 @@ void Rect<T>::Translate(const Vec2d<T>& offset)
 }
 
 template<typename T>
-void Rect<T>::Scale(float scale)
+void Rect<T>::Scale(T scale)
 {
     topLeft *= scale;
-    bottomRight *= scale;
+    bottomRight*= scale;
 }
 
 template<typename T>
