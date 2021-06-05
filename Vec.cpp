@@ -48,7 +48,7 @@ Vec2d<T>::Vec2d(const Vec2d<T>&& other)
 template <typename T>
 Vec2d<T> Vec2d<T>::operator -(const Vec2d<T>& rhs) const
 {
-    return Vec2d<T>(x - rhs.x, y -rhs.y);
+    return Vec2d<T>(x - rhs.x, y - rhs.y);
 }
 
 template <typename T>

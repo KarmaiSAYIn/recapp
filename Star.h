@@ -15,7 +15,7 @@ public:
     Star(const Vec2& pos, float outerRadius, float innerRadius, int nFlares = 5, Color c = Colors::YELLOW);
 
     Vec2 GetPos() const;
-    float GetInnterRadius() const;
+    float GetInnerRadius() const;
     float GetOuterRadius() const;
     Color GetColor() const;
 

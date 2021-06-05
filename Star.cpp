@@ -51,7 +51,7 @@ Vec2 Star::GetPos() const
 }
 
 
-float Star::GetInnterRadius() const
+float Star::GetInnerRadius() const
 {
     return innerRadius;
 }
