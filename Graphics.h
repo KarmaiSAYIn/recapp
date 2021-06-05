@@ -15,9 +15,6 @@ public:
 
     void SetGameObject(Game *game);
 
-    int GetScreenHeight() const;
-    int GetScreenWidth() const;
-
     void PutPixel(int x, int y, Color c);  //In principal, this function modifies the Graphics object; however at this stage it could be a const declarator.
     void PutPixel(const Vei2& pos, Color c);
     Color GetPixel(int x, int y) const;
@@ -31,8 +28,11 @@ public:
     void DrawRect(const Recti& rect, Color c);
 
 private:
-
     Game *game = nullptr;
+
+public:
+    static constexpr int ScreenWidth = 1280;
+    static constexpr int ScreenHeight = 720;
 };
 
 

@@ -8,7 +8,7 @@ CoordinateTransformer::CoordinateTransformer(Graphics& gfx)
 
 void CoordinateTransformer::Draw(Drawable& draw) const
 {
-    auto offset = Vec2((float)gfx.GetScreenWidth() / 2, (float)gfx.GetScreenHeight() / 2);
+    auto offset = Vec2((float)Graphics::ScreenWidth / 2, (float)Graphics::ScreenHeight / 2);
     draw.ScaleY(-1.0f);
     draw.Translate(offset);
     draw.Draw(gfx);
@@ -16,7 +16,7 @@ void CoordinateTransformer::Draw(Drawable& draw) const
 
 void CoordinateTransformer::DrawRect(Rectf& rect, Color c) const
 {
-    auto offset = Vec2((float)gfx.GetScreenWidth() / 2, (float)gfx.GetScreenHeight() / 2);
+    auto offset = Vec2((float)Graphics::ScreenWidth / 2, (float)Graphics::ScreenHeight / 2);
     Vec2 topLeft = rect.GetTopLeft();
     Vec2 bottomRight = rect.GetBottomRight();
 

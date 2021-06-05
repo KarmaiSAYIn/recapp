@@ -7,22 +7,12 @@ void Graphics::SetGameObject(Game *game)
     this->game = game;
 }
 
-int Graphics::GetScreenHeight() const
-{
-    return game->ScreenHeight();
-}
-
-int Graphics::GetScreenWidth() const
-{
-    return game->ScreenWidth();
-}
-
 void Graphics::PutPixel(int x, int y, Color c)
 {
     assert(x >= 0);
-    assert(x < GetScreenWidth());
+    assert(x < ScreenWidth);
     assert(y >= 0);
-    assert(y < GetScreenHeight());
+    assert(y < ScreenHeight);
     game->Draw(x, y, c);
 }
 
@@ -34,9 +24,9 @@ void Graphics::PutPixel(const Vei2& pos, Color c)
 Color Graphics::GetPixel(int x, int y) const
 {
     assert(x >= 0);
-    assert(x < GetScreenWidth());
+    assert(x < ScreenWidth);
     assert(y >= 0);
-    assert(y < GetScreenHeight());
+    assert(y < ScreenHeight);
     return Color((game->GetPixelAt(x, y)));
 }
 
@@ -54,7 +44,7 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
 {
     if ((Vei2)p0 == (Vei2)p1)
     {
-        if (p0.x >= 0 && p0.x < GetScreenWidth() && p0.y >= 0 && p0.y < GetScreenHeight())
+        if (p0.x >= 0 && p0.x < ScreenWidth && p0.y >= 0 && p0.y < ScreenHeight)
             PutPixel(p0, c);
         return;
     }
@@ -73,7 +63,7 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
         for (int x = (int)p0.x; x <= int(p1.x + 0.5f); ++x)
         {
             const float y = m * (float)x + b;
-            if (x >= 0 && x < GetScreenWidth() && y >= 0 && y < GetScreenHeight())
+            if (x >= 0 && x < ScreenWidth && y >= 0 && y < ScreenHeight)
                 PutPixel(x, (int)y, c);
         }
     }
@@ -88,7 +78,7 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
         for (int y = (int)p0.y; y <= int(p1.y + 0.5f); ++y)
         {
             const float x = w * (float)y + p;
-            if (x >= 0 && x < GetScreenWidth() && y >= 0 && y < GetScreenHeight())
+            if (x >= 0 && x < ScreenWidth && y >= 0 && y < ScreenHeight)
                 PutPixel((int)x, y, c);
         }
     }
