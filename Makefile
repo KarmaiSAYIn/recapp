@@ -1,6 +1,6 @@
 objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o Starfield.o Star.o
 
-warning_flags = -Wall -pedantic -Wno-unknown-pragmas -Wno-missing-braces
+warning_flags = -Wall -pedantic -Wno-unknown-pragmas
 
 # Handle debug or release compile; debug without any arguements,
 # pass -r if you want release. As far as my knowledge goes, if you compile for debug before release,
@@ -22,7 +22,7 @@ ifeq ($(os_type),Darwin)
 	CC = clang++
 	build_flags += -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 
 	lib_flags = -framework OpenGL -framework GLUT -lpng
-	warning_flags += -Wno-unused-private-field
+	warning_flags += -Wno-unused-private-field -Wno-missing-braces
 endif
 
 build_flags += $(warning_flags)
