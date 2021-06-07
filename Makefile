@@ -1,4 +1,4 @@
-objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o Starfield.o Star.o
+objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o
 
 warning_flags = -Wall -pedantic -Wno-unknown-pragmas
 
@@ -53,10 +53,6 @@ Entity.o : Entity.cpp Entity.h
 	$(CC) -c -o Entity.o Entity.cpp $(build_flags)
 Drawable.o : Drawable.cpp Drawable.h
 	$(CC) -c -o Drawable.o Drawable.cpp $(build_flags)
-Starfield.o : Starfield.cpp Starfield.h
-	$(CC) -c -o Starfield.o Starfield.cpp $(build_flags)
-Star.o : Star.cpp Star.h
-	$(CC) -c -o Star.o Star.cpp $(build_flags)
 
 clean :
 	rm -f output $(objects)

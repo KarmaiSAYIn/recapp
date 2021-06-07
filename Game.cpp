@@ -10,8 +10,7 @@ Game::Game(Graphics& gfx, MainWindow& wnd)
     gfx(gfx),
     wnd(wnd),
     transformer(gfx),
-    camera(transformer),
-    starfield(Graphics::ScreenWidth * 10, Graphics::ScreenHeight * 10, 5.0f, 100.0f, 3, 9, 1000)
+    camera(transformer)
 {
     sAppName = "Recapp";
 }
@@ -31,27 +30,9 @@ bool Game::OnUserUpdate(float fElapsedTime)
 
 void Game::UpdateModel(float fElapsedTime)
 {
-    if (wnd.mouse.LeftDownEvent())
-    {
-        lastMousePos = wnd.mouse.GetPos();
-        lastMousePos.y = -lastMousePos.y;
-    }
-
-    if (wnd.mouse.LeftIsPressed())
-    {
-        Vec2 currMousePos = wnd.mouse.GetPos();
-        currMousePos.y = -currMousePos.y;
-        camera.Translate((lastMousePos - currMousePos) / camera.GetScale());
-        lastMousePos = currMousePos;
-    }
-
-    if (wnd.mouse.WheelUp() || wnd.keyboard.KeyIsPressed(Keyboard::Key::UP))
-        camera.SetScale(camera.GetScale() * 1.05f);
-    if (wnd.mouse.WheelDown() || wnd.keyboard.KeyIsPressed(Keyboard::Key::DOWN))
-        camera.SetScale(camera.GetScale() * 0.95f);
+    camera.Update(wnd.mouse, wnd.keyboard);
 }
 
 void Game::ComposeFrame()
 {
-    starfield.Draw(camera);
 }
