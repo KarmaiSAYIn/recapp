@@ -45,7 +45,7 @@ Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, 
         if (bigRadius < littleRadius)
             std::swap(bigRadius, littleRadius);
 
-        if (std::any_of(field.begin(), field.end(), [&](const Star& star){ return ((star.GetPos() - pos).GetDistance() < (bigRadius + star.GetOuterRadius())); }))
+        if (std::any_of(field.begin(), field.end(), [&](const Star& star){ return ((star.GetPos() - pos).GetDistanceSq() < std::pow(bigRadius + star.GetOuterRadius(), 2)); }))
             continue;
 
         nFlareCount = flareDist(rng);
