@@ -60,7 +60,7 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
 
         const float b = p0.y - m * p0.x;
 
-        for (int x = (int)p0.x; x <= int(p1.x + 0.5f); ++x)
+        for (int x = (int)p0.x; x <= (int)p1.x; ++x)
         {
             const float y = m * (float)x + b;
             if (x >= 0 && x < ScreenWidth && y >= 0 && y < ScreenHeight)
@@ -75,7 +75,7 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
         const float w = (p1.x - p0.x) / (p1.y - p0.y);
         const float p = p0.x - w * p0.y;
 
-        for (int y = (int)p0.y; y <= int(p1.y + 0.5f); ++y)
+        for (int y = (int)p0.y; y <= (int)p1.y + 0.5f; ++y)
         {
             const float x = w * (float)y + p;
             if (x >= 0 && x < ScreenWidth && y >= 0 && y < ScreenHeight)
