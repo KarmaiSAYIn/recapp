@@ -8,6 +8,7 @@ class Camera final
 {
 public:
     Camera(CoordinateTransformer& transformer);
+    Camera(CoordinateTransformer& transformer, float scale);
 
     Vec2 GetPos() const;
     float GetScale() const;
@@ -16,7 +17,7 @@ public:
     void SetScale(float scale);
     void Translate(const Vec2& offset);
     
-    void Update(const class Mouse &mouse, const class Keyboard &keyboard);
+    void Update(const class Mouse& mouse, const class Keyboard& keyboard);
 
     void Draw(Drawable& draw) const;
     void DrawRect(Rectf rect, Color c = Colors::RED) const;

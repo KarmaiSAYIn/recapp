@@ -40,3 +40,9 @@ Drawable Entity::GetDrawable() const
    r.Translate(pos);
    return r;
 }
+
+void Entity::SetModel(std::vector<Vec2> model) const
+{
+    this->model = std::move(model);
+}
+

@@ -10,7 +10,8 @@ Game::Game(Graphics& gfx, MainWindow& wnd)
     gfx(gfx),
     wnd(wnd),
     transformer(gfx),
-    camera(transformer)
+    camera(transformer, 0.5f),
+    plank({0.0f, 0.0f}, -1000.0f, -500, 500, 10, 500.0f)
 {
     sAppName = "Recapp";
 }
@@ -31,8 +32,11 @@ bool Game::OnUserUpdate(float fElapsedTime)
 void Game::UpdateModel(float fElapsedTime)
 {
     camera.Update(wnd.mouse, wnd.keyboard);
+    plank.Update(fElapsedTime, wnd.keyboard);
 }
 
 void Game::ComposeFrame()
 {
+    Drawable d = plank.GetDrawable();
+    camera.Draw(d);
 }

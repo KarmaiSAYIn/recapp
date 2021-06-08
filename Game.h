@@ -5,6 +5,7 @@
 #include "CoordinateTransformer.h"
 #include "Camera.h"
 #include "Entity.h"
+#include "Plank.h"
 #include <vector>
 
 class Game : public olc::PixelGameEngine
@@ -16,8 +17,8 @@ public:
 
     void SetGraphicsObject(class Graphics& gfx);
 
-	virtual bool OnUserCreate() override;
-	virtual bool OnUserUpdate(float fElapsedTime) override;
+	bool OnUserCreate() override;
+	bool OnUserUpdate(float fElapsedTime) override;
 
     void UpdateModel(float fElapsedTime);
     void ComposeFrame();
@@ -28,6 +29,8 @@ private:
 
     CoordinateTransformer transformer;
     Camera camera;
+
+    Plank plank;
 
     Vec2 lastMousePos = {0.0f, 0.0f};
 };

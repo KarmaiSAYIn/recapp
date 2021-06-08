@@ -7,16 +7,20 @@ class Entity
 {
 public:
     Entity(std::vector<Vec2> model, const Vec2& pos = {0.0f, 0.0f}, Color c = Colors::YELLOW);
+    virtual ~Entity() = default;
 
-    Vec2 GetPos() const;
-    void SetPos(const Vec2& pos);
+    virtual Vec2 GetPos() const;
+    virtual void SetPos(const Vec2 &pos);
 
-    void SetScale(float scale);
-    float GetScale() const;
+    virtual void SetScale(float scale);
+    virtual float GetScale() const;
 
-    void Translate(const Vec2& offset);
+    virtual void Translate(const Vec2& offset);
 
-    Drawable GetDrawable() const;
+    virtual Drawable GetDrawable() const;
+
+protected:
+    void SetModel(std::vector<Vec2> model) const;
 
 private:
     Color c;

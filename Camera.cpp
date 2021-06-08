@@ -9,6 +9,13 @@ Camera::Camera(CoordinateTransformer& transformer)
 {
 }
 
+Camera::Camera(CoordinateTransformer& transformer, float scale)
+    :
+    scale(scale),
+    transformer(transformer)
+{
+}
+
 Vec2 Camera::GetPos() const
 {
     return pos;
@@ -40,7 +47,7 @@ void Camera::Translate(const Vec2& offset)
     pos += offset;
 }
 
-void Camera::Update(const Mouse &mouse, const Keyboard &keyboard)
+void Camera::Update(const Mouse& mouse, const Keyboard& keyboard)
 {
     if (mouse.LeftDownEvent())
     {

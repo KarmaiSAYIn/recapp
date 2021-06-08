@@ -1,7 +1,7 @@
 #include "Drawable.h"
 #include "Graphics.h"
 
-Drawable::Drawable(std::vector<Vec2> &model, Color c)
+Drawable::Drawable(std::vector<Vec2>& model, Color c)
     :
     c(c),
     model(&model)
