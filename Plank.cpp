@@ -7,9 +7,9 @@ Plank::Plank(const Vec2& anchorPos, float freeX, int nMinY, int nMaxY, int nThic
     Entity({}, anchorPos, c),
     nMinY(nMinY - anchorPos.y),
     nMaxY(nMaxY - anchorPos.y),
-    freePos(freeX - anchorPos.x, nMinY),
     nThickness(nThickness),
-    fSpeed(fSpeed)
+    fSpeed(fSpeed),
+    freePos(freeX - anchorPos.x, nMinY)
 {
 }
 
@@ -41,10 +41,10 @@ void Plank::Update(float fElapsedTime, Keyboard& keyboard)
 {
     float delta = 0.0f;
     if (keyboard.KeyIsPressed(Keyboard::Key::W))
-        delta = 1.0f;
+        delta += 1.0f;
 
     if (keyboard.KeyIsPressed(Keyboard::Key::S))
-        delta = -1.0f;
+        delta -= 1.0f;
 
     freePos.y = std::clamp(freePos.y + delta * fSpeed *fElapsedTime - GetPos().y, (float)nMinY, (float)nMaxY);
 }
