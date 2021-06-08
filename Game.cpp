@@ -11,7 +11,8 @@ Game::Game(Graphics& gfx, MainWindow& wnd)
     wnd(wnd),
     transformer(gfx),
     camera(transformer, 0.5f),
-    plank({0.0f, 0.0f}, -1000.0f, -500, 500, 10, 500.0f)
+    plank({0.0f, 0.0f}, -1000.0f, -500, 500, 10, 500.0f),
+    launcher({-150.0f, -300.0f}, {-5.0f, 1.0f}, {-15.0f, 10.0f}, {Vec2(0.0f, 0.0f), Graphics::ScreenWidth, Graphics::ScreenHeight})
 {
     sAppName = "Recapp";
 }
@@ -33,10 +34,12 @@ void Game::UpdateModel(float fElapsedTime)
 {
     camera.Update(wnd.mouse, wnd.keyboard);
     plank.Update(fElapsedTime, wnd.keyboard);
+    launcher.Update(fElapsedTime, camera);
 }
 
 void Game::ComposeFrame()
 {
     Drawable d = plank.GetDrawable();
     camera.Draw(d);
+    launcher.Draw(camera);
 }

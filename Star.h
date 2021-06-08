@@ -5,7 +5,7 @@
 class Star final
 {
 public:
-    static void Make(const Vec2& pos, float outerRadius, float innerRadius, int nFlares = 5)
+    static std::vector<Vec2> Make(float outerRadius, float innerRadius, int nFlares = 5)
     {
         std::vector<Vec2> star;
         star.reserve(nFlares * 2);
@@ -18,6 +18,7 @@ public:
                 rad * sin(float(i) * dTheta)
             );
         }
+        return star;
     }
     
 };

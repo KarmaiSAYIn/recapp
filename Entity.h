@@ -20,6 +20,12 @@ public:
     virtual Drawable GetDrawable() const;
 
 protected:
+    std::vector<Vec2> GetModel() const;
+    std::vector<Vec2>&& MoveModel() const;
+
+    Color GetColor() const;
+    void SetColor(const Color& c);
+
     void SetModel(std::vector<Vec2> model) const;
 
 private:

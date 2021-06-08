@@ -13,30 +13,6 @@ Plank::Plank(const Vec2& anchorPos, float freeX, int nMinY, int nMaxY, int nThic
 {
 }
 
-Vec2 Plank::GetPos() const
-{
-    return Entity::GetPos();
-}
-
-void Plank::SetPos(const Vec2 &pos)
-{
-    Entity::SetPos(pos);
-}
-
-void Plank::SetScale(float scale)
-{
-    Entity::SetScale(scale);
-}
-
-float Plank::GetScale() const
-{
-    return Entity::GetScale();
-}
-void Plank::Translate(const Vec2& offset)
-{
-    Entity::Translate(offset);
-}
-
 void Plank::Update(float fElapsedTime, Keyboard& keyboard)
 {
     float delta = 0.0f;

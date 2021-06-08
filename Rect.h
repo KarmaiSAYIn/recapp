@@ -42,6 +42,9 @@ public:
     bool CollideRect(const Rect<E>& other) const;
 
     template <typename E>
+    bool CollidePoint(const Vec2d<E>& point) const;
+
+    template <typename E>
     bool IsContainedBy(const Rect<E>& other) const;
 
 private:

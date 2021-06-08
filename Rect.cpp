@@ -159,6 +159,13 @@ bool Rect<T>::CollideRect(const Rect<E>& other) const
 
 template <typename T>
 template <typename E>
+bool Rect<T>::CollidePoint(const Vec2d<E>& point) const
+{
+    return ((T)point.x >= GetLeft() && (T)point.x <= GetRight() && (T)point.y <= GetTop() && (T)point.y >= GetBottom());
+}
+
+template <typename T>
+template <typename E>
 bool Rect<T>::IsContainedBy(const Rect<E>& other) const
 {
     return (GetRight() <= other.GetRight() && GetBottom() >= other.GetBottom() && GetLeft() >= other.GetLeft() && GetTop() <= other.GetTop());

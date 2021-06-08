@@ -35,6 +35,11 @@ Color Graphics::GetPixel(const Vei2& pos) const
     return Color(GetPixel(pos.x, pos.y));
 }
 
+Recti Graphics::GetRect() const
+{
+    return Recti(Vec2(0.0f, 0.0f), ScreenWidth, ScreenHeight);
+}
+
 void Graphics::Clear(Color c)
 {
     game->Clear(c);
@@ -75,7 +80,7 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
         const float w = (p1.x - p0.x) / (p1.y - p0.y);
         const float p = p0.x - w * p0.y;
 
-        for (int y = (int)p0.y; y <= (int)p1.y + 0.5f; ++y)
+        for (int y = (int)p0.y; y <= (int)p1.y; ++y)
         {
             const float x = w * (float)y + p;
             if (x >= 0 && x < ScreenWidth && y >= 0 && y < ScreenHeight)
@@ -121,7 +126,12 @@ void Graphics::DrawRect(const Recti& rect, Color c)
     Vei2 topLeft = rect.GetTopLeft();
     Vei2 bottomRight = rect.GetBottomRight();
 
-    for (int y = bottomRight.y; y <= topLeft.y; y++)
-        for (int x = topLeft.x; x <= bottomRight.x; x++)
+    topLeft.x = std::clamp(topLeft.x, 0, ScreenWidth - 1);
+    topLeft.y = std::clamp(topLeft.y, 0, ScreenHeight - 1);
+    bottomRight.x = std::clamp(bottomRight.x, 0, ScreenWidth - 1);
+    bottomRight.y = std::clamp(bottomRight.y, 0, ScreenHeight - 1);
+
+    for (int y = bottomRight.y; y < topLeft.y; y++)
+        for (int x = topLeft.x; x < bottomRight.x; x++)
             PutPixel(x, y, c);
 }

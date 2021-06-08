@@ -41,6 +41,26 @@ Drawable Entity::GetDrawable() const
    return r;
 }
 
+std::vector<Vec2> Entity::GetModel() const
+{
+    return model;
+}
+
+std::vector<Vec2>&& Entity::MoveModel() const
+{
+    return std::move(model);
+}
+
+Color Entity::GetColor() const
+{
+    return c;
+}
+
+void Entity::SetColor(const Color& c)
+{
+    this->c = c;
+}
+
 void Entity::SetModel(std::vector<Vec2> model) const
 {
     this->model = std::move(model);

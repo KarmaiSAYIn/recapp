@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Entity.h"
 #include "Plank.h"
+#include "BallLauncher.h"
 #include <vector>
 
 class Game : public olc::PixelGameEngine
@@ -31,6 +32,5 @@ private:
     Camera camera;
 
     Plank plank;
-
-    Vec2 lastMousePos = {0.0f, 0.0f};
+    BallLauncher launcher;
 };
