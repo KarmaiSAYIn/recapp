@@ -78,7 +78,7 @@ void Camera::Draw(Drawable& draw) const
 
 void Camera::DrawRect(Rectf rect, Color c) const
 {
-    rect.Translate(Vec2(pos.x * -1.0f, pos.y));
+    rect.Translate(-pos);
     rect.Scale(scale);
     transformer.DrawRect(rect, c);
 }
