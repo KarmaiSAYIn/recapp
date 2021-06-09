@@ -1,21 +1,15 @@
 #include "BallLauncher.h"
-#include <assert.h>
 
-BallLauncher::BallLauncher(const Vec2& spawnLocation, const Vec2& minVelocity, const Vec2& maxVelocity, Rectf ballArea, float fBallSpawnInterval)
+BallLauncher::BallLauncher(const Vec2& spawnLocation, float minVelocityX, float maxVelocityX, float yVel, Rectf ballArea, float fBallSpawnInterval)
     :
     spawnLocation(spawnLocation), 
     ballArea(ballArea),
     fBallSpawnInterval(fBallSpawnInterval),
     fTime(fBallSpawnInterval),
+    yVel(yVel),
     rng(std::random_device{}()),
-    xVelDist(minVelocity.x, std::nextafterf(maxVelocity.x, std::numeric_limits<float>::max())),
-    yVelDist(minVelocity.y, std::nextafterf(maxVelocity.y, std::numeric_limits<float>::max()))
+    xVelDist(minVelocityX, std::nextafterf(maxVelocityX, std::numeric_limits<float>::max()))
 {
-}
-
-Rectf BallLauncher::GetRect() const
-{
-    return ballArea;
 }
 
 void BallLauncher::Update(float fElapsedTime, Camera& camera)
@@ -23,7 +17,7 @@ void BallLauncher::Update(float fElapsedTime, Camera& camera)
     if (fTime >= fBallSpawnInterval)
     {
         fTime -= fBallSpawnInterval;
-        launchedBalls.emplace_back(spawnLocation, Vec2(xVelDist(rng), yVelDist(rng)), ballRadius);
+        launchedBalls.emplace_back(spawnLocation, Vec2(xVelDist(rng), yVel), ballRadius);
     }
 
     for (auto ball = launchedBalls.begin(); ball != launchedBalls.end(); ++ball)
@@ -32,12 +26,11 @@ void BallLauncher::Update(float fElapsedTime, Camera& camera)
 
         const float width = ball->GetRadius() * 2;
         const Rectf ballRect(ball->GetPos(), width, width);
-        std::cout << "(" << ball->GetPos().x << ", " << ball->GetPos().y << ") " << ballRect.GetLeft() << " " << ballRect.GetRight() << " " << ballRect.GetTop() << " " << ballRect.GetBottom() << "\n";
-        if (!ballArea.CollideRect(ballRect))
+        if (!ballRect.IsContainedBy(ballArea))
         {
-            auto nDistance = ball - launchedBalls.begin();
+            int nDistance = ball - std::begin(launchedBalls) - 1;
             launchedBalls.erase(ball);
-            ball = launchedBalls.begin() + nDistance;
+            ball = std::begin(launchedBalls) + nDistance;
         }
     }
 

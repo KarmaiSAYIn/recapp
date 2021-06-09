@@ -12,7 +12,7 @@ Game::Game(Graphics& gfx, MainWindow& wnd)
     transformer(gfx),
     camera(transformer, 0.5f),
     plank({0.0f, 0.0f}, -1000.0f, -500, 500, 10, 500.0f),
-    launcher({-150.0f, -300.0f}, {-5.0f, 1.0f}, {-15.0f, 10.0f}, {Vec2(0.0f, 0.0f), Graphics::ScreenWidth, Graphics::ScreenHeight})
+    launcher({-150.0f, -400.0f}, -10.0f, -50.0f, 50.0f, {{-1000.0f, 600.0f}, {200, -500}})
 {
     sAppName = "Recapp";
 }

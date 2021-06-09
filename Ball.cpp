@@ -11,7 +11,8 @@ Ball::Ball(Vec2 pos, Vec2 velocity, float radius, Color c)
 Ball::Ball(const Ball& other)
     :
     Entity(other.GetModel(), other.GetPos(), other.GetColor()),
-    velocity(other.velocity)
+    velocity(other.velocity),
+    radius(other.radius)
 {
 }
 
@@ -21,13 +22,15 @@ Ball& Ball::operator =(const Ball& other)
     SetPos(other.GetPos());
     SetColor(other.GetColor());
     velocity = other.velocity;
+    radius = other.radius;
     return *this;
 }
 
 Ball::Ball(Ball&& other)
     :
     Entity(other.MoveModel(), other.GetPos(), other.GetColor()),
-    velocity(std::move(other.velocity))
+    velocity(std::move(other.velocity)),
+    radius(other.radius)
 {
 }
 
@@ -37,6 +40,7 @@ Ball& Ball::operator =(Ball&& other)
     SetPos(other.GetPos());
     SetColor(other.GetColor());
     velocity = other.velocity;
+    radius = other.radius;
     return *this;
 }
 
