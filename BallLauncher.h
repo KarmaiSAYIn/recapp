@@ -9,8 +9,7 @@ class BallLauncher final
 public:
     BallLauncher(const Vec2& spawnLocation, float minVelocityX, float maxVelocityX, float yVel, Rectf ballArea, float fBallSpawnInterval = 1.0f);
 
-    void Update(float fElapsedTime, Camera& camera);
-    void Draw(Camera& camera) const;
+    void Update(float fElapsedTime, std::vector<Ball>& balls);
 
 private:
     Vec2 spawnLocation;
@@ -23,7 +22,6 @@ private:
 
     std::mt19937 rng;
     std::uniform_real_distribution<float> xVelDist;
-    std::vector<Ball> launchedBalls;
 
     static constexpr float ballRadius = 10.0f;
 };

@@ -14,6 +14,7 @@ public:
 
     void SetGameObject(Game *game);
 
+    bool KeyDownEvent(Key key) const;
     bool KeyIsPressed(Key key) const;
     bool KeyIsEmpty(Key key) const;
 

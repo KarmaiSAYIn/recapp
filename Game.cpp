@@ -4,6 +4,7 @@
 #include "Keyboard.h"
 #include "Star.h"
 #include "Drawable.h"
+#include "Math.h"
 
 Game::Game(Graphics& gfx, MainWindow& wnd)
     :
@@ -22,11 +23,22 @@ bool Game::OnUserCreate()
     return true;
 }
 
-bool Game::OnUserUpdate(float fElapsedTime)
+bool Game::OnUserUpdate()
 {
+    float fElapsedTime = time.Mark();
+    fTime += fElapsedTime;
+    if (fTime >= 1.0f)
+    {
+        nFPS = nFrameCount / fTime;
+        nFrameCount = 0;
+        fTime = 0.0f; 
+    }
+    nFrameCount++;
+
     gfx.Clear();
     UpdateModel(fElapsedTime);
     ComposeFrame();
+    wnd.SetWindowTitle(sAppName + " FPS: " + std::to_string(nFPS));
     return true;
 }
 
@@ -34,12 +46,28 @@ void Game::UpdateModel(float fElapsedTime)
 {
     camera.Update(wnd.mouse, wnd.keyboard);
     plank.Update(fElapsedTime, wnd.keyboard);
-    launcher.Update(fElapsedTime, camera);
+    launcher.Update(fElapsedTime, balls);
+
+    const auto points = plank.GetPoints();
+    for (auto& ball : balls)
+    {
+        if (DistancePointLine(ball.GetPos(), points.first, points.second) <= ball.GetRadius()) 
+        {
+            const Vec2 w = (points.second - points.first).GetNormalized();
+            const Vec2 v = ball.GetVelocity();
+            ball.SetVelocity(w * (v * w) * 2.0f - v);
+        }
+    }
 }
 
 void Game::ComposeFrame()
 {
     Drawable d = plank.GetDrawable();
     camera.Draw(d);
-    launcher.Draw(camera);
+
+    for (const auto& ball : balls)
+    {
+        Drawable d = ball.GetDrawable();
+        camera.Draw(d);
+    }
 }

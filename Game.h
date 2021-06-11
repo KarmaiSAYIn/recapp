@@ -8,6 +8,7 @@
 #include "Plank.h"
 #include "BallLauncher.h"
 #include <vector>
+#include "Time.h"
 
 class Game : public olc::PixelGameEngine
 {
@@ -19,7 +20,7 @@ public:
     void SetGraphicsObject(class Graphics& gfx);
 
 	bool OnUserCreate() override;
-	bool OnUserUpdate(float fElapsedTime) override;
+	bool OnUserUpdate() override;
 
     void UpdateModel(float fElapsedTime);
     void ComposeFrame();
@@ -27,9 +28,16 @@ public:
 private:
     class Graphics& gfx;
     class MainWindow& wnd;
+    Time time;
+
+    unsigned int nFrameCount = 0;
+    unsigned int nFPS = 0;
+    float fTime = 0.0f;
 
     CoordinateTransformer transformer;
     Camera camera;
+
+    std::vector<Ball> balls;
 
     Plank plank;
     BallLauncher launcher;

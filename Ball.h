@@ -15,6 +15,9 @@ public:
 
     float GetRadius() const;
 
+    Vec2 GetVelocity() const;
+    void SetVelocity(const Vec2& velocity);
+
     void Update(float fElapsedTime);
 
 private:

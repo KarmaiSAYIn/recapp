@@ -1,7 +1,9 @@
 #include "Mouse.h"
+#include <assert.h>
 
 void Mouse::SetGameObject(Game *game)
 {
+    assert(this->game == nullptr);
     this-> game = game;
 }
 

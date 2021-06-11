@@ -4,6 +4,7 @@
 
 void Graphics::SetGameObject(Game *game)
 {
+    assert(this->game == nullptr);
     this->game = game;
 }
 

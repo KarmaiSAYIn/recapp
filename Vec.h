@@ -1,5 +1,4 @@
 #pragma once
-#include <cmath>
 
 template <typename T>
 class Vec2d final
@@ -25,6 +24,7 @@ public:
     Vec2d operator +(const Vec2d& rhs) const;
     Vec2d& operator +=(const Vec2d& rhs);
     Vec2d operator *(const T& rhs) const;
+    T operator *(const Vec2d<T>& other) const;
     Vec2d& operator *=(const T& rhs);
     Vec2d operator /(const T& rhs) const;
     Vec2d& operator /=(const T& rhs);

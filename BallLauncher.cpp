@@ -12,15 +12,15 @@ BallLauncher::BallLauncher(const Vec2& spawnLocation, float minVelocityX, float 
 {
 }
 
-void BallLauncher::Update(float fElapsedTime, Camera& camera)
+void BallLauncher::Update(float fElapsedTime, std::vector<Ball>& balls)
 {
     if (fTime >= fBallSpawnInterval)
     {
         fTime -= fBallSpawnInterval;
-        launchedBalls.emplace_back(spawnLocation, Vec2(xVelDist(rng), yVel), ballRadius);
+        balls.emplace_back(spawnLocation, Vec2(xVelDist(rng), yVel), ballRadius);
     }
 
-    for (auto ball = launchedBalls.begin(); ball != launchedBalls.end(); ++ball)
+    for (auto ball = balls.begin(); ball != balls.end(); ++ball)
     {
         ball->Update(fElapsedTime);
 
@@ -28,21 +28,12 @@ void BallLauncher::Update(float fElapsedTime, Camera& camera)
         const Rectf ballRect(ball->GetPos(), width, width);
         if (!ballRect.IsContainedBy(ballArea))
         {
-            int nDistance = ball - std::begin(launchedBalls) - 1;
-            launchedBalls.erase(ball);
-            ball = std::begin(launchedBalls) + nDistance;
+            int nDistance = ball - std::begin(balls) - 1;
+            balls.erase(ball);
+            ball = std::begin(balls) + nDistance;
         }
     }
 
     fTime += fElapsedTime;
-}
-
-void BallLauncher::Draw(Camera& camera) const
-{
-    for (const auto& ball : launchedBalls)
-    {
-        auto d = ball.GetDrawable();
-        camera.Draw(d);
-    }
 }
 

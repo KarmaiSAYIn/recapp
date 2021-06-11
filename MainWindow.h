@@ -12,6 +12,8 @@ public:
 
     void SetGameObject(Game *game);
 
+    void SetWindowTitle(const std::string& s);
+
 public:
     Game *game = nullptr;
     Mouse mouse;

@@ -207,7 +207,6 @@
 		  +DrawPartialRotatedDecal() - draws a rotated decal from a subset image
 	2.06: +GetTextSize() - returns area occupied by multiline string
 		  +GetWindowSize() - returns actual window size
-		  +GetElapsedTime() - returns last calculated fElapsedTime
 		  +GetWindowMouse() - returns actual mouse location in window
 		  +DrawExplicitDecal() - bow-chikka-bow-bow
 		  +DrawPartialDecal(pos, size) - draws a partial decal to specified area
@@ -300,7 +299,7 @@ public:
 		return true;
 	}
 
-	bool OnUserUpdate(float fElapsedTime) override
+	bool OnUserUpdate() override
 	{
 		// Called once per frame, draws random coloured pixels
 		for (int x = 0; x < ScreenWidth(); x++)
@@ -869,7 +868,7 @@ namespace olc
 		// Called once on application startup, use to load your resources
 		virtual bool OnUserCreate();
 		// Called every frame, and provides you with a time per frame value
-		virtual bool OnUserUpdate(float fElapsedTime);
+		virtual bool OnUserUpdate();
 		// Called once on application termination, so you can be one clean coder
 		virtual bool OnUserDestroy();
 
@@ -902,15 +901,13 @@ namespace olc
 		int32_t GetDrawTargetHeight() const;
 		// Returns the currently active draw target
 		olc::Sprite* GetDrawTarget() const;
+        // Change the window title
+        void SetWindowTitle(const std::string& s);
 		// Resize the primary screen sprite
 		void SetScreenSize(int w, int h);
 		// Specify which Sprite should be the target of drawing functions, use nullptr
 		// to specify the primary screen
 		void SetDrawTarget(Sprite* target);
-		// Gets the current Frames Per Second
-		uint32_t GetFPS() const;
-		// Gets last update of elapsed time
-		float GetElapsedTime() const;
 		// Gets Actual Window size
 		const olc::vi2d& GetWindowSize() const;
 		// Gets pixel scale
@@ -1048,9 +1045,6 @@ namespace olc
 		bool		bHasInputFocus = false;
 		bool		bHasMouseFocus = false;
 		bool		bEnableVSYNC = false;
-		float		fFrameTimer = 1.0f;
-		float		fLastElapsed = 0.0f;
-		int			nFrameCount = 0;
 		Sprite*     fontSprite = nullptr;
 		Decal*      fontDecal = nullptr;
 		Sprite*     pDefaultDrawTarget = nullptr;
@@ -1128,8 +1122,8 @@ namespace olc
 	protected:
 		virtual void OnBeforeUserCreate();
 		virtual void OnAfterUserCreate();
-		virtual void OnBeforeUserUpdate(float &fElapsedTime);
-		virtual void OnAfterUserUpdate(float fElapsedTime);
+		virtual void OnBeforeUserUpdate();
+		virtual void OnAfterUserUpdate();
 
 	protected:
 		static PixelGameEngine* pge;
@@ -1687,6 +1681,12 @@ namespace olc
 	}
 
 
+    void PixelGameEngine::SetWindowTitle(const std::string& s)
+    {
+        platform->SetWindowTitle(s);
+    }
+
+
 	void PixelGameEngine::SetScreenSize(int w, int h)
 	{
 		vScreenSize = { w, h };
@@ -1805,9 +1805,6 @@ namespace olc
 			return 0;
 	}
 
-	uint32_t PixelGameEngine::GetFPS() const
-	{ return nLastFPS; }
-
 	bool PixelGameEngine::IsFocused() const
 	{ return bHasInputFocus; }
 
@@ -1834,9 +1831,6 @@ namespace olc
 
 	int32_t PixelGameEngine::ScreenHeight() const
 	{ return vScreenSize.y; }
-
-	float PixelGameEngine::GetElapsedTime() const
-	{ return fLastElapsed; }
 
 	const olc::vi2d& PixelGameEngine::GetWindowSize() const
 	{ return vWindowSize; }
@@ -1886,7 +1880,7 @@ namespace olc
 		}
 	}
 
-    Pixel olc::PixelGameEngine::GetPixelAt(int32_t x, int32_t y) const
+    Pixel PixelGameEngine::GetPixelAt(int32_t x, int32_t y) const
     {
         assert(x < ScreenWidth() && y < ScreenHeight());
         return pDrawTarget->GetPixel(x, y);
@@ -2781,8 +2775,8 @@ namespace olc
 	bool PixelGameEngine::OnUserCreate()
 	{ return false;	}
 
-	bool PixelGameEngine::OnUserUpdate(float fElapsedTime)
-	{ UNUSED(fElapsedTime);  return false; }
+	bool PixelGameEngine::OnUserUpdate()
+	{ return false; }
 
 	bool PixelGameEngine::OnUserDestroy()
 	{ return true; }
@@ -2916,10 +2910,6 @@ namespace olc
 		std::chrono::duration<float> elapsedTime = m_tp2 - m_tp1;
 		m_tp1 = m_tp2;
 
-		// Our time per frame coefficient
-		float fElapsedTime = elapsedTime.count();
-		fLastElapsed = fElapsedTime;
-
 		// Some platforms will need to check for events
 		platform->HandleSystemEvent();
 
@@ -2958,9 +2948,9 @@ namespace olc
 		//	renderer->ClearBuffer(olc::BLACK, true);
 
 		// Handle Frame Update
-		for (auto& ext : vExtensions) ext->OnBeforeUserUpdate(fElapsedTime);
-		if (!OnUserUpdate(fElapsedTime)) bAtomActive = false;
-		for (auto& ext : vExtensions) ext->OnAfterUserUpdate(fElapsedTime);
+		for (auto& ext : vExtensions) ext->OnBeforeUserUpdate();
+		if (!OnUserUpdate()) bAtomActive = false;
+		for (auto& ext : vExtensions) ext->OnAfterUserUpdate();
 
 		// Display Frame
 		renderer->UpdateViewport(vViewPos, vViewSize);
@@ -3002,18 +2992,6 @@ namespace olc
 
 		// Present Graphics to screen
 		renderer->DisplayFrame();
-
-		// Update Title Bar
-		fFrameTimer += fElapsedTime;
-		nFrameCount++;
-		if (fFrameTimer >= 1.0f)
-		{
-			nLastFPS = nFrameCount;
-			fFrameTimer -= 1.0f;
-			std::string sTitle = sAppName + " - FPS: " + std::to_string(nFrameCount);
-			platform->SetWindowTitle(sTitle);
-			nFrameCount = 0;
-		}
 	}
 
 	void PixelGameEngine::olc_ConstructFontSheet()
@@ -3078,8 +3056,8 @@ namespace olc
 	PGEX::PGEX(bool bHook) { if(bHook) pge->pgex_Register(this); }
 	void PGEX::OnBeforeUserCreate() {}
 	void PGEX::OnAfterUserCreate()	{}
-	void PGEX::OnBeforeUserUpdate(float& fElapsedTime) {}
-	void PGEX::OnAfterUserUpdate(float fElapsedTime) {}
+	void PGEX::OnBeforeUserUpdate() {}
+	void PGEX::OnAfterUserUpdate() {}
 
 	// Need a couple of statics as these are singleton instances
 	// read from multiple locations

@@ -13,6 +13,11 @@ Plank::Plank(const Vec2& anchorPos, float freeX, int nMinY, int nMaxY, int nThic
 {
 }
 
+std::pair<Vec2, Vec2> Plank::GetPoints() const
+{
+    return std::make_pair(freePos, GetPos());
+}
+
 void Plank::Update(float fElapsedTime, Keyboard& keyboard)
 {
     float delta = 0.0f;

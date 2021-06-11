@@ -1,4 +1,5 @@
 #include "Vec.h"
+#include <cmath>
 
 template <typename T>
 template <typename B>
@@ -79,6 +80,12 @@ template <typename T>
 Vec2d<T> Vec2d<T>::operator *(const T& rhs) const
 {
     return Vec2d<T>(x * rhs, y * rhs);
+}
+
+template <typename T>
+T Vec2d<T>::operator *(const Vec2d<T>& other) const
+{
+    return (x * other.x + y * other.y);
 }
 
 template <typename T>

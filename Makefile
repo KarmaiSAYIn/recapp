@@ -1,4 +1,4 @@
-objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o Plank.o Ball.o BallLauncher.o
+objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o Plank.o Ball.o BallLauncher.o Time.o
 
 warning_flags = -Wall -pedantic -Wno-unknown-pragmas
 
@@ -26,7 +26,6 @@ ifeq ($(os_type),Darwin)
 endif
 
 build_flags += $(warning_flags)
-
 
 install : $(objects)
 	$(CC) -o output $(objects) $(build_flags) $(lib_flags)
@@ -59,6 +58,8 @@ Ball.o : Ball.cpp Ball.h
 	$(CC) -c -o Ball.o Ball.cpp $(build_flags)
 BallLauncher.o : BallLauncher.cpp BallLauncher.h
 	$(CC) -c -o BallLauncher.o BallLauncher.cpp $(build_flags)
+Time.o : Time.cpp Time.h
+	$(CC) -c -o Time.o Time.cpp $(build_flags)
 
 clean :
 	rm -f output $(objects)

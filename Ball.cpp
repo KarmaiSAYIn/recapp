@@ -49,6 +49,16 @@ float Ball::GetRadius() const
     return radius;
 }
 
+Vec2 Ball::GetVelocity() const
+{
+    return velocity;
+}
+
+void Ball::SetVelocity(const Vec2& velocity)
+{
+    this->velocity = velocity;
+}
+
 void Ball::Update(float fElapsedTime)
 {
     Translate(velocity * fElapsedTime);
