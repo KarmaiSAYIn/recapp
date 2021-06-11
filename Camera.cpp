@@ -9,9 +9,10 @@ Camera::Camera(CoordinateTransformer& transformer)
 {
 }
 
-Camera::Camera(CoordinateTransformer& transformer, float scale)
+Camera::Camera(CoordinateTransformer& transformer, float initScale, float fScaleRate)
     :
-    scale(scale),
+    scale(initScale),
+    fScaleRate(fScaleRate),
     transformer(transformer)
 {
 }
@@ -47,7 +48,7 @@ void Camera::Translate(const Vec2& offset)
     pos += offset;
 }
 
-void Camera::Update(const Mouse& mouse, const Keyboard& keyboard)
+void Camera::Update(const float fElapsedTime, const Mouse& mouse, const Keyboard& keyboard)
 {
     if (mouse.LeftDownEvent())
     {
@@ -64,9 +65,9 @@ void Camera::Update(const Mouse& mouse, const Keyboard& keyboard)
     }
 
     if (mouse.WheelUp() || keyboard.KeyIsPressed(Keyboard::Key::UP))
-        SetScale(GetScale() * 1.05f);
+        SetScale(GetScale() + fScaleRate * fElapsedTime);
     if (mouse.WheelDown() || keyboard.KeyIsPressed(Keyboard::Key::DOWN))
-        SetScale(GetScale() * 0.95f);
+        SetScale(std::max(0.01f, GetScale() - fScaleRate * fElapsedTime));
 }
 
 void Camera::Draw(Drawable& draw) const

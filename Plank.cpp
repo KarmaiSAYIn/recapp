@@ -27,7 +27,7 @@ void Plank::Update(float fElapsedTime, Keyboard& keyboard)
     if (keyboard.KeyIsPressed(Keyboard::Key::S))
         delta -= 1.0f;
 
-    freePos.y = std::clamp(freePos.y + delta * fSpeed *fElapsedTime - GetPos().y, (float)nMinY, (float)nMaxY);
+    freePos.y = std::clamp(freePos.y + delta * fSpeed * fElapsedTime - GetPos().y, (float)nMinY, (float)nMaxY);
 }
 
 Drawable Plank::GetDrawable() const

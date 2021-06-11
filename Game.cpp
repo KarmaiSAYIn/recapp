@@ -11,7 +11,7 @@ Game::Game(Graphics& gfx, MainWindow& wnd)
     gfx(gfx),
     wnd(wnd),
     transformer(gfx),
-    camera(transformer, 0.5f),
+    camera(transformer, 0.5f, 500.0f),
     plank({0.0f, 0.0f}, -1000.0f, -500, 500, 10, 500.0f),
     launcher({-150.0f, -400.0f}, -10.0f, -50.0f, 50.0f, {{-1000.0f, 600.0f}, {200, -500}})
 {
@@ -36,7 +36,10 @@ bool Game::OnUserUpdate()
     nFrameCount++;
 
     gfx.Clear();
-    UpdateModel(fElapsedTime);
+    for (float time = fUpdateSpeed; fElapsedTime > 0.0f; fElapsedTime -= fUpdateSpeed)
+    {
+        UpdateModel(time);
+    }
     ComposeFrame();
     wnd.SetWindowTitle(sAppName + " FPS: " + std::to_string(nFPS));
     return true;
@@ -44,7 +47,7 @@ bool Game::OnUserUpdate()
 
 void Game::UpdateModel(float fElapsedTime)
 {
-    camera.Update(wnd.mouse, wnd.keyboard);
+    camera.Update(fElapsedTime, wnd.mouse, wnd.keyboard);
     plank.Update(fElapsedTime, wnd.keyboard);
     launcher.Update(fElapsedTime, balls);
 
