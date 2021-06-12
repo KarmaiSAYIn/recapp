@@ -54,29 +54,9 @@ void Game::UpdateModel(float fElapsedTime)
     const auto points = plank.GetPoints();
     for (auto& ball : balls)
     {
-        const auto dy = points.second.y - points.first.y;
-        const auto dx = points.second.x - points.first.x;
+        const auto plankVec = -points.first;
+        const auto plankPerp = Vec2{plankVec.y, -plankVec.x};
         const auto ballPos = ball.GetPos();
-        Vec2 plankPerp;
-
-        if (dy == 0.0f)
-        {
-            plankPerp = {0.0f, ballPos.y > points.first.y ? 1.0f : -1.0f};
-        }
-        else if (dx == 0.0f)
-        {
-            plankPerp = {ballPos.x > points.first.x ? 1.0f : -1.0f, 0.0f};
-        }
-        else
-        {
-            const auto m = dy / dx;
-            const auto w = -dx / dy;
-            const auto b = points.first.y - m * points.first.x;
-            const auto p = ballPos.y - w * ballPos.x;
-            const auto x = (p - b) / (m - w);
-            const auto y = m * x + b;
-            plankPerp = (ballPos - Vec2{x, y}).GetNormalized();
-        }
 
         if (plankPerp * ball.GetVelocity() < 0.0f)
         {
