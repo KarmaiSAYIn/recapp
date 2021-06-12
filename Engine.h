@@ -289,7 +289,6 @@ public:
 	Example()
 	{
 		// Name your application
-		sAppName = "Example";
 	}
 
 public:
@@ -485,6 +484,7 @@ int main()
 // | olcPixelGameEngine INTERFACE DECLARATION                                     |
 // O------------------------------------------------------------------------------O
 #pragma region pge_declaration
+#define WINDOWNAME "Recapp"
 namespace olc
 {
 	class PixelGameEngine;
@@ -1020,9 +1020,6 @@ namespace olc
 		void ClearBuffer(Pixel p, bool bDepth = true);
 		// Returns the font image
 		olc::Sprite* GetFontSprite();
-
-	public: // Branding
-		std::string sAppName;
 
 	private: // Inner mysterious workings
 		Sprite*     pDrawTarget = nullptr;
@@ -1652,7 +1649,6 @@ namespace olc
 	// O------------------------------------------------------------------------------O
 	PixelGameEngine::PixelGameEngine()
 	{
-		sAppName = "Undefined";
 		olc::PGEX::pge = this;
 
 		// Bring in relevant Platform & Rendering systems depending
@@ -4269,7 +4265,6 @@ namespace olc
 	{
 	private:
 		HWND olc_hWnd = nullptr;
-		std::wstring wsAppName;
 
 		std::wstring ConvertS2W(std::string s)
 		{
@@ -4541,6 +4536,15 @@ namespace olc
 
 			Atom wmDelete = XInternAtom(olc_Display, "WM_DELETE_WINDOW", true);
 			XSetWMProtocols(olc_Display, olc_Window, &wmDelete, 1);
+
+            char *winName = (char*)malloc(sizeof(char) * strlen(WINDOWNAME) + 1);
+            strcpy(winName, WINDOWNAME);
+            XClassHint *classHint = XAllocClassHint();
+            classHint->res_name = winName;
+            classHint->res_class = winName;
+            XSetClassHint(olc_Display, olc_Window, classHint);
+            free(winName);
+            XFree(classHint);
 
 			XMapWindow(olc_Display, olc_Window);
 			XStoreName(olc_Display, olc_Window, "OneLoneCoder.com - Pixel Game Engine");

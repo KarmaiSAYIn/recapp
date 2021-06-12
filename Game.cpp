@@ -14,7 +14,6 @@ Game::Game(Graphics& gfx, MainWindow& wnd)
     plank({0.0f, 0.0f}, -1000.0f, -500, 500, 10, 250.0f),
     launcher({-150.0f, -400.0f}, -10.0f, -50.0f, 50.0f, {{-1000.0f, 600.0f}, {200, -500}})
 {
-    sAppName = "Recapp";
 }
 
 bool Game::OnUserCreate()
@@ -41,7 +40,7 @@ bool Game::OnUserUpdate()
     }
 
     ComposeFrame();
-    wnd.SetWindowTitle(sAppName + " FPS: " + std::to_string(nFPS));
+    wnd.SetWindowTitle(std::string(WINDOWNAME) + " FPS: " + std::to_string(nFPS));
     return true;
 }
 
