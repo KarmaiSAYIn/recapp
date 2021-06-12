@@ -42,5 +42,5 @@ private:
     Plank plank;
     BallLauncher launcher;
 
-    static constexpr float fUpdateSpeed = 0.000025;
+    static constexpr float fUpdateSpeed = 0.000025f;
 };

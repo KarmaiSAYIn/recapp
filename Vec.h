@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 template <typename T>
 class Vec2d final
@@ -43,3 +44,10 @@ public:
 
 using Vei2 = Vec2d<int>;
 using Vec2 = Vec2d<float>;
+
+template <typename T>
+const Vec2d<T>& operator <<(std::ostream& out, const Vec2d<T>& v)
+{
+    out << '(' << v.x << ", " << v.y << ")\n";
+    return v;
+}

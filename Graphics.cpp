@@ -55,11 +55,9 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
         return;
     }
 
-    float m = 0.0f;
-    if (p0 != p1)
-        m = (p1.y - p0.y) / (p1.x - p0.x);
+    float m = (p1.y - p0.y) / (p1.x - p0.x);
 
-    if (p0 != p1 && std::abs(m) <= 1.0f)
+    if (p0.x != p1.x && std::abs(m) <= 1.0f)
     {
         if (p0.x > p1.x)
             std::swap(p0, p1);
