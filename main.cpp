@@ -10,7 +10,7 @@ int main()
     Game theGame(gfx, wnd);
     gfx.SetGameObject(&theGame);
     wnd.SetGameObject(&theGame);
-	if (theGame.Construct(Graphics::ScreenWidth, Graphics::ScreenHeight, 1, 1))
+	if (theGame.Construct(Graphics::ScreenWidth, Graphics::ScreenHeight, 1, 1, true))
 		theGame.Start();
 
 	return 0;
