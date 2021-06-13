@@ -180,7 +180,8 @@ Vec2d<T>& Vec2d<T>::Normalize()
     if( norm != 0 )
     {
         norm = 1 / norm;
-        return {x * norm, y * norm};
+        x = x * norm;
+        y = y * norm;
     }
     return *this;
 }
@@ -188,5 +189,5 @@ Vec2d<T>& Vec2d<T>::Normalize()
 template <typename T>
 Vec2d<T> Vec2d<T>::GetNormalized() const
 {
-    return Vec2d<T>(*this).GetNormalized();
+    return Vec2d<T>(*this).Normalize();
 }
