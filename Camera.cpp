@@ -2,9 +2,12 @@
 #include "Graphics.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "Math.h"
 
-Camera::Camera(CoordinateTransformer& transformer)
+Camera::Camera(CoordinateTransformer& transformer, float fSpeed, float scale)
     :
+    scale(scale),
+    fSpeed(fSpeed),
     transformer(transformer)
 {
 }
@@ -22,7 +25,11 @@ float Camera::GetScale() const
 Rectf Camera::GetRect() const
 {
     const float zoom = 1.0f / scale;
-    return Rectf(pos, Graphics::ScreenWidth * zoom, Graphics::ScreenHeight * zoom);
+    //This commented area would be the way to get the rect of the camera, but it requires a proper arbitrary Rect implementation wich is hard asf; put that shit off until later.
+    //auto rect = Rectf({0.0f, 0.0f}, Graphics::ScreenWidth * zoom, Graphics::ScreenHeight * zoom).Rotate(rotation);
+    //rect.Translate(pos);
+    auto rect = Rectf(pos, Graphics::ScreenWidth * zoom, Graphics::ScreenHeight * zoom);
+    return rect;
 }
 
 void Camera::SetPos(const Vec2& pos)
@@ -33,6 +40,12 @@ void Camera::SetPos(const Vec2& pos)
 void Camera::SetScale(float scale)
 {
     this->scale = scale; 
+}
+
+void Camera::Rotate(float theta)
+{
+    rotation += theta;
+    pos.Rotate(theta);
 }
 
 void Camera::Translate(const Vec2& offset)
@@ -57,13 +70,20 @@ void Camera::Update(float fElapsedTime, Keyboard& keyboard, Mouse& mouse)
     }
 
     if (mouse.WheelUp() || keyboard.KeyIsPressed(Keyboard::Key::UP))
-        SetScale(GetScale() * 1.05f);
+        SetScale(GetScale() + fSpeed * fElapsedTime);
     if (mouse.WheelDown() || keyboard.KeyIsPressed(Keyboard::Key::DOWN))
-        SetScale(GetScale() * 0.95f);
+        SetScale(std::max(0.05f, GetScale() - fSpeed * fElapsedTime));
+
+    if (keyboard.KeyIsPressed(Keyboard::Key::Q))
+        Rotate(PI / 4 * fElapsedTime);
+
+    if (keyboard.KeyIsPressed(Keyboard::Key::E))
+        Rotate(-PI / 4 * fElapsedTime);
 }
 
 void Camera::Draw(Drawable& draw) const
 {
+    draw.Rotate(rotation);
     draw.Translate(-pos);
     draw.Scale(scale);
     transformer.Draw(draw);

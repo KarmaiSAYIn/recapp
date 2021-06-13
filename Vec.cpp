@@ -149,7 +149,7 @@ Vec2d<T>& Vec2d<T>::Rotate(T theta)
 }
 
 template <typename T>
-Vec2d<T> Vec2d<T>::GetRotated(T theta)
+Vec2d<T> Vec2d<T>::GetRotated(T theta) const
 {
     return Vec2d<T>(*this).Rotate(theta);
 }
