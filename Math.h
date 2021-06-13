@@ -1,6 +1,9 @@
 #pragma once
 #include "Vec.h"
 
+static constexpr double PI_D = 3.141592653589793238462643383279;
+static constexpr float PI = (float)PI_D;
+
 template <typename T>
 T sq(T n)
 {

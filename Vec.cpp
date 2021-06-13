@@ -143,6 +143,25 @@ bool Vec2d<T>::operator >=(const Vec2d<T>& rhs) const
 }
 
 template <typename T>
+Vec2d<T>& Vec2d<T>::Rotate(T theta)
+{
+    const auto cosTheta = cos(theta);
+    const auto sinTheta = sin(theta);
+
+    const auto new_x = x * cosTheta - y * sinTheta;
+    y = x * sinTheta + y * cosTheta;
+    x = new_x;
+
+    return *this;
+}
+
+template <typename T>
+Vec2d<T> Vec2d<T>::GetRotated(T theta)
+{
+    return Vec2d<T>(*this).Rotate(theta);
+}
+
+template <typename T>
 T Vec2d<T>::GetDistanceSq() const
 {
     return T(x * x + y * y);
@@ -155,7 +174,7 @@ T Vec2d<T>::GetDistance() const
 }
 
 template <typename T>
-Vec2d<T> Vec2d<T>::GetNormalized() const
+Vec2d<T>& Vec2d<T>::Normalize()
 {
     T norm = GetDistance();
     if( norm != 0 )
@@ -164,4 +183,10 @@ Vec2d<T> Vec2d<T>::GetNormalized() const
         return {x * norm, y * norm};
     }
     return *this;
+}
+
+template <typename T>
+Vec2d<T> Vec2d<T>::GetNormalized() const
+{
+    return Vec2d<T>(*this).GetNormalized();
 }
