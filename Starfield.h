@@ -13,14 +13,11 @@ public:
     Starfield() = delete;
     Starfield(const Starfield&) = delete;
     Starfield(Starfield&&) = delete;
-    Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, unsigned minFlares, unsigned maxFlares, unsigned nStarCount = 10);
+    Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, float minRotation, float maxRotation, unsigned minFlares, unsigned maxFlares, unsigned nStarCount = 10);
 
     void Update(float fElapsedTime);
     void Draw(Camera& camera) const;
 
 private:
-    float minRadius;
-    float maxRadius;
-
     std::vector<Star> field;
 };

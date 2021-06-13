@@ -1,10 +1,8 @@
 #include "Starfield.h"
+#include "Math.h"
 #include <random>
 
-Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, unsigned minFlares, unsigned maxFlares, unsigned nStarCount)
-    :
-    minRadius(minRadius),
-    maxRadius(maxRadius)
+Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, float minRotation, float maxRotation, unsigned minFlares, unsigned maxFlares, unsigned nStarCount)
 {
     if (minFlares > maxFlares)
         std::swap(minFlares, maxFlares);
@@ -15,6 +13,7 @@ Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, 
     std::uniform_int_distribution<int> flareDist(minFlares, maxFlares + 1);
     std::uniform_int_distribution<int> colorDist(0, 10);
     std::uniform_real_distribution<float> radiusDist(minRadius, std::nextafterf(maxRadius, std::numeric_limits<float>::max()));
+    std::uniform_real_distribution<float> rotationDist(minRotation, std::nextafterf(maxRotation, std::numeric_limits<float>::max()));
 
     Color colors[] = {
         Colors::BLUE,
@@ -51,13 +50,17 @@ Starfield::Starfield(int nWidth, int nHeight, float minRadius, float maxRadius, 
         nFlareCount = flareDist(rng);
         color = colors[colorDist(rng)];
         
-        field.emplace_back(pos, bigRadius, littleRadius, nFlareCount, color);
+        field.emplace_back(pos, bigRadius, littleRadius, rotationDist(rng), nFlareCount, color);
     }
 }
 
 
 void Starfield::Update(float fElapsedTime)
 {
+    for (auto& star : field)
+    {
+        star.Update(fElapsedTime);
+    }
 }
 
 void Starfield::Draw(Camera& camera) const

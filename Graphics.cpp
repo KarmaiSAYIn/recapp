@@ -84,12 +84,20 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
     }
 }
 
-void Graphics::DrawClosedPolyline(const std::vector<Vec2> &vertices, const Vec2 &translation, float scale_x, float scale_y, Color c)
+void Graphics::DrawClosedPolyline(const std::vector<Vec2> &vertices, const Vec2 &translation, float scale_x, float scale_y, float rotation, Color c)
 {
+    float sinRotation = sin(rotation);
+    float cosRotation = cos(rotation);
     const auto transform = [&](Vec2 v)
     {
+        //Rotate
+        const float new_x = v.x * cosRotation - v.y * sinRotation;
+        v.y = v.x * sinRotation + v.y * cosRotation;
+        v.x = new_x;
+        //Scale
         v.x *= scale_x;
         v.y *= scale_y;
+        //Translate
         v += translation;
         return v;
     };

@@ -1,5 +1,7 @@
 #include "Camera.h"
 #include "Graphics.h"
+#include "Keyboard.h"
+#include "Mouse.h"
 
 Camera::Camera(CoordinateTransformer& transformer)
     :
@@ -36,6 +38,28 @@ void Camera::SetScale(float scale)
 void Camera::Translate(const Vec2& offset)
 {
     pos += offset;
+}
+
+void Camera::Update(float fElapsedTime, Keyboard& keyboard, Mouse& mouse)
+{
+    if (mouse.LeftDownEvent())
+    {
+        lastPos = mouse.GetPos();
+        lastPos.y = -lastPos.y;
+    }
+
+    if (mouse.LeftIsPressed())
+    {
+        Vec2 currMousePos = mouse.GetPos();
+        currMousePos.y = -currMousePos.y;
+        Translate((lastPos - currMousePos) / GetScale());
+        lastPos = currMousePos;
+    }
+
+    if (mouse.WheelUp() || keyboard.KeyIsPressed(Keyboard::Key::UP))
+        SetScale(GetScale() * 1.05f);
+    if (mouse.WheelDown() || keyboard.KeyIsPressed(Keyboard::Key::DOWN))
+        SetScale(GetScale() * 0.95f);
 }
 
 void Camera::Draw(Drawable& draw) const

@@ -1,7 +1,7 @@
 #include "Drawable.h"
 #include "Graphics.h"
 
-Drawable::Drawable(std::vector<Vec2> &model, Color c)
+Drawable::Drawable(const std::vector<Vec2> &model, Color c)
     :
     c(c),
     model(&model)
@@ -27,6 +27,12 @@ void Drawable::ScaleY(float scale_y)
     translation.y *= scale_y;
 }
 
+void Drawable::Rotate(float theta)
+{
+    rotation += theta;
+    translation.Rotate(theta);
+}
+
 void Drawable::Translate(const Vec2& offset)
 {
     translation += offset;
@@ -34,6 +40,6 @@ void Drawable::Translate(const Vec2& offset)
 
 void Drawable::Draw(Graphics& gfx) const
 {
-    gfx.DrawClosedPolyline(*model, translation, scale_x, scale_y, c);
+    gfx.DrawClosedPolyline(*model, translation, scale_x, scale_y, rotation, c);
 }
 

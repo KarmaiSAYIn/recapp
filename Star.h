@@ -5,7 +5,7 @@
 #include "Drawable.h"
 #include "Rect.h"
 
-class Star final
+class Star : public Entity
 {
 public:
     Star() = default;
@@ -13,20 +13,26 @@ public:
     Star& operator =(const Star& other);
     Star(Star&& other);
     Star& operator =(Star&& other);
-    Star(const Vec2& pos, float outerRadius, float innerRadius, int nFlares = 5, Color c = Colors::YELLOW);
+    Star(const Vec2& pos, float outerRadius, float innerRadius, float rotationSpeed, int nFlares = 5, Color c = Colors::YELLOW);
 
-    Vec2 GetPos() const;
+    static std::vector<Vec2> Make(float outerRadius, float innerRadius, int nFlares = 5);
+
     Rectf GetRect() const;
     float GetInnerRadius() const;
     float GetOuterRadius() const;
-    Color GetColor() const;
+    //Color GetColor() const;
+
+    void Update(float fElapsedTime);
 
     Drawable GetDrawable() const;
 
 private:
-    Color c;
+    void UpdateRotation();
+
+private:
     float innerRadius = 0.0f;
     float outerRadius = 0.0f;
-    Vec2 pos = {0.0f, 0.0f};
-    mutable std::vector<Vec2> star;
+    float rotation = 0.0f;
+    const float rotationSpeed = 0.0f;
+    float time = 0.0f;
 };
