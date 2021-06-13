@@ -27,6 +27,13 @@ void Drawable::ScaleY(float scale_y)
     translation.y *= scale_y;
 }
 
+void Drawable::Rotate(float theta)
+{
+    rotation += theta;
+    //I don't know if this actually does anything, but the guide that I'm following says it's necessary... I'll exclude it for now:
+    //translation.Rotate(theta);
+}
+
 void Drawable::Translate(const Vec2& offset)
 {
     translation += offset;
@@ -34,6 +41,6 @@ void Drawable::Translate(const Vec2& offset)
 
 void Drawable::Draw(Graphics& gfx) const
 {
-    gfx.DrawClosedPolyline(*model, translation, scale_x, scale_y, c);
+    gfx.DrawClosedPolyline(*model, translation, scale_x, scale_y, rotation, c);
 }
 
