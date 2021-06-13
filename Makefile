@@ -1,6 +1,6 @@
 objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o Plank.o Ball.o BallLauncher.o Time.o
 
-warning_flags = -Wall -pedantic -Wno-unknown-pragmas
+warning_flags = -Wall -Wextra -pedantic -Wno-unknown-pragmas -Wno-unused-parameter
 
 # Handle debug or release compile; debug without any arguements,
 # pass -r if you want release. As far as my knowledge goes, if you compile for debug before release,
