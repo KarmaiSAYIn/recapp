@@ -6,7 +6,7 @@
 class Drawable
 {
 public: 
-    Drawable(std::vector<Vec2>& model, Color c);
+    Drawable(const std::vector<Vec2>& model, Color c);
 
     void Scale(float scale);
     void ScaleX(float scale_x);
