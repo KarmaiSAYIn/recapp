@@ -6,7 +6,7 @@
 class Entity
 {
 public:
-    Entity(std::vector<Vec2> model, const Vec2& pos = {0.0f, 0.0f}, Color c = Colors::YELLOW);
+    Entity(std::vector<Vec2> model, const Vec2& pos = {0.0f, 0.0f}, Color c = Colors::Yellow);
     virtual ~Entity() = default;
 
     virtual Vec2 GetPos() const;

@@ -20,7 +20,7 @@ public:
     void Update(const float fElapsedTime, const class Mouse& mouse, const class Keyboard& keyboard);
 
     void Draw(Drawable& draw) const;
-    void DrawRect(Rectf rect, Color c = Colors::RED) const;
+    void DrawRect(Rectf rect, Color c = Colors::Red) const;
 
 private:
     float scale = 1.0f;

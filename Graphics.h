@@ -20,7 +20,7 @@ public:
     Color GetPixel(int x, int y) const;
     Color GetPixel(const Vei2& pos) const;
     Recti GetRect() const;
-    void Clear(Color c = Colors::BLACK);
+    void Clear(Color c = Colors::Black);
 
     // Shape draw functions
     void DrawLine(Vec2 p0, Vec2 p1, Color c);

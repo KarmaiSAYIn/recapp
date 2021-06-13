@@ -5,7 +5,7 @@
 class Plank : public Entity
 {
 public:
-    Plank(const Vec2& anchorPos, float freeX, int nMinY, int nMaxY, int nThickness, float fSpeed, Color c = Colors::YELLOW);
+    Plank(const Vec2& anchorPos, float freeX, int nMinY, int nMaxY, int nThickness, float fSpeed, Color c = Colors::Yellow);
     ~Plank() = default;
     
     std::pair<Vec2, Vec2> GetPoints() const;

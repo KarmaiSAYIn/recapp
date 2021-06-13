@@ -7,7 +7,7 @@ class Ball : public Entity
 {
 public:
     Ball() = delete;
-    Ball(Vec2 pos, Vec2 velocity, float radius, Color c = Colors::RED);
+    Ball(Vec2 pos, Vec2 velocity, float radius, Color c = Colors::Red);
     Ball(const Ball& other);
     Ball& operator =(const Ball& other);
     Ball(Ball&& other);
