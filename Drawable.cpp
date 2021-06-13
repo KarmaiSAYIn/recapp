@@ -1,7 +1,7 @@
 #include "Drawable.h"
 #include "Graphics.h"
 
-Drawable::Drawable(std::vector<Vec2>& model, Color c)
+Drawable::Drawable(const std::vector<Vec2> &model, Color c)
     :
     c(c),
     model(&model)
@@ -30,8 +30,7 @@ void Drawable::ScaleY(float scale_y)
 void Drawable::Rotate(float theta)
 {
     rotation += theta;
-    //I don't know if this actually does anything, but the guide that I'm following says it's necessary... I'll exclude it for now:
-    //translation.Rotate(theta);
+    translation.Rotate(theta);
 }
 
 void Drawable::Translate(const Vec2& offset)

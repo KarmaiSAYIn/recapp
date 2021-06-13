@@ -18,6 +18,16 @@ void Entity::SetPos(const Vec2& pos)
     this->pos = pos;
 }
 
+float Entity::GetRotation() const
+{
+    return rotation;
+}
+
+void Entity::SetRotation(const float rotation)
+{
+    this->rotation = rotation;
+}
+
 void Entity::SetScale(float scale)
 {
     this->scale = scale;
@@ -36,19 +46,10 @@ void Entity::Translate(const Vec2& offset)
 Drawable Entity::GetDrawable() const
 {
    Drawable r(model, c);
+   r.Rotate(rotation);
    r.Scale(scale);
    r.Translate(pos);
    return r;
-}
-
-std::vector<Vec2> Entity::GetModel() const
-{
-    return model;
-}
-
-std::vector<Vec2>&& Entity::MoveModel() const
-{
-    return std::move(model);
 }
 
 Color Entity::GetColor() const
@@ -56,9 +57,19 @@ Color Entity::GetColor() const
     return c;
 }
 
-void Entity::SetColor(const Color& c)
+void Entity::SetColor(Color c)
 {
     this->c = c;
+}
+
+const std::vector<Vec2>& Entity::GetModel() const
+{
+    return model;
+}
+
+std::vector<Vec2> Entity::MoveModel()
+{
+    return std::move(model);
 }
 
 void Entity::SetModel(std::vector<Vec2> model) const

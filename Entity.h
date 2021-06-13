@@ -12,25 +12,29 @@ public:
     virtual Vec2 GetPos() const;
     virtual void SetPos(const Vec2 &pos);
 
+    virtual float GetRotation() const;
+    virtual void SetRotation(const float rotation);
+
     virtual void SetScale(float scale);
     virtual float GetScale() const;
 
     virtual void Translate(const Vec2& offset);
-
     virtual Drawable GetDrawable() const;
 
 protected:
-    std::vector<Vec2> GetModel() const;
-    std::vector<Vec2>&& MoveModel() const;
+    Entity() = default;
 
     Color GetColor() const;
-    void SetColor(const Color& c);
+    void SetColor(Color c);
 
+    const std::vector<Vec2>& GetModel() const;
+    std::vector<Vec2> MoveModel();
     void SetModel(std::vector<Vec2> model) const;
 
 private:
     Color c;
     float scale = 1.0f;
+    float rotation = 0.0f;
     Vec2 pos;
     mutable std::vector<Vec2> model;
 };

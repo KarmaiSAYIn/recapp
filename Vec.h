@@ -36,7 +36,7 @@ public:
     bool operator >(const Vec2d& rhs) const;
     bool operator >=(const Vec2d<T>& rhs) const;
     Vec2d& Rotate(T theta);
-    Vec2d GetRotated(T theta);
+    Vec2d GetRotated(T theta) const;
     T GetDistanceSq() const;
     T GetDistance() const;
     Vec2d& Normalize();

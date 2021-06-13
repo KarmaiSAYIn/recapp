@@ -91,11 +91,19 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
 void Graphics::DrawClosedPolyline(const std::vector<Vec2>& vertices, const Vec2& translation, float scale_x, float scale_y, float rotation, Color c)
 {
     assert(vertices.size() > 2); // If there are only two points you should be calling Graphics::DrawLine; also if there are no points then we get a good ol' segmentation fault.
+
+    float sinRotation = sin(rotation);
+    float cosRotation = cos(rotation);
     const auto transform = [&](Vec2 v)
     {
-        v.Rotate(rotation);
+        //Rotate
+        const float new_x = v.x * cosRotation - v.y * sinRotation;
+        v.y = v.x * sinRotation + v.y * cosRotation;
+        v.x = new_x;
+        //Scale
         v.x *= scale_x;
         v.y *= scale_y;
+        //Translate
         v += translation;
         return v;
     };
