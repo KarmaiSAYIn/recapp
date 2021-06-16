@@ -20,7 +20,7 @@ ifeq ($(os_type),Linux)
 endif
 ifeq ($(os_type),Darwin)
 	CC = clang++
-	build_flags += -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 
+	build_flags += -arch x86_64 -std=c++17 -mmacosx-version-min=10.15
 	lib_flags = -framework OpenGL -framework GLUT -lpng
 	warning_flags += -Wno-unused-private-field -Wno-missing-braces
 endif
