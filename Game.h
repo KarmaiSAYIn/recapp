@@ -34,10 +34,14 @@ private:
     unsigned int nFPS = 0;
     float fTime = 0.0f;
 
+    float rotation = 0.0f;
+    float scale = 0.0f;
+
     CoordinateTransformer transformer;
     Camera camera;
 
     std::vector<Ball> balls;
+    std::vector<Vec2> star;
 
     Plank plank;
     BallLauncher launcher;

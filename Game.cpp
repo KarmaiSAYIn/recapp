@@ -5,6 +5,7 @@
 #include "Star.h"
 #include "Drawable.h"
 #include "Math.h"
+#include "Matrix.h"
 
 Game::Game(Graphics& gfx, MainWindow& wnd)
     :
@@ -23,6 +24,7 @@ bool Game::OnUserCreate()
 
 bool Game::OnUserUpdate()
 {
+
     float fElapsedTime = time.Mark();
     fTime += fElapsedTime;
     if (fTime >= 1.0f)
@@ -41,42 +43,58 @@ bool Game::OnUserUpdate()
 
     ComposeFrame();
     wnd.SetWindowTitle(std::string(WINDOWNAME) + " FPS: " + std::to_string(nFPS));
+
+    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::SPACE))
+        return false;
     return true;
 }
 
 void Game::UpdateModel(float fElapsedTime)
 {
-    camera.Update(fElapsedTime, wnd.mouse, wnd.keyboard);
-    launcher.Update(fElapsedTime, balls);
-    plank.Update(fElapsedTime, wnd.keyboard);
+    rotation += -PI / 4 * fElapsedTime;
+    scale += 1.0f + 0.05 * fElapsedTime;
 
-    const auto points = plank.GetPoints();
-    for (auto& ball : balls)
+    Mat3 transformations =  Mat3::Translate({300.0f, 300.0f}) * Mat3::FlipY() * Mat3::Rotate(rotation);
+
+    star = Star::Make(100.0f, 50.0f);
+    for (auto& v : star)
     {
-        const auto plankVec = -points.first;
-        const auto plankPerp = Vec2{plankVec.y, -plankVec.x};
-        const auto ballPos = ball.GetPos();
-
-        if (plankPerp * ball.GetVelocity() < 0.0f)
-        {
-            if (DistancePointLine(ballPos, points.first, points.second) <= ball.GetRadius()) 
-            {
-                const Vec2 w = (-points.first).GetNormalized();
-                const Vec2 v = ball.GetVelocity();
-                ball.SetVelocity(w * (v * w) * 2.0f - v);
-            }
-        }
+      v *= transformations;
     }
+
+    camera.Update(fElapsedTime, wnd.mouse, wnd.keyboard);
+    //launcher.Update(fElapsedTime, balls);
+    //plank.Update(fElapsedTime, wnd.keyboard);
+
+    //const auto points = plank.GetPoints();
+    //for (auto& ball : balls)
+    //{
+        //const auto plankVec = -points.first;
+        //const auto plankPerp = Vec2{plankVec.y, -plankVec.x};
+        //const auto ballPos = ball.GetPos();
+
+        //if (plankPerp * ball.GetVelocity() < 0.0f)
+        //{
+            //if (DistancePointLine(ballPos, points.first, points.second) <= ball.GetRadius()) 
+            //{
+                //const Vec2 w = (-points.first).GetNormalized();
+                //const Vec2 v = ball.GetVelocity();
+                //ball.SetVelocity(w * (v * w) * 2.0f - v);
+            //}
+        //}
+    //}
 }
 
 void Game::ComposeFrame()
 {
-    Drawable d = plank.GetDrawable();
+    auto d = Drawable(star, Colors::Red);
     camera.Draw(d);
+    //d = plank.GetDrawable();
+    //camera.Draw(d);
 
-    for (const auto& ball : balls)
-    {
-        Drawable d = ball.GetDrawable();
-        camera.Draw(d);
-    }
+    //for (const auto& ball : balls)
+    //{
+        //Drawable d = ball.GetDrawable();
+        //camera.Draw(d);
+    //}
 }

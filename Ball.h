@@ -1,7 +1,6 @@
 #pragma once
 #include "Entity.h"
 #include "Star.h"
-#include <iostream>
 
 class Ball : public Entity
 {
