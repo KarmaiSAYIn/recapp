@@ -1051,7 +1051,6 @@ namespace olc
 		bool        bPixelCohesion = false;
 		DecalMode   nDecalMode = DecalMode::NORMAL;
 		std::function<olc::Pixel(const int x, const int y, const olc::Pixel&, const olc::Pixel&)> funcPixelMode;
-		std::chrono::time_point<std::chrono::system_clock> m_tp1, m_tp2;
 		std::vector<olc::vi2d> vFontSpacing;
 
 		// State of keyboard		
@@ -2893,19 +2892,11 @@ namespace olc
 		vLayers[0].bUpdate = true;
 		vLayers[0].bShow = true;
 		SetDrawTarget(nullptr);
-
-		m_tp1 = std::chrono::system_clock::now();
-		m_tp2 = std::chrono::system_clock::now();
 	}
 
 
 	void PixelGameEngine::olc_CoreUpdate()
 	{
-		// Handle Timing
-		m_tp2 = std::chrono::system_clock::now();
-		std::chrono::duration<float> elapsedTime = m_tp2 - m_tp1;
-		m_tp1 = m_tp2;
-
 		// Some platforms will need to check for events
 		platform->HandleSystemEvent();
 
