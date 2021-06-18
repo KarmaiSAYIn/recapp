@@ -46,9 +46,11 @@ void Entity::Translate(const Vec2& offset)
 Drawable Entity::GetDrawable() const
 {
    Drawable r(model, c);
-   r.Rotate(rotation);
-   r.Scale(scale);
-   r.Translate(pos);
+   r.Transform(
+           Mat3::Translate((Vec3)pos) *
+           Mat3::Scale(scale) *
+           Mat3::Rotate(rotation)
+           );
    return r;
 }
 

@@ -3,6 +3,7 @@
 #include "Color.h"
 #include "Game.h"
 #include "Rect.h"
+#include "Matrix.h"
 
 class Graphics final
 {
@@ -24,7 +25,7 @@ public:
 
     // Shape draw functions
     void DrawLine(Vec2 p0, Vec2 p1, Color c);
-    void DrawClosedPolyline(const std::vector<Vec2>& vertices, const Vec2& translation, float scale_x, float scale_y, float rotation, Color c);
+    void DrawClosedPolyline(const std::vector<Vec2>& vertices, const Mat3& transformations, Color c);
     void DrawCircle(const Vei2& center, int radius, Color c);
     void DrawRect(const Recti& rect, Color c);
 

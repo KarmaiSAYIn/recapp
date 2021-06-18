@@ -24,7 +24,6 @@ bool Game::OnUserCreate()
 
 bool Game::OnUserUpdate()
 {
-
     float fElapsedTime = time.Mark();
     fTime += fElapsedTime;
     if (fTime >= 1.0f)
@@ -43,18 +42,17 @@ bool Game::OnUserUpdate()
 
     ComposeFrame();
     wnd.SetWindowTitle(std::string(WINDOWNAME) + " FPS: " + std::to_string(nFPS));
-
-    if (wnd.keyboard.KeyIsPressed(Keyboard::Key::SPACE))
-        return false;
     return true;
 }
 
 void Game::UpdateModel(float fElapsedTime)
 {
-    rotation += -PI / 4 * fElapsedTime;
-    scale += 1.0f + 0.05 * fElapsedTime;
+    const auto tform = Mat3::Rotate(0.3f);
+    const auto tform2 = Mat3::Scale(2.0f);
+    const auto tform3 = Mat3::FlipY();
+    const auto tform4 = Mat3::Translate({100.0f, 100.0f});
 
-    Mat3 transformations =  Mat3::Translate({300.0f, 300.0f}) * Mat3::FlipY() * Mat3::Rotate(rotation);
+    const auto transformations = tform3 * tform * tform2 * tform4;
 
     star = Star::Make(100.0f, 50.0f);
     for (auto& v : star)
@@ -63,38 +61,10 @@ void Game::UpdateModel(float fElapsedTime)
     }
 
     camera.Update(fElapsedTime, wnd.mouse, wnd.keyboard);
-    //launcher.Update(fElapsedTime, balls);
-    //plank.Update(fElapsedTime, wnd.keyboard);
-
-    //const auto points = plank.GetPoints();
-    //for (auto& ball : balls)
-    //{
-        //const auto plankVec = -points.first;
-        //const auto plankPerp = Vec2{plankVec.y, -plankVec.x};
-        //const auto ballPos = ball.GetPos();
-
-        //if (plankPerp * ball.GetVelocity() < 0.0f)
-        //{
-            //if (DistancePointLine(ballPos, points.first, points.second) <= ball.GetRadius()) 
-            //{
-                //const Vec2 w = (-points.first).GetNormalized();
-                //const Vec2 v = ball.GetVelocity();
-                //ball.SetVelocity(w * (v * w) * 2.0f - v);
-            //}
-        //}
-    //}
 }
 
 void Game::ComposeFrame()
 {
     auto d = Drawable(star, Colors::Red);
     camera.Draw(d);
-    //d = plank.GetDrawable();
-    //camera.Draw(d);
-
-    //for (const auto& ball : balls)
-    //{
-        //Drawable d = ball.GetDrawable();
-        //camera.Draw(d);
-    //}
 }

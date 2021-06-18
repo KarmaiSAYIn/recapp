@@ -9,8 +9,10 @@ CoordinateTransformer::CoordinateTransformer(Graphics& gfx)
 void CoordinateTransformer::Draw(Drawable& draw) const
 {
     auto offset = Vec2((float)Graphics::ScreenWidth / 2, (float)Graphics::ScreenHeight / 2);
-    draw.ScaleY(-1.0f);
-    draw.Translate(offset);
+    draw.Transform(
+            Mat3::Translate((Vec3)offset) *
+            Mat3::FlipY()
+            );
     draw.Draw(gfx);
 }
 

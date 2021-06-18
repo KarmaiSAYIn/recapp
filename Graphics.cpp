@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include "Drawable.h"
 #include <vector>
 #include <assert.h>
 
@@ -79,7 +80,7 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
         const float w = (p1.x - p0.x) / (p1.y - p0.y);
         const float p = p0.x - w * p0.y;
 
-        for (int y = (int)p0.y; y < (int)p1.y; ++y)
+        for (int y = (int)p0.y; y <= (int)p1.y; ++y)
         {
             const float x = w * (float)y + p;
             if (x >= 0 && x < ScreenWidth && y >= 0 && y < ScreenHeight)
@@ -88,31 +89,15 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
     }
 }
 
-void Graphics::DrawClosedPolyline(const std::vector<Vec2>& vertices, const Vec2& translation, float scale_x, float scale_y, float rotation, Color c)
+void Graphics::DrawClosedPolyline(const std::vector<Vec2>& vertices, const Mat3& transformations, Color c)
 {
     assert(vertices.size() > 2); // If there are only two points you should be calling Graphics::DrawLine; also if there are no points then we get a good ol' segmentation fault.
 
-    float sinRotation = sin(rotation);
-    float cosRotation = cos(rotation);
-    const auto transform = [&](Vec2 v)
-    {
-        //Rotate
-        const float new_x = v.x * cosRotation - v.y * sinRotation;
-        v.y = v.x * sinRotation + v.y * cosRotation;
-        v.x = new_x;
-        //Scale
-        v.x *= scale_x;
-        v.y *= scale_y;
-        //Translate
-        v += translation;
-        return v;
-    };
-
-    const Vec2 frontPoint = transform(vertices.front());
+    const Vec2 frontPoint = vertices.front() * transformations;
     Vec2 currPoint = frontPoint;
     for (auto i = vertices.begin(); i != std::prev(vertices.end()); i++) 
     {
-        const Vec2 nextPoint = transform(*std::next(i));
+        const Vec2 nextPoint = *std::next(i) * transformations;
         DrawLine(currPoint, nextPoint, c);
         currPoint = nextPoint;
     }

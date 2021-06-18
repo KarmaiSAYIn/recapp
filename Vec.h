@@ -42,6 +42,9 @@ public:
     Vec2d GetNormalized() const;
 };
 
+using Vei2 = Vec2d<int>;
+using Vec2 = Vec2d<float>;
+
 /* Vec3d class only for the use of translations within using matrix multiplication; where you need a 3x3 matrix and a 3D vector.
  * Later this will become a genuine 3D vector class.
  */
@@ -93,5 +96,5 @@ public:
 
 #include "Vec.cpp"
 
-using Vei2 = Vec2d<int>;
-using Vec2 = Vec2d<float>;
+using Vei3 = Vec3d<int>;
+using Vec3 = Vec3d<float>;
