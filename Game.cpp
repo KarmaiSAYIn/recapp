@@ -11,9 +11,8 @@ Game::Game(Graphics& gfx, MainWindow& wnd)
     :
     gfx(gfx),
     wnd(wnd), transformer(gfx),
-    camera(transformer, 0.5f, 25.0f),
-    plank({0.0f, 0.0f}, -1000.0f, -500, 500, 10, 250.0f),
-    launcher({-150.0f, -400.0f}, -10.0f, -50.0f, 50.0f, {{-1000.0f, 600.0f}, {200, -500}})
+    camera(transformer, 1.0f, 25.0f),
+    field(Graphics::ScreenWidth * 10, Graphics::ScreenHeight * 10, 10.0f, 150.0f, -2.0f, 2.0f, 3, 9, 1000)
 {
 }
 
@@ -47,24 +46,11 @@ bool Game::OnUserUpdate()
 
 void Game::UpdateModel(float fElapsedTime)
 {
-    const auto tform = Mat3::Rotate(0.3f);
-    const auto tform2 = Mat3::Scale(2.0f);
-    const auto tform3 = Mat3::FlipY();
-    const auto tform4 = Mat3::Translate({100.0f, 100.0f});
-
-    const auto transformations = tform3 * tform * tform2 * tform4;
-
-    star = Star::Make(100.0f, 50.0f);
-    for (auto& v : star)
-    {
-      v *= transformations;
-    }
-
     camera.Update(fElapsedTime, wnd.mouse, wnd.keyboard);
+    field.Update(fElapsedTime);
 }
 
 void Game::ComposeFrame()
 {
-    auto d = Drawable(star, Colors::Red);
-    camera.Draw(d);
+    field.Draw(camera);
 }

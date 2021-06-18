@@ -1,4 +1,4 @@
-objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o Plank.o Ball.o BallLauncher.o Time.o
+objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o Plank.o Ball.o BallLauncher.o Time.o Starfield.o Star.o
 
 warning_flags = -Wall -Wextra -pedantic -Wno-unknown-pragmas -Wno-unused-parameter
 
@@ -60,6 +60,10 @@ BallLauncher.o : BallLauncher.cpp BallLauncher.h
 	$(CC) -c -o BallLauncher.o BallLauncher.cpp $(build_flags)
 Time.o : Time.cpp Time.h
 	$(CC) -c -o Time.o Time.cpp $(build_flags)
+Star.o : Star.cpp Star.h
+	$(CC) -c -o Star.o Star.cpp $(build_flags)
+Starfield.o : Starfield.cpp Starfield.h
+	$(CC) -c -o Starfield.o Starfield.cpp $(build_flags)
 
 clean :
 	rm -f output $(objects)

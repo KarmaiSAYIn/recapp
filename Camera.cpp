@@ -89,9 +89,9 @@ void Camera::Update(const float fElapsedTime, const Mouse& mouse, const Keyboard
 void Camera::Draw(Drawable& draw) const
 {
     draw.Transform(
-            Mat3::Rotate(rotation) *
             Mat3::Scale(scale) *
-            Mat3::Translate((Vec3)-pos)
+            Mat3::Translate((Vec3)-pos) *
+            Mat3::Rotate(rotation)
             );
     transformer.Draw(draw);
 }

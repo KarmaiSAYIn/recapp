@@ -8,7 +8,6 @@ struct Matrix3d
     Vec3d<T> operator *(const Vec3d<T>& v) const;
     Vec2d<T> operator *(const Vec2d<T>& v) const;
     Matrix3d operator *(const Matrix3d& rhs) const;
-    Matrix3d& operator *=(const Matrix3d& rhs);
     static Matrix3d Identity();
     static Matrix3d Rotate(const T& theta);
     static Matrix3d FlipX();

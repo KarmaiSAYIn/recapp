@@ -15,5 +15,5 @@ public:
 private:
     Color c;
     const std::vector<Vec2> *model;
-    Mat3 transformations;
+    Mat3 transformations = Mat3::Identity();
 };

@@ -33,12 +33,6 @@ Matrix3d<T> Matrix3d<T>::operator *(const Matrix3d<T>& rhs) const
 }
 
 template <typename T>
-Matrix3d<T>& Matrix3d<T>::operator *=(const Matrix3d<T>& rhs)
-{
-    return *this = *this * rhs;
-}
-
-template <typename T>
 Matrix3d<T> Matrix3d<T>::Identity()
 {
     return {

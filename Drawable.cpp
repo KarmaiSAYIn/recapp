@@ -10,7 +10,7 @@ Drawable::Drawable(const std::vector<Vec2>& model, Color c)
 
 void Drawable::Transform(const Mat3& transformations)
 {
-    this->transformations = transformations; 
+    this->transformations = transformations * this->transformations;
 }
 
 void Drawable::Draw(Graphics& gfx) const
