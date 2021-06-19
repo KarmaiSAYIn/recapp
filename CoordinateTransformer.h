@@ -10,9 +10,11 @@ class CoordinateTransformer final
 public:
     CoordinateTransformer(class Graphics& gfx);
 
+    Vec3& Translate(Vec3& v) const;
+    Vec3 GetTranslated(const Vec3& v) const;
     void Draw(Drawable& draw) const;
-    void DrawRect(Rectf& rect, Color c) const;
 
 private:
     class Graphics& gfx;
+    Vec3 screenOffset;
 };

@@ -5,9 +5,7 @@
 #include "CoordinateTransformer.h"
 #include "Camera.h"
 #include "Entity.h"
-#include "Plank.h"
-#include "BallLauncher.h"
-#include "Starfield.h"
+#include "Cube.h"
 #include <vector>
 #include "Time.h"
 
@@ -34,11 +32,11 @@ private:
     unsigned int nFrameCount = 0;
     unsigned int nFPS = 0;
     float fTime = 0.0f;
-
+    
     CoordinateTransformer transformer;
     Camera camera;
 
-    Starfield field;
+    Cube cube;
 
     static constexpr float fUpdateSpeed = 0.000025f;
 };

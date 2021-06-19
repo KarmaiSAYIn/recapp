@@ -4,15 +4,16 @@ template <typename T>
 Vec3d<T> Matrix3d<T>::operator *(const Vec3d<T>& v) const
 {
     Vec3d<T> result;
-    result.x = m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.w;
-    result.y = m[1][0] * v.x + m[1][1] * v.y + m[1][2] * v.w;
+    result.x = m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z;
+    result.y = m[1][0] * v.x + m[1][1] * v.y + m[1][2] * v.z;
+    result.z = m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z;
     return result;
 }
 
 template <typename T>
 Vec2d<T> Matrix3d<T>::operator *(const Vec2d<T>& v) const
 {
-    return *this * Vec3d<T>(v);
+    return Vec2d<T>(*this * Vec3d<T>(v));
 }
 
 template <typename T>
@@ -43,16 +44,16 @@ Matrix3d<T> Matrix3d<T>::Identity()
 }
 
 template <typename T>
-Matrix3d<T> Matrix3d<T>::Rotate(const T& theta)
+Matrix3d<T> Matrix3d<T>::Rotate(const T& theta) //don't know how to rotate in 3D space.
 {
-    const T cosTheta = cos(theta);
-    const T sinTheta = sin(theta);
+    //const T cosTheta = cos(theta);
+    //const T sinTheta = sin(theta);
 
-    return {
-        cosTheta, -sinTheta, (T)0,
-        sinTheta, cosTheta,  (T)0,
-        (T)0,     (T)0,      (T)1
-    };
+    //return {
+        //cosTheta, -sinTheta, (T)0,
+        //sinTheta, cosTheta,  (T)0,
+        //(T)0,     (T)0,      (T)1
+    //};
 }
 
 template <typename T>
@@ -77,12 +78,23 @@ Matrix3d<T> Matrix3d<T>::FlipY()
 }
 
 template <typename T>
+Matrix3d<T> Matrix3d<T>::FlipZ()
+{
+    return{
+        (T)1, (T)0,  (T)0,
+        (T)0, (T)1,  (T)0,
+        (T)0, (T)0,  (T)-1
+
+    };
+}
+
+template <typename T>
 Matrix3d<T> Matrix3d<T>::Scale(const T& scale)
 {
     return{
         (T)scale, (T)0,     (T)0,
         (T)0,     (T)scale, (T)0,
-        (T)0,     (T)0,     (T)1
+        (T)0,     (T)0,     (T)scale
     };
 }
 
@@ -92,7 +104,7 @@ Matrix3d<T> Matrix3d<T>::Translate(const Vec3d<T>& offset)
     return {
         (T)1, (T)0, offset.x,
         (T)0, (T)1, offset.y,
-        (T)0, (T)0, offset.w
+        (T)0, (T)0, offset.z
     };
 }
 

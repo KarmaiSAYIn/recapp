@@ -53,7 +53,7 @@ class Vec3d final
 {
 public:
     Vec3d() = default;
-    Vec3d(T x, T y);
+    Vec3d(T x, T y, T z = 0);
     Vec3d(const Vec3d& other);
     Vec3d& operator =(const Vec3d& rhs);
     Vec3d& operator =(const Vec3d&& rhs);
@@ -65,10 +65,10 @@ public:
 
     T x = 0;
     T y = 0;
-    static constexpr T w = 1;
+    T z = 0;
 
-    explicit Vec3d(const Vec2d<T>& other);
-    explicit operator Vec2d<T>();
+    Vec3d(const Vec2d<T>& other);
+    operator Vec2d<T>();
 
     Vec3d operator -(const Vec3d& rhs) const;
     Vec3d operator -() const;

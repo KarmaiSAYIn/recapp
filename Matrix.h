@@ -12,6 +12,7 @@ struct Matrix3d
     static Matrix3d Rotate(const T& theta);
     static Matrix3d FlipX();
     static Matrix3d FlipY();
+    static Matrix3d FlipZ();
     static Matrix3d Scale(const T& scale);
     static Matrix3d Translate(const Vec3d<T>& offset);
 

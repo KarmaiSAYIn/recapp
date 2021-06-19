@@ -33,7 +33,7 @@ private:
     Game *game = nullptr;
 
 public:
-    static constexpr int ScreenWidth = 1280;
+    static constexpr int ScreenWidth = 720;
     static constexpr int ScreenHeight = 720;
 };
 

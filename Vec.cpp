@@ -201,22 +201,24 @@ template <typename B>
 Vec3d<T>::Vec3d(const Vec3d<B>& other)
     :
     x(T(other.x)),
-    y(T(other.y))
+    y(T(other.y)),
+    z(T(other.z))
 {
 }
 
 template <typename T>
-Vec3d<T>::Vec3d(T x, T y)
+Vec3d<T>::Vec3d(T x, T y, T z)
      :
      x(x),
-     y(y) 
+     y(y),
+     z(z)
 {
 }
 
 template <typename T>
 Vec3d<T>::Vec3d(const Vec3d<T>& other)
     :
-    Vec3d(other.x, other.y)
+    Vec3d(other.x, other.y, other.z)
 {
 }  
 
@@ -239,6 +241,7 @@ Vec3d<T>& Vec3d<T>::operator =(const Vec3d<T>& rhs)
 {
     x = rhs.x;
     y = rhs.y;
+    z = rhs.z;
     return *this;
 }
 
@@ -258,13 +261,13 @@ Vec3d<T>::Vec3d(const Vec3d<T>&& other)
 template <typename T>
 Vec3d<T> Vec3d<T>::operator -(const Vec3d<T>& rhs) const
 {
-    return Vec3d<T>(x - rhs.x, y - rhs.y);
+    return Vec3d<T>(x - rhs.x, y - rhs.y, z - rhs.z);
 }
 
 template <typename T>
 Vec3d<T> Vec3d<T>::operator -() const
 {
-    return Vec3d<T>(-x, -y);
+    return Vec3d<T>(-x, -y, -z);
 }
 
 template <typename T>
@@ -276,7 +279,7 @@ Vec3d<T>& Vec3d<T>::operator -=(const Vec3d<T>& rhs)
 template <typename T>
 Vec3d<T> Vec3d<T>::operator +(const Vec3d<T>& rhs) const
 {
-    return Vec3d<T>(x + rhs.x, y + rhs.y);
+    return Vec3d<T>(x + rhs.x, y + rhs.y, z + rhs.z);
 }
 
 template <typename T>
@@ -288,13 +291,13 @@ Vec3d<T>& Vec3d<T>::operator +=(const Vec3d<T>& rhs)
 template <typename T>
 Vec3d<T> Vec3d<T>::operator *(const T& rhs) const
 {
-    return Vec3d<T>(x * rhs, y * rhs);
+    return Vec3d<T>(x * rhs, y * rhs, z * rhs);
 }
 
 template <typename T>
 T Vec3d<T>::operator *(const Vec3d<T>& other) const
 {
-    return (x * other.x + y * other.y);
+    return (x * other.x + y * other.y + z * other.z);
 }
 
 template <typename T>
@@ -306,7 +309,7 @@ Vec3d<T>& Vec3d<T>::operator *=(const T& rhs)
 template <typename T>
 Vec3d<T> Vec3d<T>::operator /(const T& rhs) const
 {
-    return Vec3d<T>(x / rhs, y / rhs);
+    return Vec3d<T>(x / rhs, y / rhs, z / rhs);
 }
 
 template <typename T>
@@ -318,7 +321,7 @@ Vec3d<T>& Vec3d<T>::operator /=(const T& rhs)
 template <typename T>
 bool Vec3d<T>::operator ==(const Vec3d<T>& rhs) const
 {
-    return (x == rhs.x && y == rhs.y);
+    return (x == rhs.x && y == rhs.y && z == rhs.z);
 }
 
 template <typename T>
@@ -330,7 +333,7 @@ bool Vec3d<T>::operator !=(const Vec3d<T>& rhs) const
 template <typename T>
 bool Vec3d<T>::operator <(const Vec3d<T>& rhs) const
 {
-    return (x < rhs.x && y < rhs.y);
+    return (x < rhs.x && y < rhs.y && z < rhs.z);
 }
 
 template <typename T>
@@ -352,28 +355,28 @@ bool Vec3d<T>::operator >=(const Vec3d<T>& rhs) const
 }
 
 template <typename T>
-Vec3d<T>& Vec3d<T>::Rotate(T theta)
+Vec3d<T>& Vec3d<T>::Rotate(T theta) // Don't know how to rotate in 3D yet.
 {
-    const auto cosTheta = cos(theta);
-    const auto sinTheta = sin(theta);
+    //const auto cosTheta = cos(theta);
+    //const auto sinTheta = sin(theta);
 
-    const auto new_x = x * cosTheta - y * sinTheta;
-    y = x * sinTheta + y * cosTheta;
-    x = new_x;
+    //const auto new_x = x * cosTheta - y * sinTheta;
+    //y = x * sinTheta + y * cosTheta;
+    //x = new_x;
 
     return *this;
 }
 
-template <typename T>
-Vec3d<T> Vec3d<T>::GetRotated(T theta) const
-{
-    return Vec3d<T>(*this).Rotate(theta);
-}
+//template <typename T>
+//Vec3d<T> Vec3d<T>::GetRotated(T theta) const
+//{
+    //return Vec3d<T>(*this).Rotate(theta);
+//}
 
 template <typename T>
 T Vec3d<T>::GetDistanceSq() const
 {
-    return T(x * x + y * y);
+    return T(x * x + y * y + z * z);
 }
 
 template <typename T>
@@ -391,6 +394,7 @@ Vec3d<T>& Vec3d<T>::Normalize()
         norm = 1 / norm;
         x = x * norm;
         y = y * norm;
+        z = z * norm;
     }
     return *this;
 }

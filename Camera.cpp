@@ -95,11 +95,3 @@ void Camera::Draw(Drawable& draw) const
             );
     transformer.Draw(draw);
 }
-
-void Camera::DrawRect(Rectf rect, Color c) const
-{
-    rect.Translate(-pos);
-    rect.Scale(scale);
-    transformer.DrawRect(rect, c);
-}
-

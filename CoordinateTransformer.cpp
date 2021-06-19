@@ -3,23 +3,29 @@
 
 CoordinateTransformer::CoordinateTransformer(Graphics& gfx)
     :
-    gfx(gfx)
-{}
+    gfx(gfx),
+    screenOffset((float)Graphics::ScreenWidth / 2, (float)Graphics::ScreenHeight / 2)
+{
+}
+
+Vec3& CoordinateTransformer::Translate(Vec3& v) const
+{
+    v.x = (v.x + 1.0f) * screenOffset.x;
+    v.y = (-v.y + 1.0f) * screenOffset.y;
+    return v;
+}
+
+Vec3 CoordinateTransformer::GetTranslated(const Vec3& v) const
+{
+    auto p = Vec3(v);
+    return Translate(p);
+}
 
 void CoordinateTransformer::Draw(Drawable& draw) const
 {
-    auto offset = Vec2((float)Graphics::ScreenWidth / 2, (float)Graphics::ScreenHeight / 2);
     draw.Transform(
-            Mat3::Translate((Vec3)offset) *
+            Mat3::Translate((Vec3)screenOffset) *
             Mat3::FlipY()
             );
     draw.Draw(gfx);
-}
-
-void CoordinateTransformer::DrawRect(Rectf& rect, Color c) const
-{
-    auto offset = Vec2((float)Graphics::ScreenWidth / 2, (float)Graphics::ScreenHeight / 2);
-    rect.Translate({0.0f, -rect.GetMiddle().y * 2});
-    rect.Translate(offset);
-    gfx.DrawRect(Recti(rect), c);
 }

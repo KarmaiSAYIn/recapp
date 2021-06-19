@@ -2,7 +2,6 @@
 #include "Graphics.h"
 #include "MainWindow.h"
 #include "Keyboard.h"
-#include "Star.h"
 #include "Drawable.h"
 #include "Math.h"
 #include "Matrix.h"
@@ -10,9 +9,10 @@
 Game::Game(Graphics& gfx, MainWindow& wnd)
     :
     gfx(gfx),
-    wnd(wnd), transformer(gfx),
+    wnd(wnd),
+    transformer(gfx),
     camera(transformer, 1.0f, 25.0f),
-    field(Graphics::ScreenWidth * 10, Graphics::ScreenHeight * 10, 10.0f, 150.0f, -2.0f, 2.0f, 3, 9, 1000)
+    cube(1.0f)
 {
 }
 
@@ -34,6 +34,7 @@ bool Game::OnUserUpdate()
     nFrameCount++;
 
     gfx.Clear();
+
     for (float time = fUpdateSpeed; fElapsedTime > 0.0f; fElapsedTime -= fUpdateSpeed)
     {
         UpdateModel(time);
@@ -46,11 +47,16 @@ bool Game::OnUserUpdate()
 
 void Game::UpdateModel(float fElapsedTime)
 {
-    camera.Update(fElapsedTime, wnd.mouse, wnd.keyboard);
-    field.Update(fElapsedTime);
 }
 
 void Game::ComposeFrame()
 {
-    field.Draw(camera);
+    auto lines = cube.GetLines();
+    for (auto& v : lines.vertices)
+        transformer.Translate(v);
+
+    for (auto i = std::begin(lines.indices), end = std::end(lines.indices); i != end; std::advance(i, 2))
+    {
+        gfx.DrawLine(lines.vertices[*i], lines.vertices[*std::next(i)], Colors::White);
+    }
 }
