@@ -4,9 +4,9 @@ template <typename T>
 Vec3d<T> Matrix3d<T>::operator *(const Vec3d<T>& v) const
 {
     Vec3d<T> result;
-    result.x = m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z;
-    result.y = m[1][0] * v.x + m[1][1] * v.y + m[1][2] * v.z;
-    result.z = m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z;
+    result.x = m[0][0] * v.x + m[1][0] * v.y + m[2][0] * v.z;
+    result.y = m[0][1] * v.x + m[1][1] * v.y + m[2][1] * v.z;
+    result.z = m[0][2] * v.x + m[1][2] * v.y + m[2][2] * v.z;
     return result;
 }
 
@@ -44,16 +44,42 @@ Matrix3d<T> Matrix3d<T>::Identity()
 }
 
 template <typename T>
-Matrix3d<T> Matrix3d<T>::Rotate(const T& theta) //don't know how to rotate in 3D space.
+Matrix3d<T> Matrix3d<T>::RotateX(const T& theta)
 {
-    //const T cosTheta = cos(theta);
-    //const T sinTheta = sin(theta);
+    const T cosTheta = cos(theta);
+    const T sinTheta = sin(theta);
 
-    //return {
-        //cosTheta, -sinTheta, (T)0,
-        //sinTheta, cosTheta,  (T)0,
-        //(T)0,     (T)0,      (T)1
-    //};
+    return {
+        (T)1, (T)0,      (T)0,
+        (T)0, cosTheta,  sinTheta,
+        (T)0, -sinTheta, cosTheta
+    };
+}
+
+template <typename T>
+Matrix3d<T> Matrix3d<T>::RotateY(const T& theta)
+{
+    const T cosTheta = cos(theta);
+    const T sinTheta = sin(theta);
+
+    return {
+        cosTheta, (T)0, -sinTheta,
+        (T)0,     (T)1, (T)0,
+        sinTheta, (T)0, cosTheta 
+    };
+}
+
+template <typename T>
+Matrix3d<T> Matrix3d<T>::RotateZ(const T& theta) //don't know how to rotate in 3D space.
+{
+    const T cosTheta = cos(theta);
+    const T sinTheta = sin(theta);
+
+    return {
+        cosTheta, sinTheta,  (T)0,
+        -sinTheta, cosTheta, (T)0,
+        (T)0,     (T)0,      (T)1
+    };
 }
 
 template <typename T>

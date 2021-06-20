@@ -9,7 +9,9 @@ struct Matrix3d
     Vec2d<T> operator *(const Vec2d<T>& v) const;
     Matrix3d operator *(const Matrix3d& rhs) const;
     static Matrix3d Identity();
-    static Matrix3d Rotate(const T& theta);
+    static Matrix3d RotateX(const T& theta);
+    static Matrix3d RotateY(const T& theta);
+    static Matrix3d RotateZ(const T& theta);
     static Matrix3d FlipX();
     static Matrix3d FlipY();
     static Matrix3d FlipZ();

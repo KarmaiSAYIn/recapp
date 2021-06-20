@@ -355,25 +355,6 @@ bool Vec3d<T>::operator >=(const Vec3d<T>& rhs) const
 }
 
 template <typename T>
-Vec3d<T>& Vec3d<T>::Rotate(T theta) // Don't know how to rotate in 3D yet.
-{
-    //const auto cosTheta = cos(theta);
-    //const auto sinTheta = sin(theta);
-
-    //const auto new_x = x * cosTheta - y * sinTheta;
-    //y = x * sinTheta + y * cosTheta;
-    //x = new_x;
-
-    return *this;
-}
-
-//template <typename T>
-//Vec3d<T> Vec3d<T>::GetRotated(T theta) const
-//{
-    //return Vec3d<T>(*this).Rotate(theta);
-//}
-
-template <typename T>
 T Vec3d<T>::GetDistanceSq() const
 {
     return T(x * x + y * y + z * z);

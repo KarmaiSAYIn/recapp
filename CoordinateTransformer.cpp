@@ -10,8 +10,9 @@ CoordinateTransformer::CoordinateTransformer(Graphics& gfx)
 
 Vec3& CoordinateTransformer::Translate(Vec3& v) const
 {
-    v.x = (v.x + 1.0f) * screenOffset.x;
-    v.y = (-v.y + 1.0f) * screenOffset.y;
+    const float zInverse = 1.0f / v.z;
+    v.x = (v.x * zInverse + 1.0f) * screenOffset.x;
+    v.y = (-v.y * zInverse + 1.0f) * screenOffset.y;
     return v;
 }
 

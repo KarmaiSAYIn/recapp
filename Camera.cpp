@@ -48,12 +48,6 @@ void Camera::SetScale(float scale)
     this->scale = scale; 
 }
 
-void Camera::Rotate(float theta)
-{
-    rotation += theta;
-    pos.Rotate(theta);
-}
-
 void Camera::Translate(const Vec2& offset)
 {
     pos += offset;
@@ -79,19 +73,13 @@ void Camera::Update(const float fElapsedTime, const Mouse& mouse, const Keyboard
         SetScale(GetScale() + fScaleRate * fElapsedTime);
     if (mouse.WheelDown() || keyboard.KeyIsPressed(Keyboard::Key::DOWN))
         SetScale(std::max(0.01f, GetScale() - fScaleRate * fElapsedTime));
-
-    if (keyboard.KeyIsPressed(Keyboard::Key::Q))
-        Rotate(PI / 4 * fElapsedTime);
-    if (keyboard.KeyIsPressed(Keyboard::Key::E))
-        Rotate(-PI / 4 * fElapsedTime);
 }
 
 void Camera::Draw(Drawable& draw) const
 {
     draw.Transform(
             Mat3::Scale(scale) *
-            Mat3::Translate((Vec3)-pos) *
-            Mat3::Rotate(rotation)
+            Mat3::Translate((Vec3)-pos)
             );
     transformer.Draw(draw);
 }

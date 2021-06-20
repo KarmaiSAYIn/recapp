@@ -12,9 +12,6 @@ public:
     virtual Vec2 GetPos() const;
     virtual void SetPos(const Vec2 &pos);
 
-    virtual float GetRotation() const;
-    virtual void SetRotation(const float rotation);
-
     virtual void SetScale(float scale);
     virtual float GetScale() const;
 
@@ -34,7 +31,6 @@ protected:
 private:
     Color c;
     float scale = 1.0f;
-    float rotation = 0.0f;
     Vec2 pos;
     mutable std::vector<Vec2> model;
 };

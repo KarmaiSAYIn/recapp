@@ -17,5 +17,5 @@ public:
 public:
     Game *game = nullptr;
     Mouse mouse;
-    Keyboard keyboard;
+    Keyboard kbd;
 };

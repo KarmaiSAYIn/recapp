@@ -1,11 +1,10 @@
 #pragma once
 #include "Game.h"
 
+using Key = olc::Key;
+
 class Keyboard final
 {
-public:
-    using Key = olc::Key;
-
 public:
     Keyboard() = default;
 

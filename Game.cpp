@@ -47,16 +47,43 @@ bool Game::OnUserUpdate()
 
 void Game::UpdateModel(float fElapsedTime)
 {
+    if (wnd.kbd.KeyIsPressed(Key::Q))
+        rot_x = wrap_angle(rot_x + deltaTheta * fElapsedTime);
+    if (wnd.kbd.KeyIsPressed(Key::A))
+        rot_x = wrap_angle(rot_x - deltaTheta * fElapsedTime);
+
+    if (wnd.kbd.KeyIsPressed(Key::W))
+        rot_y = wrap_angle(rot_y + deltaTheta * fElapsedTime);
+    if (wnd.kbd.KeyIsPressed(Key::S))
+        rot_y = wrap_angle(rot_y - deltaTheta * fElapsedTime);
+
+    if (wnd.kbd.KeyIsPressed(Key::E))
+        rot_z = wrap_angle(rot_z + deltaTheta * fElapsedTime);
+    if (wnd.kbd.KeyIsPressed(Key::D))
+        rot_z = wrap_angle(rot_z - deltaTheta * fElapsedTime);
+
+    if (wnd.kbd.KeyIsPressed(Key::R))
+        zOffset += 1.0f * fElapsedTime;
+    if (wnd.kbd.KeyIsPressed(Key::F))
+        zOffset -= 1.0f * fElapsedTime;
 }
 
 void Game::ComposeFrame()
 {
     auto lines = cube.GetLines();
+    const Mat3 rotation =
+        Mat3::RotateX(rot_x) *
+        Mat3::RotateY(rot_y) *
+        Mat3::RotateZ(rot_z);
     for (auto& v : lines.vertices)
+    {
+        v *= rotation;
+        v += {0.0f, 0.0f, zOffset};
         transformer.Translate(v);
+    }
 
     for (auto i = std::begin(lines.indices), end = std::end(lines.indices); i != end; std::advance(i, 2))
     {
-        gfx.DrawLine(lines.vertices[*i], lines.vertices[*std::next(i)], Colors::White);
+        gfx.DrawLine(lines.vertices[*i], lines.vertices[*std::next(i)], Colors::Maya);
     }
 }

@@ -10,8 +10,8 @@ namespace Colors
 		Red(255, 0, 0),
         Orange(255, 165, 0),
 		Yellow(255, 255, 0),
-		Green(0, 255, 0),
 		Blue(0, 0, 255),
+		Green(0, 255, 0),
         Indigo(75, 0, 130),
         Violet(238, 130, 238),
 
@@ -22,8 +22,9 @@ namespace Colors
         Blank(0, 0, 0, 0),
    
         // Extras
+        Maya(115, 194, 251),
 		Cyan(0, 255, 255),
-        Purple(0, 255, 255),
+        Purple(106, 13, 173),
 		Magenta(255, 0, 255),
         Orchid(218, 112, 214),
         Fuchsia(255, 0, 255),

@@ -19,3 +19,10 @@ T DistancePointLine(const Vec2d<T>& point, const Vec2d<T>& p0, const Vec2d<T>& p
 
     return std::abs(a * point.x + b * point.y + c) / std::sqrt(sq(a) + sq(b));
 }
+
+template <typename T>
+T wrap_angle(T theta)
+{
+    theta = std::fmod(theta, (T)2 * (T)PI_D);
+    return theta > (T)PI_D ? theta - (T)2 * (T)PI_D : theta;
+}

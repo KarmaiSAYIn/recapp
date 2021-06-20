@@ -18,16 +18,6 @@ void Entity::SetPos(const Vec2& pos)
     this->pos = pos;
 }
 
-float Entity::GetRotation() const
-{
-    return rotation;
-}
-
-void Entity::SetRotation(const float rotation)
-{
-    this->rotation = rotation;
-}
-
 void Entity::SetScale(float scale)
 {
     this->scale = scale;
@@ -48,8 +38,7 @@ Drawable Entity::GetDrawable() const
    Drawable r(model, c);
    r.Transform(
            Mat3::Translate((Vec3)pos) *
-           Mat3::Scale(scale) *
-           Mat3::Rotate(rotation)
+           Mat3::Scale(scale)
            );
    return r;
 }

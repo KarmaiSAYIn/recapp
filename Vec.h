@@ -86,8 +86,6 @@ public:
     bool operator <=(const Vec3d& rhs) const;
     bool operator >(const Vec3d& rhs) const;
     bool operator >=(const Vec3d<T>& rhs) const;
-    Vec3d& Rotate(T theta);
-    Vec3d GetRotated(T theta) const;
     T GetDistanceSq() const;
     T GetDistance() const;
     Vec3d& Normalize();
