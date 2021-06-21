@@ -70,20 +70,36 @@ void Game::UpdateModel(float fElapsedTime)
 
 void Game::ComposeFrame()
 {
-    auto lines = cube.GetLines();
+    const Color colors[] =
+    {
+        Colors::Red,
+        Colors::Orange,
+        Colors::Yellow,
+        Colors::Green,
+        Colors::Blue,
+        Colors::Indigo,
+        Colors::Violet,
+        Colors::Magenta,
+        Colors::Lavender,
+        Colors::Thistle,
+        Colors::Purple,
+        Colors::Cyan,
+        Colors::Maya
+    };
+    auto triangles = cube.GetTriangles();
     const Mat3 rotation =
         Mat3::RotateX(rot_x) *
         Mat3::RotateY(rot_y) *
         Mat3::RotateZ(rot_z);
-    for (auto& v : lines.vertices)
+    for (auto& v : triangles.vertices)
     {
         v *= rotation;
         v += {0.0f, 0.0f, zOffset};
         transformer.Translate(v);
     }
 
-    for (auto i = std::begin(lines.indices), end = std::end(lines.indices); i != end; std::advance(i, 2))
+    for (auto i = triangles.indices.cbegin(), end = triangles.indices.cend(); i != end; std::advance(i, 3))
     {
-        gfx.DrawLine(lines.vertices[*i], lines.vertices[*std::next(i)], Colors::Maya);
+        gfx.DrawTriangle(triangles.vertices[*i], triangles.vertices[*std::next(i)], triangles.vertices[*std::next(i, 2)], colors[std::distance(triangles.indices.cbegin(), i) / 3]);
     }
 }

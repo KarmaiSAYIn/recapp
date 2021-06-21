@@ -89,6 +89,44 @@ void Graphics::DrawLine(Vec2 p0, Vec2 p1, Color c)
     }
 }
 
+void Graphics::DrawTriangle(const Vec2& v0, const Vec2& v1, const Vec2& v2, Color c)
+{
+    const Vec2 *pv0 = &v0;
+    const Vec2 *pv1 = &v1;
+    const Vec2 *pv2 = &v2;
+
+    if (pv1->y < pv0->y) std::swap(pv0, pv1);
+    if (pv2->y < pv1->y) std::swap(pv1, pv2);
+    if (pv1->y < pv0->y) std::swap(pv0, pv1);
+
+    if (pv0->y == pv1->y) // Flat top triangle.
+    {
+        if (pv1->x < pv0->x) std::swap(pv0, pv1);
+        DrawFlatTopTriangle(*pv0, *pv1, *pv2, c);
+    }
+    else if (pv1->y == pv2->y) // Flat bottom triangle.
+    {
+        if (pv2->x < pv1->x) std::swap(pv1, pv2);
+        DrawFlatBottomTriangle(*pv0, *pv1, *pv2, c);
+    }
+    else
+    {
+        const float intersectAlpha = (pv1->y - pv0->y) / (pv2->y - pv0->y);
+        const Vec2 intersectionPoint = *pv0 + (*pv2 - *pv0) * intersectAlpha;
+
+        if (pv1->x < intersectionPoint.x) // Major right triangle.
+        {
+            DrawFlatBottomTriangle(*pv0, *pv1, intersectionPoint, c);
+            DrawFlatTopTriangle(*pv1, intersectionPoint, *pv2, c);
+        }
+        else // Major left triangle.
+        {
+            DrawFlatBottomTriangle(*pv0, intersectionPoint, *pv1, c);
+            DrawFlatTopTriangle(intersectionPoint, *pv1, *pv2, c);
+        }
+    }
+}
+
 void Graphics::DrawClosedPolyline(const std::vector<Vec2>& vertices, const Mat3& transformations, Color c)
 {
     assert(vertices.size() > 2); // If there are only two points you should be calling Graphics::DrawLine; also if there are no points then we get a good ol' segmentation fault.
@@ -128,4 +166,50 @@ void Graphics::DrawRect(const Recti& rect, Color c)
     for (int y = bottomRight.y; y < topLeft.y; y++)
         for (int x = topLeft.x; x < bottomRight.x; x++)
             PutPixel(x, y, c);
+}
+
+void Graphics::DrawFlatTopTriangle(const Vec2& v0, const Vec2& v1, const Vec2& v2, Color c)
+{
+    const float m0 = (v2.x - v0.x) / (v2.y - v0.y);
+    const float m1 = (v2.x - v1.x) / (v2.y - v1.y);
+
+    const int yStart = (int)std::ceil(v0.y - 0.5f);
+    const int yEnd = (int)std::ceil(v2.y - 0.5f);
+
+    for (int y = yStart; y < yEnd; y++)
+    {
+        const float px0 = m0 * ((float)y + 0.5f - v0.y) + v0.x;
+        const float px1 = m1 * ((float)y + 0.5f - v1.y) + v1.x;
+
+        const int xStart = (int)std::ceil(px0 - 0.5f);
+        const int xEnd = (int)std::ceil(px1 - 0.5f);
+
+        for (int x = xStart; x < xEnd; x++)
+        {
+            PutPixel(x, y, c);
+        }
+    }
+}
+
+void Graphics::DrawFlatBottomTriangle(const Vec2& v0, const Vec2& v1, const Vec2& v2, Color c)
+{
+    const float m0 = (v1.x - v0.x) / (v1.y - v0.y);
+    const float m1 = (v2.x - v0.x) / (v2.y - v0.y);
+
+    const float yStart = (int)std::ceil(v0.y - 0.5f);
+    const float yEnd = (int)std::ceil(v2.y - 0.5f);
+
+    for (int y = yStart; y < yEnd; y++)
+    {
+        const float px0 = m0 * ((float)y + 0.5f - v0.y) + v0.x;
+        const float px1 = m1 * ((float)y + 0.5f - v0.y) + v0.x;
+
+        const int xStart = (int)std::ceil(px0 - 0.5f);
+        const int xEnd = (int)std::ceil(px1 - 0.5f);
+
+        for (int x = xStart; x < xEnd; x++)
+        {
+            PutPixel(x, y, c);
+        }
+    }
 }

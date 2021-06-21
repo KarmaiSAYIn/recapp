@@ -25,9 +25,14 @@ public:
 
     // Shape draw functions
     void DrawLine(Vec2 p0, Vec2 p1, Color c);
+    void DrawTriangle(const Vec2& v0, const Vec2& v1, const Vec2& v2, Color c);
     void DrawClosedPolyline(const std::vector<Vec2>& vertices, const Mat3& transformations, Color c);
     void DrawCircle(const Vei2& center, int radius, Color c);
     void DrawRect(const Recti& rect, Color c);
+
+private:
+    void DrawFlatTopTriangle(const Vec2& v0, const Vec2& v1, const Vec2& v2, Color c);
+    void DrawFlatBottomTriangle(const Vec2& v0, const Vec2& v1, const Vec2& v2, Color c);
 
 private:
     Game *game = nullptr;
