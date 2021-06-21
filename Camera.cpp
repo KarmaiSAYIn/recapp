@@ -69,9 +69,9 @@ void Camera::Update(const float fElapsedTime, const Mouse& mouse, const Keyboard
         lastMousePos = currMousePos;
     }
 
-    if (mouse.WheelUp() || keyboard.KeyIsPressed(Keyboard::Key::UP))
+    if (mouse.WheelUp() || keyboard.KeyIsPressed(Key::UP))
         SetScale(GetScale() + fScaleRate * fElapsedTime);
-    if (mouse.WheelDown() || keyboard.KeyIsPressed(Keyboard::Key::DOWN))
+    if (mouse.WheelDown() || keyboard.KeyIsPressed(Key::DOWN))
         SetScale(std::max(0.01f, GetScale() - fScaleRate * fElapsedTime));
 }
 
