@@ -35,9 +35,9 @@ bool Game::OnUserUpdate()
 
     gfx.Clear();
 
-    for (float time = fUpdateSpeed; fElapsedTime > 0.0f; fElapsedTime -= fUpdateSpeed)
+    for (; fElapsedTime > 0.0f; fElapsedTime -= fUpdateSpeed)
     {
-        UpdateModel(time);
+        UpdateModel(fUpdateSpeed);
     }
 
     ComposeFrame();
