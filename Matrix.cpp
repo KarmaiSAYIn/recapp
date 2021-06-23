@@ -70,7 +70,7 @@ Matrix3d<T> Matrix3d<T>::RotateY(const T& theta)
 }
 
 template <typename T>
-Matrix3d<T> Matrix3d<T>::RotateZ(const T& theta) //don't know how to rotate in 3D space.
+Matrix3d<T> Matrix3d<T>::RotateZ(const T& theta)
 {
     const T cosTheta = cos(theta);
     const T sinTheta = sin(theta);
