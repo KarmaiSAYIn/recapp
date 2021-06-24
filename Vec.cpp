@@ -295,12 +295,6 @@ Vec3d<T> Vec3d<T>::operator *(const T& rhs) const
 }
 
 template <typename T>
-T Vec3d<T>::operator *(const Vec3d<T>& other) const
-{
-    return (x * other.x + y * other.y + z * other.z);
-}
-
-template <typename T>
 Vec3d<T>& Vec3d<T>::operator *=(const T& rhs)
 {
     return *this = *this * rhs;
@@ -352,6 +346,23 @@ template <typename T>
 bool Vec3d<T>::operator >=(const Vec3d<T>& rhs) const
 {
     return (*this > rhs || *this == rhs);
+}
+
+template <typename T>
+T Vec3d<T>::dot(const Vec3d<T>& other) const
+{
+    return (x * other.x + y * other.y + z * other.z);
+}
+
+template <typename T>
+Vec3d<T> Vec3d<T>::cross(const Vec3d<T>& rhs) const
+{
+    return
+    {
+        y * rhs.z - z * rhs.y,
+        z * rhs.x - x * rhs.z,
+        x * rhs.y - y * rhs.x
+    };
 }
 
 template <typename T>

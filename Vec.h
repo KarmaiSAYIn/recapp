@@ -76,7 +76,6 @@ public:
     Vec3d operator +(const Vec3d& rhs) const;
     Vec3d& operator +=(const Vec3d& rhs);
     Vec3d operator *(const T& rhs) const;
-    T operator *(const Vec3d<T>& other) const;
     Vec3d& operator *=(const T& rhs);
     Vec3d operator /(const T& rhs) const;
     Vec3d& operator /=(const T& rhs);
@@ -86,6 +85,11 @@ public:
     bool operator <=(const Vec3d& rhs) const;
     bool operator >(const Vec3d& rhs) const;
     bool operator >=(const Vec3d<T>& rhs) const;
+    T dot(const Vec3d& rhs) const;
+    Vec3d cross(const Vec3d& rhs) const;
+    Vec3d& RotateX(T theta);
+    Vec3d& RotateY(T theta);
+    Vec3d& RotateZ(T theta);
     T GetDistanceSq() const;
     T GetDistance() const;
     Vec3d& Normalize();
