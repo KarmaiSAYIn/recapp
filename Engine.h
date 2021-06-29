@@ -484,7 +484,7 @@ int main()
 // | olcPixelGameEngine INTERFACE DECLARATION                                     |
 // O------------------------------------------------------------------------------O
 #pragma region pge_declaration
-#define WINDOWNAME "Recapp"
+#define WINDOWNAME "output"
 namespace olc
 {
 	class PixelGameEngine;
