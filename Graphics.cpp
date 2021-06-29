@@ -18,6 +18,11 @@ void Graphics::PutPixel(int x, int y, Color c)
     game->Draw(x, y, c);
 }
 
+void Graphics::PutPixel(int x, int y, int r, int g, int b)
+{
+    PutPixel(x, y, Color(r, g, b));
+}
+
 void Graphics::PutPixel(const Vei2& pos, Color c)
 {
     PutPixel(pos.x, pos.y, c);

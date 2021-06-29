@@ -16,7 +16,8 @@ public:
 
     void SetGameObject(Game *game);
 
-    void PutPixel(int x, int y, Color c);  //In principal, this function modifies the Graphics object; however at this stage it could be a const declarator.
+    void PutPixel(int x, int y, Color c);
+    void PutPixel(int x, int y, int r, int g, int b);
     void PutPixel(const Vei2& pos, Color c);
     Color GetPixel(int x, int y) const;
     Color GetPixel(const Vei2& pos) const;
@@ -38,7 +39,7 @@ private:
     Game *game = nullptr;
 
 public:
-    static constexpr int ScreenWidth = 720;
+    static constexpr int ScreenWidth = 1280;
     static constexpr int ScreenHeight = 720;
 };
 
