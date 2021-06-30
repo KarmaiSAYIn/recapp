@@ -1,5 +1,8 @@
 #include "Keyboard.h"
+
 #include <assert.h>
+
+#include "Game.h"
 
 void Keyboard::SetGameObject(Game *game)
 {

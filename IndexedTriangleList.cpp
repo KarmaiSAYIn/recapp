@@ -1,4 +1,5 @@
 #include "IndexedTriangleList.h"
+#include <assert.h>
 
 IndexedTriangleList::IndexedTriangleList(std::vector<Vec3> verts_in, std::vector<size_t> indices_in)
     :

@@ -1,4 +1,4 @@
-objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o Time.o IndexedTriangleList.o
+objects = main.o Engine.o Game.o Graphics.o Keyboard.o Mouse.o MainWindow.o CoordinateTransformer.o Entity.o Camera.o Drawable.o Time.o IndexedTriangleList.o SceneCube.o SceneDoubleCube.o
 
 warning_flags = -Wall -Wextra -pedantic -Wno-unknown-pragmas -Wno-unused-parameter
 
@@ -56,6 +56,10 @@ Time.o : Time.cpp Time.h
 	$(CC) -c -o Time.o Time.cpp $(build_flags)
 IndexedTriangleList.o : IndexedTriangleList.cpp IndexedTriangleList.h
 	$(CC) -c -o IndexedTriangleList.o IndexedTriangleList.cpp $(build_flags)
+SceneCube.o : SceneCube.cpp SceneCube.h
+	$(CC) -c -o SceneCube.o SceneCube.cpp $(build_flags)
+SceneDoubleCube.o : SceneDoubleCube.cpp SceneDoubleCube.h
+	$(CC) -c -o SceneDoubleCube.o SceneDoubleCube.cpp $(build_flags)
 
 clean :
 	rm -f output $(objects)

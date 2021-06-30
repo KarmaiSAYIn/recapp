@@ -1,5 +1,8 @@
 #include "MainWindow.h"
+
 #include <assert.h>
+
+#include "Game.h"
 
 void MainWindow::SetGameObject(Game *game)
 {

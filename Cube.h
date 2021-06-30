@@ -21,7 +21,7 @@ public:
         model.emplace_back(side, side, side);
     }
 
-    IndexedLineList GetLines()
+    IndexedLineList GetLines() const
     {
         return {
             model,
@@ -33,7 +33,7 @@ public:
         };
     }
 
-    IndexedTriangleList GetTriangles()
+    IndexedTriangleList GetTriangles() const
     {
         return
         {

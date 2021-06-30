@@ -1,5 +1,8 @@
 #include "Mouse.h"
+
 #include <assert.h>
+
+#include "Game.h"
 
 void Mouse::SetGameObject(Game *game)
 {

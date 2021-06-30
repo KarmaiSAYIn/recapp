@@ -1,13 +1,9 @@
 #pragma once
 #include "Engine.h"
-#include "Color.h"
-#include "Vec.h"
 #include "CoordinateTransformer.h"
-#include "Camera.h"
-#include "Entity.h"
 #include "Cube.h"
 #include "Time.h"
-#include "Math.h"
+#include "Scene.h"
 
 class Game : public olc::PixelGameEngine
 {
@@ -25,6 +21,9 @@ public:
     void ComposeFrame();
 
 private:
+    void AdvanceScene(int direction);
+
+private:
     class Graphics& gfx;
     class MainWindow& wnd;
     Time time;
@@ -34,15 +33,9 @@ private:
     float fTime = 0.0f;
     
     CoordinateTransformer transformer;
-    Camera camera;
 
-    Cube cube;
-
-    float zOffset = 2.0f;
-    static constexpr float deltaTheta = PI;
-    float rot_x = 0.0f;
-    float rot_y = 0.0f;
-    float rot_z = 0.0f;
+    std::vector<std::unique_ptr<Scene>> scenes;
+    std::vector<std::unique_ptr<Scene>>::iterator currScene;
 
     static constexpr float fUpdateSpeed = 0.000025f;
 };

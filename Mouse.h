@@ -1,5 +1,4 @@
 #pragma once
-#include "Game.h"
 #include "Vec.h"
 
 class Mouse final
@@ -10,7 +9,7 @@ public:
     Mouse(const Mouse&) = delete;
     Mouse& operator=(const Mouse&) = delete;
 
-    void SetGameObject(Game *game);
+    void SetGameObject(class Game *game);
 
     int GetPosX() const;
     int GetPosY() const;
@@ -30,5 +29,5 @@ public:
     bool WheelDown() const;
 
 private:
-    Game *game = nullptr;
+    class Game *game = nullptr;
 };

@@ -1,5 +1,5 @@
 #pragma once
-#include "Game.h"
+#include "Engine.h"
 
 using Key = olc::Key;
 
@@ -11,12 +11,12 @@ public:
     Keyboard(const Keyboard&) = delete;
     Keyboard& operator=(const Keyboard&) = delete;
 
-    void SetGameObject(Game *game);
+    void SetGameObject(class Game *game);
 
     bool KeyDownEvent(Key key) const;
     bool KeyIsPressed(Key key) const;
     bool KeyIsEmpty(Key key) const;
 
 private:
-    Game *game = nullptr;
+    class Game *game = nullptr;
 };
