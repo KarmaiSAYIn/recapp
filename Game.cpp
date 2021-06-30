@@ -79,7 +79,6 @@ void Game::AdvanceScene(int direction)
     else
         direction = -1;
     
-    std::cout << direction << '\n';
     currScene += direction;
     if (currScene >= scenes.end())
         currScene = scenes.begin();
